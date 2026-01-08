@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #00ff00;
 }
 
 @theme inline {
@@ -12,15 +12,107 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  background: #000000;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  min-height: 100vh;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.smooch-sans {
+  font-family: "Smooch Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+.font-effect-anaglyph {
+  text-shadow: 
+    -2px 0 0 rgba(255, 0, 0, 0.8),
+    2px 0 0 rgba(0, 255, 255, 0.8);
+  letter-spacing: 0.05em;
+}
+
+/* Global scrollbar styling for all scrollable elements */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 255, 0, 0.5) rgba(0, 0, 0, 0.3);
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.5);
+  border-radius: 4px;
+  border: 1px solid rgba(0, 255, 0, 0.2);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.7);
+  border: 1px solid rgba(0, 255, 0, 0.4);
+}
+
+*::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Force scrollbar styling for all elements with overflow - using attribute selectors */
+[class*="overflow"] {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(0, 255, 0, 0.5) rgba(0, 0, 0, 0.3) !important;
+}
+
+[class*="overflow"]::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+[class*="overflow"]::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+}
+
+[class*="overflow"]::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.5) !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(0, 255, 0, 0.2) !important;
+}
+
+[class*="overflow"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.7) !important;
+  border: 1px solid rgba(0, 255, 0, 0.4) !important;
+}
+
+/* Specific styling for textareas */
+textarea {
+  scrollbar-width: thin !important;
+  scrollbar-color: rgba(0, 255, 0, 0.5) rgba(0, 0, 0, 0.3) !important;
+}
+
+textarea::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+textarea::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px !important;
+}
+
+textarea::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 0, 0.5) !important;
+  border-radius: 4px !important;
+  border: 1px solid rgba(0, 255, 0, 0.2) !important;
+}
+
+textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 0, 0.7) !important;
+  border: 1px solid rgba(0, 255, 0, 0.4) !important;
 }
