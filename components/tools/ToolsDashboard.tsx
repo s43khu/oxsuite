@@ -2,11 +2,13 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { Globe, FileText, Image, FileEdit, BarChart, Code, ArrowLeft, GitCompare, FileCode } from 'lucide-react';
+import { Globe, FileText, Image, FileEdit, BarChart, Code, ArrowLeft, GitCompare, FileCode, Cookie, Key } from 'lucide-react';
 import ToolCard from './ToolCard';
 import WebCheck from './WebCheck';
 import TextCompare from './TextCompare';
 import JSONLinter from './JSONLinter';
+import CookieInspector from './CookieInspector';
+import JWTViewer from './JWTViewer';
 import { Button } from '@/components/ui/Button';
 
 const tools = [
@@ -29,6 +31,20 @@ const tools = [
     title: 'JSON Linter',
     description: 'Validate, format, and lint JSON with syntax error detection',
     icon: <FileCode className="w-10 h-10" />,
+    status: 'available' as const
+  },
+  {
+    id: 'cookie-inspector',
+    title: 'Cookie Inspector',
+    description: 'Parse, inspect, and analyze browser cookies with detailed attributes',
+    icon: <Cookie className="w-10 h-10" />,
+    status: 'available' as const
+  },
+  {
+    id: 'jwt-viewer',
+    title: 'JWT Viewer',
+    description: 'Decode and view JWT tokens with header, payload, and signature details',
+    icon: <Key className="w-10 h-10" />,
     status: 'available' as const
   },
   {
@@ -77,7 +93,7 @@ export default function ToolsDashboard() {
   }, [selectedTool]);
 
   const handleToolClick = (toolId: string) => {
-    if (toolId === 'web-check' || toolId === 'text-compare' || toolId === 'json-linter') {
+    if (toolId === 'web-check' || toolId === 'text-compare' || toolId === 'json-linter' || toolId === 'cookie-inspector' || toolId === 'jwt-viewer') {
       setSelectedTool(toolId);
     }
   };
@@ -133,6 +149,40 @@ export default function ToolsDashboard() {
           Back to Tools
         </Button>
         <JSONLinter />
+      </div>
+    );
+  }
+
+  if (selectedTool === 'cookie-inspector') {
+    return (
+      <div className="w-full">
+        <Button
+          onClick={handleBack}
+          variant="outline"
+          size="sm"
+          className="mb-6 flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Tools
+        </Button>
+        <CookieInspector />
+      </div>
+    );
+  }
+
+  if (selectedTool === 'jwt-viewer') {
+    return (
+      <div className="w-full">
+        <Button
+          onClick={handleBack}
+          variant="outline"
+          size="sm"
+          className="mb-6 flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Tools
+        </Button>
+        <JWTViewer />
       </div>
     );
   }
