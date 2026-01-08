@@ -209,12 +209,19 @@ export async function getDNSRecords(domain: string): Promise<EnhancedWebCheckRes
       if (data.Answer) {
         if (type === 'MX') {
           dns.mx = data.Answer.map((record: any) => {
-            const [priority, exchange] = record.data.split(' ');
+            const parts = record.data?.split(' ') || [];
+            const priority = parts[0];
+            const exchange = parts[1];
+            
+            if (!exchange) {
+              return null;
+            }
+            
             return {
-              priority: parseInt(priority),
+              priority: parseInt(priority) || 0,
               exchange: exchange.replace(/\.$/, '')
             };
-          });
+          }).filter((record: any) => record !== null);
         } else if (type === 'TXT') {
           dns.txt = data.Answer.map((record: any) => [record.data.replace(/"/g, '')]);
         } else {
