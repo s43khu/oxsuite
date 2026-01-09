@@ -1,10 +1,20 @@
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { Key, RotateCcw, Copy, Download, AlertCircle, Upload, File, CheckCircle, XCircle } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { useState, useRef, useEffect } from "react";
+import { gsap } from "gsap";
+import {
+  Key,
+  RotateCcw,
+  Copy,
+  Download,
+  AlertCircle,
+  Upload,
+  File,
+  CheckCircle,
+  XCircle,
+} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 interface JWTPayload {
   header: any;
@@ -15,7 +25,7 @@ interface JWTPayload {
 }
 
 export default function JWTViewer() {
-  const [jwtInput, setJwtInput] = useState('');
+  const [jwtInput, setJwtInput] = useState("");
   const [decodedJWT, setDecodedJWT] = useState<JWTPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [fileName, setFileName] = useState<string | null>(null);
@@ -35,21 +45,21 @@ export default function JWTViewer() {
   }, [decodedJWT]);
 
   const base64UrlDecode = (str: string): string => {
-    let base64 = str.replace(/-/g, '+').replace(/_/g, '/');
-    
+    let base64 = str.replace(/-/g, "+").replace(/_/g, "/");
+
     while (base64.length % 4) {
-      base64 += '=';
+      base64 += "=";
     }
 
     try {
       const decoded = atob(base64);
       return decodeURIComponent(
         Array.from(decoded)
-          .map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
-          .join('')
+          .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+          .join("")
       );
     } catch (err) {
-      throw new Error('Invalid base64url encoding');
+      throw new Error("Invalid base64url encoding");
     }
   };
 
@@ -66,10 +76,10 @@ export default function JWTViewer() {
 
     try {
       const token = jwtInput.trim();
-      const parts = token.split('.');
+      const parts = token.split(".");
 
       if (parts.length !== 3) {
-        throw new Error('Invalid JWT format. JWT should have 3 parts separated by dots.');
+        throw new Error("Invalid JWT format. JWT should have 3 parts separated by dots.");
       }
 
       const [headerEncoded, payloadEncoded, signature] = parts;
@@ -81,25 +91,25 @@ export default function JWTViewer() {
         const headerDecoded = base64UrlDecode(headerEncoded);
         header = JSON.parse(headerDecoded);
       } catch (err) {
-        throw new Error('Failed to decode JWT header');
+        throw new Error("Failed to decode JWT header");
       }
 
       try {
         const payloadDecoded = base64UrlDecode(payloadEncoded);
         payload = JSON.parse(payloadDecoded);
       } catch (err) {
-        throw new Error('Failed to decode JWT payload');
+        throw new Error("Failed to decode JWT payload");
       }
 
       setDecodedJWT({
         header,
         payload,
         signature,
-        isValid: true
+        isValid: true,
       });
       setError(null);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : 'Failed to decode JWT';
+      const errorMessage = err instanceof Error ? err.message : "Failed to decode JWT";
       setError(errorMessage);
       setDecodedJWT(null);
     }
@@ -116,13 +126,13 @@ export default function JWTViewer() {
   }, [jwtInput]);
 
   const handleClear = () => {
-    setJwtInput('');
+    setJwtInput("");
     setDecodedJWT(null);
     setError(null);
     setFileError(null);
     setFileName(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -135,7 +145,9 @@ export default function JWTViewer() {
 
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
-      setFileError(`File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`);
+      setFileError(
+        `File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`
+      );
       return;
     }
 
@@ -148,12 +160,12 @@ export default function JWTViewer() {
         setJwtInput(content.trim());
         setFileError(null);
       } catch (error) {
-        setFileError('Failed to read file');
+        setFileError("Failed to read file");
       }
     };
 
     reader.onerror = () => {
-      setFileError('Error reading file');
+      setFileError("Error reading file");
     };
 
     reader.readAsText(file);
@@ -170,17 +182,21 @@ export default function JWTViewer() {
   const handleDownload = () => {
     if (!decodedJWT) return;
 
-    const content = JSON.stringify({
-      header: decodedJWT.header,
-      payload: decodedJWT.payload,
-      signature: decodedJWT.signature
-    }, null, 2);
+    const content = JSON.stringify(
+      {
+        header: decodedJWT.header,
+        payload: decodedJWT.payload,
+        signature: decodedJWT.signature,
+      },
+      null,
+      2
+    );
 
-    const blob = new Blob([content], { type: 'application/json' });
+    const blob = new Blob([content], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'jwt-decoded.json';
+    a.download = "jwt-decoded.json";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
@@ -188,7 +204,7 @@ export default function JWTViewer() {
   };
 
   const formatTimestamp = (timestamp: number): string => {
-    if (!timestamp) return 'N/A';
+    if (!timestamp) return "N/A";
     const date = new Date(timestamp * 1000);
     return date.toLocaleString();
   };
@@ -199,11 +215,11 @@ export default function JWTViewer() {
   };
 
   const getTimeUntilExpiry = (exp?: number): string => {
-    if (!exp) return 'N/A';
+    if (!exp) return "N/A";
     const now = Date.now() / 1000;
     const diff = exp - now;
-    if (diff < 0) return 'Expired';
-    
+    if (diff < 0) return "Expired";
+
     const days = Math.floor(diff / 86400);
     const hours = Math.floor((diff % 86400) / 3600);
     const minutes = Math.floor((diff % 3600) / 60);
@@ -268,24 +284,45 @@ export default function JWTViewer() {
             onChange={(e) => setJwtInput(e.target.value)}
             className="w-full h-32 px-4 py-3 rounded-lg border-2 bg-black text-green-500 font-mono border-green-500/50 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-green-500/30 resize-none"
             placeholder="Paste your JWT token here...&#10;Example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-            style={{ lineHeight: '1.25rem' }}
+            style={{ lineHeight: "1.25rem" }}
           />
         </div>
 
         <div className="flex flex-wrap gap-3 mt-4">
-          <Button onClick={decodeJWT} variant="primary" size="md" className="flex items-center gap-2">
+          <Button
+            onClick={decodeJWT}
+            variant="primary"
+            size="md"
+            className="flex items-center gap-2"
+          >
             <CheckCircle className="w-5 h-5" />
             Decode JWT
           </Button>
-          <Button onClick={() => handleCopy(jwtInput)} variant="outline" size="md" className="flex items-center gap-2">
+          <Button
+            onClick={() => handleCopy(jwtInput)}
+            variant="outline"
+            size="md"
+            className="flex items-center gap-2"
+          >
             <Copy className="w-5 h-5" />
             Copy Token
           </Button>
-          <Button onClick={handleDownload} variant="outline" size="md" className="flex items-center gap-2" disabled={!decodedJWT}>
+          <Button
+            onClick={handleDownload}
+            variant="outline"
+            size="md"
+            className="flex items-center gap-2"
+            disabled={!decodedJWT}
+          >
             <Download className="w-5 h-5" />
             Download
           </Button>
-          <Button onClick={handleClear} variant="outline" size="md" className="flex items-center gap-2">
+          <Button
+            onClick={handleClear}
+            variant="outline"
+            size="md"
+            className="flex items-center gap-2"
+          >
             <RotateCcw className="w-5 h-5" />
             Clear
           </Button>
@@ -297,12 +334,18 @@ export default function JWTViewer() {
           <div className="flex items-start gap-2">
             <XCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
             <div className="flex-1">
-              <p className="text-red-500 font-mono text-sm font-semibold mb-1">Invalid JWT Token:</p>
+              <p className="text-red-500 font-mono text-sm font-semibold mb-1">
+                Invalid JWT Token:
+              </p>
               <p className="text-red-400 font-mono text-sm">{error}</p>
               <div className="mt-3 p-3 bg-red-500/10 border border-red-500/30 rounded-lg">
-                <p className="text-red-300 font-mono text-xs font-semibold mb-2">Common JWT Format Issues:</p>
+                <p className="text-red-300 font-mono text-xs font-semibold mb-2">
+                  Common JWT Format Issues:
+                </p>
                 <ul className="text-red-400/70 font-mono text-xs space-y-1 ml-4 list-disc">
-                  <li>JWT must have exactly 3 parts separated by dots (header.payload.signature)</li>
+                  <li>
+                    JWT must have exactly 3 parts separated by dots (header.payload.signature)
+                  </li>
                   <li>Each part must be valid base64url encoded</li>
                   <li>Header and payload must be valid JSON</li>
                   <li>Check for extra spaces or line breaks in the token</li>
@@ -319,9 +362,7 @@ export default function JWTViewer() {
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
                 <CheckCircle className="w-6 h-6 text-green-500" />
-                <h3 className="text-xl font-semibold text-green-500 font-mono">
-                  Decoded JWT
-                </h3>
+                <h3 className="text-xl font-semibold text-green-500 font-mono">Decoded JWT</h3>
               </div>
             </div>
 
@@ -396,9 +437,13 @@ export default function JWTViewer() {
                       </div>
                     )}
                     {decodedJWT.payload.exp && (
-                      <div className={`p-3 bg-black/50 rounded border ${isExpired(decodedJWT.payload.exp) ? 'border-red-500/50' : 'border-green-500/30'}`}>
+                      <div
+                        className={`p-3 bg-black/50 rounded border ${isExpired(decodedJWT.payload.exp) ? "border-red-500/50" : "border-green-500/30"}`}
+                      >
                         <div className="text-xs text-green-500/50 font-mono mb-1">Expires At</div>
-                        <div className={`text-sm font-mono ${isExpired(decodedJWT.payload.exp) ? 'text-red-400' : 'text-green-400'}`}>
+                        <div
+                          className={`text-sm font-mono ${isExpired(decodedJWT.payload.exp) ? "text-red-400" : "text-green-400"}`}
+                        >
                           {formatTimestamp(decodedJWT.payload.exp)}
                           {isExpired(decodedJWT.payload.exp) && (
                             <span className="ml-2 text-red-500">(Expired)</span>
@@ -439,8 +484,8 @@ export default function JWTViewer() {
                       <div className="p-3 bg-black/50 rounded border border-green-500/30">
                         <div className="text-xs text-green-500/50 font-mono mb-1">Audience</div>
                         <div className="text-sm text-green-400 font-mono break-all">
-                          {Array.isArray(decodedJWT.payload.aud) 
-                            ? decodedJWT.payload.aud.join(', ')
+                          {Array.isArray(decodedJWT.payload.aud)
+                            ? decodedJWT.payload.aud.join(", ")
                             : decodedJWT.payload.aud}
                         </div>
                       </div>
@@ -455,4 +500,3 @@ export default function JWTViewer() {
     </div>
   );
 }
-

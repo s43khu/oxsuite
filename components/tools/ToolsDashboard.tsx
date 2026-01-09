@@ -1,80 +1,102 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import { Globe, FileText, Image, FileEdit, BarChart, Code, ArrowLeft, GitCompare, FileCode, Cookie, Key } from 'lucide-react';
-import ToolCard from './ToolCard';
-import WebCheck from './WebCheck';
-import TextCompare from './TextCompare';
-import JSONLinter from './JSONLinter';
-import CookieInspector from './CookieInspector';
-import JWTViewer from './JWTViewer';
-import { Button } from '@/components/ui/Button';
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import {
+  Globe,
+  FileText,
+  Image,
+  FileEdit,
+  BarChart,
+  Code,
+  ArrowLeft,
+  GitCompare,
+  FileCode,
+  Cookie,
+  Key,
+  Clock,
+} from "lucide-react";
+import ToolCard from "./ToolCard";
+import WebCheck from "./WebCheck";
+import TextCompare from "./TextCompare";
+import JSONLinter from "./JSONLinter";
+import CookieInspector from "./CookieInspector";
+import JWTViewer from "./JWTViewer";
+import TimeDateConverter from "./TimeDateConverter";
+import { Button } from "@/components/ui/Button";
 
 const tools = [
   {
-    id: 'web-check',
-    title: 'Web Check',
-    description: 'Analyze websites for security, performance, and technology stack',
+    id: "web-check",
+    title: "Web Check",
+    description: "Analyze websites for security, performance, and technology stack",
     icon: <Globe className="w-10 h-10" />,
-    status: 'available' as const
+    status: "available" as const,
   },
   {
-    id: 'text-compare',
-    title: 'Text Compare',
-    description: 'Compare two texts and highlight differences with multiple options',
+    id: "text-compare",
+    title: "Text Compare",
+    description: "Compare two texts and highlight differences with multiple options",
     icon: <GitCompare className="w-10 h-10" />,
-    status: 'available' as const
+    status: "available" as const,
   },
   {
-    id: 'json-linter',
-    title: 'JSON Linter',
-    description: 'Validate, format, and lint JSON with syntax error detection',
+    id: "json-linter",
+    title: "JSON Linter",
+    description: "Validate, format, and lint JSON with syntax error detection",
     icon: <FileCode className="w-10 h-10" />,
-    status: 'available' as const
+    status: "available" as const,
   },
   {
-    id: 'cookie-inspector',
-    title: 'Cookie Inspector',
-    description: 'Parse, inspect, and analyze browser cookies with detailed attributes',
+    id: "cookie-inspector",
+    title: "Cookie Inspector",
+    description: "Parse, inspect, and analyze browser cookies with detailed attributes",
     icon: <Cookie className="w-10 h-10" />,
-    status: 'available' as const
+    status: "available" as const,
   },
   {
-    id: 'jwt-viewer',
-    title: 'JWT Viewer',
-    description: 'Decode and view JWT tokens with header, payload, and signature details',
+    id: "jwt-viewer",
+    title: "JWT Viewer",
+    description: "Decode and view JWT tokens with header, payload, and signature details",
     icon: <Key className="w-10 h-10" />,
-    status: 'available' as const
+    status: "available" as const,
   },
   {
-    id: 'image-editor',
-    title: 'Image Editor',
-    description: 'Edit and enhance images with professional tools',
+    id: "time-date-converter",
+    title: "Time & Date Converter",
+    description:
+      "Convert between Unix timestamp, ISO 8601, and local formats with timezone support",
+    icon: <Clock className="w-10 h-10" />,
+    status: "available" as const,
+  },
+  {
+    id: "image-editor",
+    title: "Image Editor",
+    description: "Edit and enhance images with professional tools",
     icon: <Image className="w-10 h-10" />,
-    status: 'coming-soon' as const
+    status: "coming-soon" as const,
   },
   {
-    id: 'text-formatter',
-    title: 'Text Formatter',
-    description: 'Format and clean text documents',
+    id: "text-formatter",
+    title: "Text Formatter",
+    description: "Format and clean text documents",
     icon: <FileEdit className="w-10 h-10" />,
-    status: 'coming-soon' as const
+    status: "coming-soon" as const,
   },
   {
-    id: 'data-analyzer',
-    title: 'Data Analyzer',
-    description: 'Analyze and visualize data from various sources',
+    id: "data-analyzer",
+    title: "Data Analyzer",
+    description: "Analyze and visualize data from various sources",
     icon: <BarChart className="w-10 h-10" />,
-    status: 'coming-soon' as const
+    status: "coming-soon" as const,
   },
   {
-    id: 'code-formatter',
-    title: 'Code Formatter',
-    description: 'Format and beautify code in multiple languages',
+    id: "code-formatter",
+    title: "Code Formatter",
+    description: "Format and beautify code in multiple languages",
     icon: <Code className="w-10 h-10" />,
-    status: 'coming-soon' as const
-  }
+    status: "coming-soon" as const,
+  },
 ];
 
 export default function ToolsDashboard() {
@@ -87,13 +109,20 @@ export default function ToolsDashboard() {
       gsap.fromTo(
         Array.from(cards),
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out' }
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
       );
     }
   }, [selectedTool]);
 
   const handleToolClick = (toolId: string) => {
-    if (toolId === 'web-check' || toolId === 'text-compare' || toolId === 'json-linter' || toolId === 'cookie-inspector' || toolId === 'jwt-viewer') {
+    if (
+      toolId === "web-check" ||
+      toolId === "text-compare" ||
+      toolId === "json-linter" ||
+      toolId === "cookie-inspector" ||
+      toolId === "jwt-viewer" ||
+      toolId === "time-date-converter"
+    ) {
       setSelectedTool(toolId);
     }
   };
@@ -102,7 +131,7 @@ export default function ToolsDashboard() {
     setSelectedTool(null);
   };
 
-  if (selectedTool === 'web-check') {
+  if (selectedTool === "web-check") {
     return (
       <div className="w-full">
         <Button
@@ -119,7 +148,7 @@ export default function ToolsDashboard() {
     );
   }
 
-  if (selectedTool === 'text-compare') {
+  if (selectedTool === "text-compare") {
     return (
       <div className="w-full">
         <Button
@@ -136,7 +165,7 @@ export default function ToolsDashboard() {
     );
   }
 
-  if (selectedTool === 'json-linter') {
+  if (selectedTool === "json-linter") {
     return (
       <div className="w-full">
         <Button
@@ -153,7 +182,7 @@ export default function ToolsDashboard() {
     );
   }
 
-  if (selectedTool === 'cookie-inspector') {
+  if (selectedTool === "cookie-inspector") {
     return (
       <div className="w-full">
         <Button
@@ -170,7 +199,7 @@ export default function ToolsDashboard() {
     );
   }
 
-  if (selectedTool === 'jwt-viewer') {
+  if (selectedTool === "jwt-viewer") {
     return (
       <div className="w-full">
         <Button
@@ -187,6 +216,23 @@ export default function ToolsDashboard() {
     );
   }
 
+  if (selectedTool === "time-date-converter") {
+    return (
+      <div className="w-full">
+        <Button
+          onClick={handleBack}
+          variant="outline"
+          size="sm"
+          className="mb-6 flex items-center gap-2"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          Back to Tools
+        </Button>
+        <TimeDateConverter />
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="text-center mb-12">
@@ -194,7 +240,8 @@ export default function ToolsDashboard() {
           OXsuite Tools
         </h1>
         <p className="text-lg text-green-500/70 font-mono max-w-2xl mx-auto">
-          {'>'} Professional tools for daily use. Choose a tool to get started or explore what's coming soon.
+          {">"} Professional tools for daily use. Choose a tool to get started or explore what's
+          coming soon.
         </p>
       </div>
 
@@ -213,4 +260,3 @@ export default function ToolsDashboard() {
     </div>
   );
 }
-

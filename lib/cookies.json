@@ -1,1362 +1,1362 @@
 {
-    "metadata": {
-      "version": "2.0.0",
-      "lastUpdated": "2025-01-08",
-      "totalCookies": 250,
-      "description": "Comprehensive database of known internet cookies across all major platforms and services"
+  "metadata": {
+    "version": "2.0.0",
+    "lastUpdated": "2025-01-08",
+    "totalCookies": 250,
+    "description": "Comprehensive database of known internet cookies across all major platforms and services"
+  },
+  "categories": {
+    "analytics": "Cookies used to collect website usage data",
+    "advertising": "Cookies used for targeted advertising and tracking",
+    "functional": "Cookies required for website functionality",
+    "security": "Cookies used for security and fraud prevention",
+    "authentication": "Cookies used for user authentication and sessions",
+    "tracking": "General user tracking cookies",
+    "performance": "Cookies used to improve website performance",
+    "social_media": "Cookies from social media platforms",
+    "preferences": "Cookies that store user preferences"
+  },
+  "cookies": {
+    "_ga": {
+      "name": "Google Analytics",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Main Google Analytics tracking identifier",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Distinguish unique users"
     },
-    "categories": {
-      "analytics": "Cookies used to collect website usage data",
-      "advertising": "Cookies used for targeted advertising and tracking",
-      "functional": "Cookies required for website functionality",
-      "security": "Cookies used for security and fraud prevention",
-      "authentication": "Cookies used for user authentication and sessions",
-      "tracking": "General user tracking cookies",
-      "performance": "Cookies used to improve website performance",
-      "social_media": "Cookies from social media platforms",
-      "preferences": "Cookies that store user preferences"
+    "_ga_": {
+      "name": "Google Analytics Property",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics property-specific session tracking",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Store and count page views for a specific property"
     },
-    "cookies": {
-      "_ga": {
-        "name": "Google Analytics",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Main Google Analytics tracking identifier",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Distinguish unique users"
-      },
-      "_ga_": {
-        "name": "Google Analytics Property",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics property-specific session tracking",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Store and count page views for a specific property"
-      },
-      "_gid": {
-        "name": "Google Analytics User ID",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics user ID - 24 hour identifier",
-        "expiration": "24 hours",
-        "privacy": "medium",
-        "purpose": "Distinguish users within 24 hours"
-      },
-      "_gat": {
-        "name": "Google Analytics Throttle",
-        "category": "performance",
-        "vendor": "Google",
-        "description": "Used to throttle request rate",
-        "expiration": "1 minute",
-        "privacy": "low",
-        "purpose": "Rate limiting"
-      },
-      "_gat_gtag_": {
-        "name": "Google Tag Manager Throttle",
-        "category": "performance",
-        "vendor": "Google",
-        "description": "Google Tag Manager throttling cookie",
-        "expiration": "1 minute",
-        "privacy": "low",
-        "purpose": "Rate limiting for specific tags"
-      },
-      "_gcl_au": {
-        "name": "Google Ads Conversion Linker",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Ads conversion tracking and attribution",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track ad conversions"
-      },
-      "_gcl_aw": {
-        "name": "Google Ads Click",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Ads click tracking",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Store click information"
-      },
-      "_gcl_dc": {
-        "name": "Google Display & Video 360",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Display & Video 360 conversion tracking",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track display ad conversions"
-      },
-      "_gcl_gb": {
-        "name": "Google Ads Campaign",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Ads campaign tracking",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track campaign performance"
-      },
-      "_gcl_gf": {
-        "name": "Google Floodlight",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Floodlight conversion tracking",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Floodlight activity tracking"
-      },
-      "IDE": {
-        "name": "DoubleClick",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "DoubleClick advertising cookie for user tracking",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Display targeted ads"
-      },
-      "DSID": {
-        "name": "DoubleClick User ID",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "DoubleClick user identification",
-        "expiration": "2 weeks",
-        "privacy": "high",
-        "purpose": "Link user activity across devices"
-      },
-      "test_cookie": {
-        "name": "Cookie Test",
-        "category": "functional",
-        "vendor": "Google",
-        "description": "Tests whether browser accepts cookies",
-        "expiration": "15 minutes",
-        "privacy": "low",
-        "purpose": "Check cookie support"
-      },
-      "NID": {
-        "name": "Google Preferences",
-        "category": "preferences",
-        "vendor": "Google",
-        "description": "Google preferences and personalization",
-        "expiration": "6 months",
-        "privacy": "medium",
-        "purpose": "Remember user preferences"
-      },
-      "CONSENT": {
-        "name": "Google Consent",
-        "category": "preferences",
-        "vendor": "Google",
-        "description": "Google cookie consent status",
-        "expiration": "20 years",
-        "privacy": "low",
-        "purpose": "Store consent preferences"
-      },
-      "SEARCH_SAMESITE": {
-        "name": "Google SameSite",
-        "category": "security",
-        "vendor": "Google",
-        "description": "SameSite cookie attribute enforcement",
-        "expiration": "6 months",
-        "privacy": "low",
-        "purpose": "CSRF protection"
-      },
-      "AEC": {
-        "name": "Google Security",
-        "category": "security",
-        "vendor": "Google",
-        "description": "Google security and fraud prevention",
-        "expiration": "6 months",
-        "privacy": "medium",
-        "purpose": "Prevent abuse"
-      },
-      "APISID": {
-        "name": "Google API Session ID",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google API authentication session",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Authenticate API requests"
-      },
-      "HSID": {
-        "name": "Google Secure Session",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google secure session identifier",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Secure session management"
-      },
-      "SAPISID": {
-        "name": "Google Secure API Session",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google secure API session",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Secure API authentication"
-      },
-      "SID": {
-        "name": "Google Session ID",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google session identifier",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Session tracking"
-      },
-      "SSID": {
-        "name": "Google Secure Session ID",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google secure session identifier",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Secure session tracking"
-      },
-      "__Secure-1PAPISID": {
-        "name": "Google Secure First-Party API",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Secure first-party API authentication",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "First-party API security"
-      },
-      "__Secure-1PSID": {
-        "name": "Google Secure First-Party Session",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Secure first-party session",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "First-party session security"
-      },
-      "__Secure-3PAPISID": {
-        "name": "Google Secure Third-Party API",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Secure third-party API authentication",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Third-party API security"
-      },
-      "__Secure-3PSID": {
-        "name": "Google Secure Third-Party Session",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Secure third-party session",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Third-party session security"
-      },
-      "g_state": {
-        "name": "Google OAuth State",
-        "category": "authentication",
-        "vendor": "Google",
-        "description": "Google OAuth authentication state",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "OAuth flow management"
-      },
-      "_fbp": {
-        "name": "Facebook Pixel",
-        "category": "advertising",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook Pixel tracking cookie",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track ad conversions and user behavior"
-      },
-      "_fbc": {
-        "name": "Facebook Click ID",
-        "category": "advertising",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook click identifier",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Store click information from Facebook ads"
-      },
-      "fr": {
-        "name": "Facebook Advertising",
-        "category": "advertising",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook advertising and retargeting",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Deliver and measure ad effectiveness"
-      },
-      "datr": {
-        "name": "Facebook Device ID",
-        "category": "security",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook device identification for security",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Prevent unauthorized access"
-      },
-      "sb": {
-        "name": "Facebook Security",
-        "category": "security",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook security cookie",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Account security"
-      },
-      "c_user": {
-        "name": "Facebook User ID",
-        "category": "authentication",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook logged-in user ID",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Identify logged-in user"
-      },
-      "xs": {
-        "name": "Facebook Session",
-        "category": "authentication",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook session identifier",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Manage user session"
-      },
-      "m_pixel_ratio": {
-        "name": "Facebook Pixel Ratio",
-        "category": "functional",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook mobile pixel ratio",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Optimize display for mobile"
-      },
-      "presence": {
-        "name": "Facebook Presence",
-        "category": "functional",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook chat presence status",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Show online status"
-      },
-      "wd": {
-        "name": "Facebook Window Dimensions",
-        "category": "functional",
-        "vendor": "Facebook/Meta",
-        "description": "Facebook window dimensions",
-        "expiration": "1 week",
-        "privacy": "low",
-        "purpose": "Optimize page rendering"
-      },
-      "__cf_bm": {
-        "name": "Cloudflare Bot Management",
-        "category": "security",
-        "vendor": "Cloudflare",
-        "description": "Cloudflare bot detection and management",
-        "expiration": "30 minutes",
-        "privacy": "medium",
-        "purpose": "Detect and manage bot traffic"
-      },
-      "_cfuvid": {
-        "name": "Cloudflare User Verification",
-        "category": "security",
-        "vendor": "Cloudflare",
-        "description": "Cloudflare user verification identifier",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Verify legitimate users"
-      },
-      "__cfduid": {
-        "name": "Cloudflare UID",
-        "category": "security",
-        "vendor": "Cloudflare",
-        "description": "Cloudflare user identifier (deprecated)",
-        "expiration": "30 days",
-        "privacy": "medium",
-        "purpose": "Identify individual clients (deprecated)"
-      },
-      "cf_clearance": {
-        "name": "Cloudflare Clearance",
-        "category": "security",
-        "vendor": "Cloudflare",
-        "description": "Cloudflare challenge clearance",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Store challenge completion status"
-      },
-      "_rdt_uuid": {
-        "name": "Reddit UUID",
-        "category": "advertising",
-        "vendor": "Reddit",
-        "description": "Reddit advertising tracking UUID",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track ad interactions"
-      },
-      "edgebucket": {
-        "name": "Reddit Edge Bucket",
-        "category": "functional",
-        "vendor": "Reddit",
-        "description": "Reddit A/B testing bucket",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Assign users to experiment groups"
-      },
-      "loid": {
-        "name": "Reddit Logged Out ID",
-        "category": "tracking",
-        "vendor": "Reddit",
-        "description": "Reddit logged-out user identifier",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Track logged-out users"
-      },
-      "reddit_session": {
-        "name": "Reddit Session",
-        "category": "authentication",
-        "vendor": "Reddit",
-        "description": "Reddit user session",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Maintain user session"
-      },
-      "token": {
-        "name": "Reddit Token",
-        "category": "authentication",
-        "vendor": "Reddit",
-        "description": "Reddit authentication token",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "User authentication"
-      },
-      "_uetsid": {
-        "name": "Microsoft Bing UET Session",
-        "category": "advertising",
-        "vendor": "Microsoft",
-        "description": "Bing Universal Event Tracking session",
-        "expiration": "1 day",
-        "privacy": "high",
-        "purpose": "Track session conversions"
-      },
-      "_uetvid": {
-        "name": "Microsoft Bing UET Visitor",
-        "category": "advertising",
-        "vendor": "Microsoft",
-        "description": "Bing Universal Event Tracking visitor ID",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Track visitor across sessions"
-      },
-      "MUID": {
-        "name": "Microsoft User ID",
-        "category": "advertising",
-        "vendor": "Microsoft",
-        "description": "Microsoft user identifier",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Cross-device user identification"
-      },
-      "MUIDB": {
-        "name": "Microsoft User ID Backup",
-        "category": "advertising",
-        "vendor": "Microsoft",
-        "description": "Microsoft user ID backup",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Backup user identification"
-      },
-      "MR": {
-        "name": "Microsoft Refresh",
-        "category": "functional",
-        "vendor": "Microsoft",
-        "description": "Microsoft refresh indicator",
-        "expiration": "7 days",
-        "privacy": "low",
-        "purpose": "Track page refreshes"
-      },
-      "MC1": {
-        "name": "Microsoft Cookie 1",
-        "category": "functional",
-        "vendor": "Microsoft",
-        "description": "Microsoft general purpose cookie",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Store user preferences"
-      },
-      "MS0": {
-        "name": "Microsoft Sync",
-        "category": "functional",
-        "vendor": "Microsoft",
-        "description": "Microsoft data synchronization",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Sync data across devices"
-      },
-      "_hjSessionUser_": {
-        "name": "Hotjar User",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar user behavior analytics",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track user behavior patterns"
-      },
-      "_hjSession_": {
-        "name": "Hotjar Session",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar session tracking",
-        "expiration": "30 minutes",
-        "privacy": "medium",
-        "purpose": "Track current session"
-      },
-      "_hjIncludedInPageviewSample": {
-        "name": "Hotjar Pageview Sample",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar pageview sampling flag",
-        "expiration": "30 minutes",
-        "privacy": "low",
-        "purpose": "Determine sampling inclusion"
-      },
-      "_hjIncludedInSessionSample": {
-        "name": "Hotjar Session Sample",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar session sampling flag",
-        "expiration": "30 minutes",
-        "privacy": "low",
-        "purpose": "Determine session sampling"
-      },
-      "_hjAbsoluteSessionInProgress": {
-        "name": "Hotjar Session In Progress",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar session progress indicator",
-        "expiration": "30 minutes",
-        "privacy": "low",
-        "purpose": "Track active sessions"
-      },
-      "_hjFirstSeen": {
-        "name": "Hotjar First Seen",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar first visit timestamp",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Identify new visitors"
-      },
-      "_hjViewportId": {
-        "name": "Hotjar Viewport ID",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar viewport identifier",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Track viewport dimensions"
-      },
-      "_hjRecordingLastActivity": {
-        "name": "Hotjar Recording Activity",
-        "category": "analytics",
-        "vendor": "Hotjar",
-        "description": "Hotjar recording last activity timestamp",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Track recording sessions"
-      },
-      "ajs_anonymous_id": {
-        "name": "Segment Anonymous ID",
-        "category": "analytics",
-        "vendor": "Segment",
-        "description": "Segment.io anonymous user tracking",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track anonymous users"
-      },
-      "ajs_user_id": {
-        "name": "Segment User ID",
-        "category": "analytics",
-        "vendor": "Segment",
-        "description": "Segment.io identified user tracking",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Track identified users"
-      },
-      "ajs_group_id": {
-        "name": "Segment Group ID",
-        "category": "analytics",
-        "vendor": "Segment",
-        "description": "Segment.io group identification",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track user groups"
-      },
-      "_hjTLDTest": {
-        "name": "Hotjar TLD Test",
-        "category": "functional",
-        "vendor": "Hotjar",
-        "description": "Hotjar top-level domain test",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Determine cookie domain"
-      },
-      "intercom-id": {
-        "name": "Intercom User ID",
-        "category": "functional",
-        "vendor": "Intercom",
-        "description": "Intercom user identifier",
-        "expiration": "9 months",
-        "privacy": "medium",
-        "purpose": "Identify users in chat"
-      },
-      "intercom-session": {
-        "name": "Intercom Session",
-        "category": "functional",
-        "vendor": "Intercom",
-        "description": "Intercom session identifier",
-        "expiration": "1 week",
-        "privacy": "medium",
-        "purpose": "Track chat sessions"
-      },
-      "__q_state_": {
-        "name": "Intercom/Qualtrics State",
-        "category": "functional",
-        "vendor": "Intercom/Qualtrics",
-        "description": "Intercom or Qualtrics application state",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Store chat or survey state"
-      },
-      "tcm": {
-        "name": "Cookie Consent Management",
-        "category": "preferences",
-        "vendor": "Various",
-        "description": "Cookie consent management preferences",
-        "expiration": "1 year",
-        "privacy": "low",
-        "purpose": "Store consent preferences"
-      },
-      "OptanonConsent": {
-        "name": "OneTrust Consent",
-        "category": "preferences",
-        "vendor": "OneTrust",
-        "description": "OneTrust cookie consent",
-        "expiration": "1 year",
-        "privacy": "low",
-        "purpose": "Store OneTrust consent"
-      },
-      "OptanonAlertBoxClosed": {
-        "name": "OneTrust Alert Box",
-        "category": "preferences",
-        "vendor": "OneTrust",
-        "description": "OneTrust alert box dismissal",
-        "expiration": "1 year",
-        "privacy": "low",
-        "purpose": "Track banner dismissal"
-      },
-      "eupubconsent": {
-        "name": "EU Consent String",
-        "category": "preferences",
-        "vendor": "IAB Europe",
-        "description": "IAB Europe consent string",
-        "expiration": "1 year",
-        "privacy": "low",
-        "purpose": "Store GDPR consent"
-      },
-      "CookieConsent": {
-        "name": "Cookie Consent",
-        "category": "preferences",
-        "vendor": "Various",
-        "description": "Generic cookie consent",
-        "expiration": "1 year",
-        "privacy": "low",
-        "purpose": "Store consent status"
-      },
-      "analytics_session_id": {
-        "name": "Session Analytics ID",
-        "category": "analytics",
-        "vendor": "Various",
-        "description": "General session analytics tracking",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Track session analytics"
-      },
-      "signals-sdk-user-id": {
-        "name": "Signals SDK User",
-        "category": "tracking",
-        "vendor": "Various SDKs",
-        "description": "SDK-based user identification",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track users across SDK"
-      },
-      "signals-sdk-session-id": {
-        "name": "Signals SDK Session",
-        "category": "tracking",
-        "vendor": "Various SDKs",
-        "description": "SDK-based session identification",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Track SDK sessions"
-      },
-      "_pm.store": {
-        "name": "Postman Application Store",
-        "category": "functional",
-        "vendor": "Postman",
-        "description": "Postman application state storage",
-        "expiration": "Persistent",
-        "privacy": "medium",
-        "purpose": "Store app data"
-      },
-      "sessionId": {
-        "name": "Session Identifier",
-        "category": "authentication",
-        "vendor": "Various",
-        "description": "Generic session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Maintain user session"
-      },
-      "PHPSESSID": {
-        "name": "PHP Session ID",
-        "category": "authentication",
-        "vendor": "PHP",
-        "description": "PHP session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "PHP session management"
-      },
-      "JSESSIONID": {
-        "name": "Java Session ID",
-        "category": "authentication",
-        "vendor": "Java/Tomcat",
-        "description": "Java/Tomcat session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Java session management"
-      },
-      "ASP.NET_SessionId": {
-        "name": "ASP.NET Session",
-        "category": "authentication",
-        "vendor": "Microsoft",
-        "description": "ASP.NET session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "ASP.NET session management"
-      },
-      "connect.sid": {
-        "name": "Express/Connect Session",
-        "category": "authentication",
-        "vendor": "Node.js/Express",
-        "description": "Express.js/Connect session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Node.js session management"
-      },
-      "laravel_session": {
-        "name": "Laravel Session",
-        "category": "authentication",
-        "vendor": "Laravel",
-        "description": "Laravel framework session",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Laravel session management"
-      },
-      "XSRF-TOKEN": {
-        "name": "CSRF Token",
-        "category": "security",
-        "vendor": "Various",
-        "description": "Cross-site request forgery protection token",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "CSRF protection"
-      },
-      "csrf_token": {
-        "name": "CSRF Token",
-        "category": "security",
-        "vendor": "Various",
-        "description": "CSRF protection token",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Prevent CSRF attacks"
-      },
-      "__stripe_mid": {
-        "name": "Stripe Merchant ID",
-        "category": "functional",
-        "vendor": "Stripe",
-        "description": "Stripe fraud detection merchant ID",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Fraud prevention"
-      },
-      "__stripe_sid": {
-        "name": "Stripe Session ID",
-        "category": "functional",
-        "vendor": "Stripe",
-        "description": "Stripe fraud detection session ID",
-        "expiration": "30 minutes",
-        "privacy": "medium",
-        "purpose": "Session fraud detection"
-      },
-      "mp_": {
-        "name": "Mixpanel",
-        "category": "analytics",
-        "vendor": "Mixpanel",
-        "description": "Mixpanel analytics tracking",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track user behavior"
-      },
-      "__qca": {
-        "name": "Quantcast",
-        "category": "advertising",
-        "vendor": "Quantcast",
-        "description": "Quantcast audience measurement",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Audience analytics"
-      },
-      "mc": {
-        "name": "Quantcast MC",
-        "category": "advertising",
-        "vendor": "Quantcast",
-        "description": "Quantcast measurement cookie",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Track ad performance"
-      },
-      "_pinterest_sess": {
-        "name": "Pinterest Session",
-        "category": "authentication",
-        "vendor": "Pinterest",
-        "description": "Pinterest session identifier",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Maintain Pinterest session"
-      },
-      "_pinterest_ct_ua": {
-        "name": "Pinterest Conversion Tag",
-        "category": "advertising",
-        "vendor": "Pinterest",
-        "description": "Pinterest conversion tracking",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Track conversions"
-      },
-      "_pin_unauth": {
-        "name": "Pinterest Unauth",
-        "category": "tracking",
-        "vendor": "Pinterest",
-        "description": "Pinterest unauthenticated user tracking",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track logged-out users"
-      },
-      "li_sugr": {
-        "name": "LinkedIn Sugar",
-        "category": "functional",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn browser identifier",
-        "expiration": "90 days",
-        "privacy": "medium",
-        "purpose": "Browser identification"
-      },
-      "li_at": {
-        "name": "LinkedIn Auth Token",
-        "category": "authentication",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn authentication token",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "User authentication"
-      },
-      "lidc": {
-        "name": "LinkedIn Data Center",
-        "category": "functional",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn data center routing",
-        "expiration": "1 day",
-        "privacy": "low",
-        "purpose": "Route to nearest datacenter"
-      },
-      "bcookie": {
-        "name": "LinkedIn Browser Cookie",
-        "category": "functional",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn browser ID cookie",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Browser identification"
-      },
-      "bscookie": {
-        "name": "LinkedIn Secure Browser",
-        "category": "security",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn secure browser cookie",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Secure browser verification"
-      },
-      "UserMatchHistory": {
-        "name": "LinkedIn Match History",
-        "category": "advertising",
-        "vendor": "LinkedIn",
-        "description": "LinkedIn Ads ID syncing",
-        "expiration": "30 days",
-        "privacy": "high",
-        "purpose": "Sync advertising IDs"
-      },
-      "lang": {
-        "name": "Language Preference",
-        "category": "preferences",
-        "vendor": "Various",
-        "description": "User language preference",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Store language choice"
-      },
-      "i18next": {
-        "name": "i18next Language",
-        "category": "preferences",
-        "vendor": "i18next",
-        "description": "i18next internationalization preference",
-        "expiration": "Persistent",
-        "privacy": "low",
-        "purpose": "Store language preference"
-      },
-      "TiPMix": {
-        "name": "TikTok Pixel Mix",
-        "category": "advertising",
-        "vendor": "TikTok",
-        "description": "TikTok Pixel tracking",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Track ad interactions"
-      },
-      "tt_csrf_token": {
-        "name": "TikTok CSRF",
-        "category": "security",
-        "vendor": "TikTok",
-        "description": "TikTok CSRF protection",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "CSRF protection"
-      },
-      "tt_chain_token": {
-        "name": "TikTok Chain Token",
-        "category": "authentication",
-        "vendor": "TikTok",
-        "description": "TikTok authentication chain",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Authentication flow"
-      },
-      "_ttp": {
-        "name": "TikTok Tracking Pixel",
-        "category": "advertising",
-        "vendor": "TikTok",
-        "description": "TikTok tracking pixel identifier",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Track user behavior for ads"
-      },
-      "_gcl_": {
-        "name": "Google Click",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google click identifier (various types)",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Track various click types"
-      },
-      "1P_JAR": {
-        "name": "Google JAR",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google advertising cookie",
-        "expiration": "1 month",
-        "privacy": "medium",
-        "purpose": "Collect website statistics"
-      },
-      "DV": {
-        "name": "Google DV",
-        "category": "functional",
-        "vendor": "Google",
-        "description": "Google data validation",
-        "expiration": "7 minutes",
-        "privacy": "low",
-        "purpose": "Validate data"
-      },
-      "OTZ": {
-        "name": "Google OTZ",
-        "category": "functional",
-        "vendor": "Google",
-        "description": "Google aggregate analytics",
-        "expiration": "1 month",
-        "privacy": "medium",
-        "purpose": "Aggregate user data"
-      },
-      "ANID": {
-        "name": "Google ANID",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google advertising ID",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Deliver targeted ads"
-      },
-      "SIDCC": {
-        "name": "Google Security Cookie",
-        "category": "security",
-        "vendor": "Google",
-        "description": "Google security cookie for session",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Security validation"
-      },
-      "__Secure-3PSIDCC": {
-        "name": "Google Secure 3P SIDCC",
-        "category": "security",
-        "vendor": "Google",
-        "description": "Google secure third-party session security",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Third-party security validation"
-      },
-      "UULE": {
-        "name": "Google Location",
-        "category": "functional",
-        "vendor": "Google",
-        "description": "Google encoded location",
-        "expiration": "6 hours",
-        "privacy": "medium",
-        "purpose": "Location-based services"
-      },
-      "dpr": {
-        "name": "Device Pixel Ratio",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "Device pixel ratio for responsive design",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Optimize image delivery"
-      },
-      "viewport-width": {
-        "name": "Viewport Width",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "Browser viewport width",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Responsive design"
-      },
-      "width": {
-        "name": "Screen Width",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "Screen width for optimization",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "Optimize content display"
-      },
-      "_scid": {
-        "name": "Snapchat ID",
-        "category": "advertising",
-        "vendor": "Snapchat",
-        "description": "Snapchat tracking cookie",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Track ad performance"
-      },
-      "_sctr": {
-        "name": "Snapchat Tracker",
-        "category": "advertising",
-        "vendor": "Snapchat",
-        "description": "Snapchat conversion tracking",
-        "expiration": "13 months",
-        "privacy": "high",
-        "purpose": "Track conversions"
-      },
-      "sc_at": {
-        "name": "Snapchat Auth Token",
-        "category": "authentication",
-        "vendor": "Snapchat",
-        "description": "Snapchat authentication token",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "User authentication"
-      },
-      "_twitter_sess": {
-        "name": "Twitter Session",
-        "category": "authentication",
-        "vendor": "Twitter/X",
-        "description": "Twitter session identifier",
-        "expiration": "Session",
-        "privacy": "high",
-        "purpose": "Maintain Twitter session"
-      },
-      "auth_token": {
-        "name": "Twitter Auth Token",
-        "category": "authentication",
-        "vendor": "Twitter/X",
-        "description": "Twitter authentication token",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "User authentication"
-      },
-      "twid": {
-        "name": "Twitter ID",
-        "category": "authentication",
-        "vendor": "Twitter/X",
-        "description": "Twitter user identifier",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Identify logged-in user"
-      },
-      "ct0": {
-        "name": "Twitter CSRF",
-        "category": "security",
-        "vendor": "Twitter/X",
-        "description": "Twitter CSRF protection token",
-        "expiration": "Session",
-        "privacy": "low",
-        "purpose": "CSRF protection"
-      },
-      "personalization_id": {
-        "name": "Twitter Personalization",
-        "category": "advertising",
-        "vendor": "Twitter/X",
-        "description": "Twitter ad personalization",
-        "expiration": "2 years",
-        "privacy": "high",
-        "purpose": "Personalize ads"
-      },
-      "guest_id": {
-        "name": "Twitter Guest ID",
-        "category": "tracking",
-        "vendor": "Twitter/X",
-        "description": "Twitter logged-out user tracking",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Track logged-out users"
-      },
-      "AMP_TOKEN": {
-        "name": "Google AMP Token",
-        "category": "functional",
-        "vendor": "Google",
-        "description": "Google AMP client ID token",
-        "expiration": "1 hour to 1 year",
-        "privacy": "medium",
-        "purpose": "AMP analytics"
-      },
-      "_gac_": {
-        "name": "Google Ads Cookie",
-        "category": "advertising",
-        "vendor": "Google",
-        "description": "Google Ads campaign information",
-        "expiration": "90 days",
-        "privacy": "high",
-        "purpose": "Store campaign data"
-      },
-      "__utma": {
-        "name": "Google Analytics Classic A",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics Classic visitor tracking (deprecated)",
-        "expiration": "2 years",
-        "privacy": "medium",
-        "purpose": "Track unique visitors (deprecated)"
-      },
-      "__utmb": {
-        "name": "Google Analytics Classic B",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics Classic session (deprecated)",
-        "expiration": "30 minutes",
-        "privacy": "medium",
-        "purpose": "Track session (deprecated)"
-      },
-      "__utmc": {
-        "name": "Google Analytics Classic C",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics Classic session end (deprecated)",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Determine session end (deprecated)"
-      },
-      "__utmt": {
-        "name": "Google Analytics Classic T",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics Classic throttle (deprecated)",
-        "expiration": "10 minutes",
-        "privacy": "low",
-        "purpose": "Throttle requests (deprecated)"
-      },
-      "__utmz": {
-        "name": "Google Analytics Classic Z",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Analytics Classic traffic source (deprecated)",
-        "expiration": "6 months",
-        "privacy": "medium",
-        "purpose": "Store traffic source (deprecated)"
-      },
-      "_derived_epik": {
-        "name": "Pinterest Derived EPIK",
-        "category": "advertising",
-        "vendor": "Pinterest",
-        "description": "Pinterest Enhanced Match ID (derived)",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Enhanced conversion tracking"
-      },
-      "_epik": {
-        "name": "Pinterest EPIK",
-        "category": "advertising",
-        "vendor": "Pinterest",
-        "description": "Pinterest Enhanced Match ID",
-        "expiration": "1 year",
-        "privacy": "high",
-        "purpose": "Track Pinterest conversions"
-      },
-      "ab": {
-        "name": "A/B Testing",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "A/B testing bucket assignment",
-        "expiration": "Varies",
-        "privacy": "low",
-        "purpose": "Assign users to test groups"
-      },
-      "experiments": {
-        "name": "Experiments",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "Feature experiments tracking",
-        "expiration": "Varies",
-        "privacy": "low",
-        "purpose": "Track experiment participation"
-      },
-      "amplitude_id": {
-        "name": "Amplitude ID",
-        "category": "analytics",
-        "vendor": "Amplitude",
-        "description": "Amplitude analytics user ID",
-        "expiration": "10 years",
-        "privacy": "medium",
-        "purpose": "Track user analytics"
-      },
-      "amplitude_session": {
-        "name": "Amplitude Session",
-        "category": "analytics",
-        "vendor": "Amplitude",
-        "description": "Amplitude session tracking",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Track current session"
-      },
-      "_clck": {
-        "name": "Microsoft Clarity Click",
-        "category": "analytics",
-        "vendor": "Microsoft",
-        "description": "Microsoft Clarity click tracking",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track user clicks"
-      },
-      "_clsk": {
-        "name": "Microsoft Clarity Session",
-        "category": "analytics",
-        "vendor": "Microsoft",
-        "description": "Microsoft Clarity session tracking",
-        "expiration": "1 day",
-        "privacy": "medium",
-        "purpose": "Track user sessions"
-      },
-      "CLID": {
-        "name": "Microsoft Clarity ID",
-        "category": "analytics",
-        "vendor": "Microsoft",
-        "description": "Microsoft Clarity user ID",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Identify users in Clarity"
-      },
-      "SM": {
-        "name": "Clarity Session Management",
-        "category": "analytics",
-        "vendor": "Microsoft",
-        "description": "Microsoft Clarity session management",
-        "expiration": "Session",
-        "privacy": "medium",
-        "purpose": "Manage recording sessions"
-      },
-      "_gat_UA-": {
-        "name": "Google Analytics UA Throttle",
-        "category": "performance",
-        "vendor": "Google",
-        "description": "Universal Analytics property throttle",
-        "expiration": "1 minute",
-        "privacy": "low",
-        "purpose": "Rate limit specific property"
-      },
-      "AEC": {
-        "name": "Google Security AEC",
-        "category": "security",
-        "vendor": "Google",
-        "description": "Google security cookie for abuse prevention",
-        "expiration": "6 months",
-        "privacy": "medium",
-        "purpose": "Prevent abuse and ensure security"
-      },
-      "_dc_gtm_": {
-        "name": "Google Tag Manager DC",
-        "category": "analytics",
-        "vendor": "Google",
-        "description": "Google Tag Manager data collection",
-        "expiration": "1 minute",
-        "privacy": "low",
-        "purpose": "Load GTM on Floodlight containers"
-      },
-      "receive-cookie-deprecation": {
-        "name": "Cookie Deprecation Test",
-        "category": "functional",
-        "vendor": "Various",
-        "description": "Chrome cookie deprecation trial",
-        "expiration": "6 months",
-        "privacy": "low",
-        "purpose": "Test cookie deprecation impact"
-      },
-      "_tt_enable_cookie": {
-        "name": "TikTok Enable Cookie",
-        "category": "preferences",
-        "vendor": "TikTok",
-        "description": "TikTok cookie enablement flag",
-        "expiration": "13 months",
-        "privacy": "low",
-        "purpose": "Check if cookies are enabled"
-      },
-      "msToken": {
-        "name": "TikTok MS Token",
-        "category": "security",
-        "vendor": "TikTok",
-        "description": "TikTok security token",
-        "expiration": "10 days",
-        "privacy": "medium",
-        "purpose": "Security verification"
-      },
-      "ttwid": {
-        "name": "TikTok Web ID",
-        "category": "tracking",
-        "vendor": "TikTok",
-        "description": "TikTok web user identifier",
-        "expiration": "1 year",
-        "privacy": "medium",
-        "purpose": "Track web users"
-      }
+    "_gid": {
+      "name": "Google Analytics User ID",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics user ID - 24 hour identifier",
+      "expiration": "24 hours",
+      "privacy": "medium",
+      "purpose": "Distinguish users within 24 hours"
+    },
+    "_gat": {
+      "name": "Google Analytics Throttle",
+      "category": "performance",
+      "vendor": "Google",
+      "description": "Used to throttle request rate",
+      "expiration": "1 minute",
+      "privacy": "low",
+      "purpose": "Rate limiting"
+    },
+    "_gat_gtag_": {
+      "name": "Google Tag Manager Throttle",
+      "category": "performance",
+      "vendor": "Google",
+      "description": "Google Tag Manager throttling cookie",
+      "expiration": "1 minute",
+      "privacy": "low",
+      "purpose": "Rate limiting for specific tags"
+    },
+    "_gcl_au": {
+      "name": "Google Ads Conversion Linker",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Ads conversion tracking and attribution",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track ad conversions"
+    },
+    "_gcl_aw": {
+      "name": "Google Ads Click",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Ads click tracking",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Store click information"
+    },
+    "_gcl_dc": {
+      "name": "Google Display & Video 360",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Display & Video 360 conversion tracking",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track display ad conversions"
+    },
+    "_gcl_gb": {
+      "name": "Google Ads Campaign",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Ads campaign tracking",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track campaign performance"
+    },
+    "_gcl_gf": {
+      "name": "Google Floodlight",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Floodlight conversion tracking",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Floodlight activity tracking"
+    },
+    "IDE": {
+      "name": "DoubleClick",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "DoubleClick advertising cookie for user tracking",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Display targeted ads"
+    },
+    "DSID": {
+      "name": "DoubleClick User ID",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "DoubleClick user identification",
+      "expiration": "2 weeks",
+      "privacy": "high",
+      "purpose": "Link user activity across devices"
+    },
+    "test_cookie": {
+      "name": "Cookie Test",
+      "category": "functional",
+      "vendor": "Google",
+      "description": "Tests whether browser accepts cookies",
+      "expiration": "15 minutes",
+      "privacy": "low",
+      "purpose": "Check cookie support"
+    },
+    "NID": {
+      "name": "Google Preferences",
+      "category": "preferences",
+      "vendor": "Google",
+      "description": "Google preferences and personalization",
+      "expiration": "6 months",
+      "privacy": "medium",
+      "purpose": "Remember user preferences"
+    },
+    "CONSENT": {
+      "name": "Google Consent",
+      "category": "preferences",
+      "vendor": "Google",
+      "description": "Google cookie consent status",
+      "expiration": "20 years",
+      "privacy": "low",
+      "purpose": "Store consent preferences"
+    },
+    "SEARCH_SAMESITE": {
+      "name": "Google SameSite",
+      "category": "security",
+      "vendor": "Google",
+      "description": "SameSite cookie attribute enforcement",
+      "expiration": "6 months",
+      "privacy": "low",
+      "purpose": "CSRF protection"
+    },
+    "AEC": {
+      "name": "Google Security",
+      "category": "security",
+      "vendor": "Google",
+      "description": "Google security and fraud prevention",
+      "expiration": "6 months",
+      "privacy": "medium",
+      "purpose": "Prevent abuse"
+    },
+    "APISID": {
+      "name": "Google API Session ID",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google API authentication session",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Authenticate API requests"
+    },
+    "HSID": {
+      "name": "Google Secure Session",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google secure session identifier",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Secure session management"
+    },
+    "SAPISID": {
+      "name": "Google Secure API Session",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google secure API session",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Secure API authentication"
+    },
+    "SID": {
+      "name": "Google Session ID",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google session identifier",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Session tracking"
+    },
+    "SSID": {
+      "name": "Google Secure Session ID",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google secure session identifier",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Secure session tracking"
+    },
+    "__Secure-1PAPISID": {
+      "name": "Google Secure First-Party API",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Secure first-party API authentication",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "First-party API security"
+    },
+    "__Secure-1PSID": {
+      "name": "Google Secure First-Party Session",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Secure first-party session",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "First-party session security"
+    },
+    "__Secure-3PAPISID": {
+      "name": "Google Secure Third-Party API",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Secure third-party API authentication",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Third-party API security"
+    },
+    "__Secure-3PSID": {
+      "name": "Google Secure Third-Party Session",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Secure third-party session",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Third-party session security"
+    },
+    "g_state": {
+      "name": "Google OAuth State",
+      "category": "authentication",
+      "vendor": "Google",
+      "description": "Google OAuth authentication state",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "OAuth flow management"
+    },
+    "_fbp": {
+      "name": "Facebook Pixel",
+      "category": "advertising",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook Pixel tracking cookie",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track ad conversions and user behavior"
+    },
+    "_fbc": {
+      "name": "Facebook Click ID",
+      "category": "advertising",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook click identifier",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Store click information from Facebook ads"
+    },
+    "fr": {
+      "name": "Facebook Advertising",
+      "category": "advertising",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook advertising and retargeting",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Deliver and measure ad effectiveness"
+    },
+    "datr": {
+      "name": "Facebook Device ID",
+      "category": "security",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook device identification for security",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Prevent unauthorized access"
+    },
+    "sb": {
+      "name": "Facebook Security",
+      "category": "security",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook security cookie",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Account security"
+    },
+    "c_user": {
+      "name": "Facebook User ID",
+      "category": "authentication",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook logged-in user ID",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Identify logged-in user"
+    },
+    "xs": {
+      "name": "Facebook Session",
+      "category": "authentication",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook session identifier",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Manage user session"
+    },
+    "m_pixel_ratio": {
+      "name": "Facebook Pixel Ratio",
+      "category": "functional",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook mobile pixel ratio",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Optimize display for mobile"
+    },
+    "presence": {
+      "name": "Facebook Presence",
+      "category": "functional",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook chat presence status",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Show online status"
+    },
+    "wd": {
+      "name": "Facebook Window Dimensions",
+      "category": "functional",
+      "vendor": "Facebook/Meta",
+      "description": "Facebook window dimensions",
+      "expiration": "1 week",
+      "privacy": "low",
+      "purpose": "Optimize page rendering"
+    },
+    "__cf_bm": {
+      "name": "Cloudflare Bot Management",
+      "category": "security",
+      "vendor": "Cloudflare",
+      "description": "Cloudflare bot detection and management",
+      "expiration": "30 minutes",
+      "privacy": "medium",
+      "purpose": "Detect and manage bot traffic"
+    },
+    "_cfuvid": {
+      "name": "Cloudflare User Verification",
+      "category": "security",
+      "vendor": "Cloudflare",
+      "description": "Cloudflare user verification identifier",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Verify legitimate users"
+    },
+    "__cfduid": {
+      "name": "Cloudflare UID",
+      "category": "security",
+      "vendor": "Cloudflare",
+      "description": "Cloudflare user identifier (deprecated)",
+      "expiration": "30 days",
+      "privacy": "medium",
+      "purpose": "Identify individual clients (deprecated)"
+    },
+    "cf_clearance": {
+      "name": "Cloudflare Clearance",
+      "category": "security",
+      "vendor": "Cloudflare",
+      "description": "Cloudflare challenge clearance",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Store challenge completion status"
+    },
+    "_rdt_uuid": {
+      "name": "Reddit UUID",
+      "category": "advertising",
+      "vendor": "Reddit",
+      "description": "Reddit advertising tracking UUID",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track ad interactions"
+    },
+    "edgebucket": {
+      "name": "Reddit Edge Bucket",
+      "category": "functional",
+      "vendor": "Reddit",
+      "description": "Reddit A/B testing bucket",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Assign users to experiment groups"
+    },
+    "loid": {
+      "name": "Reddit Logged Out ID",
+      "category": "tracking",
+      "vendor": "Reddit",
+      "description": "Reddit logged-out user identifier",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Track logged-out users"
+    },
+    "reddit_session": {
+      "name": "Reddit Session",
+      "category": "authentication",
+      "vendor": "Reddit",
+      "description": "Reddit user session",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Maintain user session"
+    },
+    "token": {
+      "name": "Reddit Token",
+      "category": "authentication",
+      "vendor": "Reddit",
+      "description": "Reddit authentication token",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "User authentication"
+    },
+    "_uetsid": {
+      "name": "Microsoft Bing UET Session",
+      "category": "advertising",
+      "vendor": "Microsoft",
+      "description": "Bing Universal Event Tracking session",
+      "expiration": "1 day",
+      "privacy": "high",
+      "purpose": "Track session conversions"
+    },
+    "_uetvid": {
+      "name": "Microsoft Bing UET Visitor",
+      "category": "advertising",
+      "vendor": "Microsoft",
+      "description": "Bing Universal Event Tracking visitor ID",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Track visitor across sessions"
+    },
+    "MUID": {
+      "name": "Microsoft User ID",
+      "category": "advertising",
+      "vendor": "Microsoft",
+      "description": "Microsoft user identifier",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Cross-device user identification"
+    },
+    "MUIDB": {
+      "name": "Microsoft User ID Backup",
+      "category": "advertising",
+      "vendor": "Microsoft",
+      "description": "Microsoft user ID backup",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Backup user identification"
+    },
+    "MR": {
+      "name": "Microsoft Refresh",
+      "category": "functional",
+      "vendor": "Microsoft",
+      "description": "Microsoft refresh indicator",
+      "expiration": "7 days",
+      "privacy": "low",
+      "purpose": "Track page refreshes"
+    },
+    "MC1": {
+      "name": "Microsoft Cookie 1",
+      "category": "functional",
+      "vendor": "Microsoft",
+      "description": "Microsoft general purpose cookie",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Store user preferences"
+    },
+    "MS0": {
+      "name": "Microsoft Sync",
+      "category": "functional",
+      "vendor": "Microsoft",
+      "description": "Microsoft data synchronization",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Sync data across devices"
+    },
+    "_hjSessionUser_": {
+      "name": "Hotjar User",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar user behavior analytics",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track user behavior patterns"
+    },
+    "_hjSession_": {
+      "name": "Hotjar Session",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar session tracking",
+      "expiration": "30 minutes",
+      "privacy": "medium",
+      "purpose": "Track current session"
+    },
+    "_hjIncludedInPageviewSample": {
+      "name": "Hotjar Pageview Sample",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar pageview sampling flag",
+      "expiration": "30 minutes",
+      "privacy": "low",
+      "purpose": "Determine sampling inclusion"
+    },
+    "_hjIncludedInSessionSample": {
+      "name": "Hotjar Session Sample",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar session sampling flag",
+      "expiration": "30 minutes",
+      "privacy": "low",
+      "purpose": "Determine session sampling"
+    },
+    "_hjAbsoluteSessionInProgress": {
+      "name": "Hotjar Session In Progress",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar session progress indicator",
+      "expiration": "30 minutes",
+      "privacy": "low",
+      "purpose": "Track active sessions"
+    },
+    "_hjFirstSeen": {
+      "name": "Hotjar First Seen",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar first visit timestamp",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Identify new visitors"
+    },
+    "_hjViewportId": {
+      "name": "Hotjar Viewport ID",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar viewport identifier",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Track viewport dimensions"
+    },
+    "_hjRecordingLastActivity": {
+      "name": "Hotjar Recording Activity",
+      "category": "analytics",
+      "vendor": "Hotjar",
+      "description": "Hotjar recording last activity timestamp",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Track recording sessions"
+    },
+    "ajs_anonymous_id": {
+      "name": "Segment Anonymous ID",
+      "category": "analytics",
+      "vendor": "Segment",
+      "description": "Segment.io anonymous user tracking",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track anonymous users"
+    },
+    "ajs_user_id": {
+      "name": "Segment User ID",
+      "category": "analytics",
+      "vendor": "Segment",
+      "description": "Segment.io identified user tracking",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Track identified users"
+    },
+    "ajs_group_id": {
+      "name": "Segment Group ID",
+      "category": "analytics",
+      "vendor": "Segment",
+      "description": "Segment.io group identification",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track user groups"
+    },
+    "_hjTLDTest": {
+      "name": "Hotjar TLD Test",
+      "category": "functional",
+      "vendor": "Hotjar",
+      "description": "Hotjar top-level domain test",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Determine cookie domain"
+    },
+    "intercom-id": {
+      "name": "Intercom User ID",
+      "category": "functional",
+      "vendor": "Intercom",
+      "description": "Intercom user identifier",
+      "expiration": "9 months",
+      "privacy": "medium",
+      "purpose": "Identify users in chat"
+    },
+    "intercom-session": {
+      "name": "Intercom Session",
+      "category": "functional",
+      "vendor": "Intercom",
+      "description": "Intercom session identifier",
+      "expiration": "1 week",
+      "privacy": "medium",
+      "purpose": "Track chat sessions"
+    },
+    "__q_state_": {
+      "name": "Intercom/Qualtrics State",
+      "category": "functional",
+      "vendor": "Intercom/Qualtrics",
+      "description": "Intercom or Qualtrics application state",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Store chat or survey state"
+    },
+    "tcm": {
+      "name": "Cookie Consent Management",
+      "category": "preferences",
+      "vendor": "Various",
+      "description": "Cookie consent management preferences",
+      "expiration": "1 year",
+      "privacy": "low",
+      "purpose": "Store consent preferences"
+    },
+    "OptanonConsent": {
+      "name": "OneTrust Consent",
+      "category": "preferences",
+      "vendor": "OneTrust",
+      "description": "OneTrust cookie consent",
+      "expiration": "1 year",
+      "privacy": "low",
+      "purpose": "Store OneTrust consent"
+    },
+    "OptanonAlertBoxClosed": {
+      "name": "OneTrust Alert Box",
+      "category": "preferences",
+      "vendor": "OneTrust",
+      "description": "OneTrust alert box dismissal",
+      "expiration": "1 year",
+      "privacy": "low",
+      "purpose": "Track banner dismissal"
+    },
+    "eupubconsent": {
+      "name": "EU Consent String",
+      "category": "preferences",
+      "vendor": "IAB Europe",
+      "description": "IAB Europe consent string",
+      "expiration": "1 year",
+      "privacy": "low",
+      "purpose": "Store GDPR consent"
+    },
+    "CookieConsent": {
+      "name": "Cookie Consent",
+      "category": "preferences",
+      "vendor": "Various",
+      "description": "Generic cookie consent",
+      "expiration": "1 year",
+      "privacy": "low",
+      "purpose": "Store consent status"
+    },
+    "analytics_session_id": {
+      "name": "Session Analytics ID",
+      "category": "analytics",
+      "vendor": "Various",
+      "description": "General session analytics tracking",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Track session analytics"
+    },
+    "signals-sdk-user-id": {
+      "name": "Signals SDK User",
+      "category": "tracking",
+      "vendor": "Various SDKs",
+      "description": "SDK-based user identification",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track users across SDK"
+    },
+    "signals-sdk-session-id": {
+      "name": "Signals SDK Session",
+      "category": "tracking",
+      "vendor": "Various SDKs",
+      "description": "SDK-based session identification",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Track SDK sessions"
+    },
+    "_pm.store": {
+      "name": "Postman Application Store",
+      "category": "functional",
+      "vendor": "Postman",
+      "description": "Postman application state storage",
+      "expiration": "Persistent",
+      "privacy": "medium",
+      "purpose": "Store app data"
+    },
+    "sessionId": {
+      "name": "Session Identifier",
+      "category": "authentication",
+      "vendor": "Various",
+      "description": "Generic session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Maintain user session"
+    },
+    "PHPSESSID": {
+      "name": "PHP Session ID",
+      "category": "authentication",
+      "vendor": "PHP",
+      "description": "PHP session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "PHP session management"
+    },
+    "JSESSIONID": {
+      "name": "Java Session ID",
+      "category": "authentication",
+      "vendor": "Java/Tomcat",
+      "description": "Java/Tomcat session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Java session management"
+    },
+    "ASP.NET_SessionId": {
+      "name": "ASP.NET Session",
+      "category": "authentication",
+      "vendor": "Microsoft",
+      "description": "ASP.NET session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "ASP.NET session management"
+    },
+    "connect.sid": {
+      "name": "Express/Connect Session",
+      "category": "authentication",
+      "vendor": "Node.js/Express",
+      "description": "Express.js/Connect session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Node.js session management"
+    },
+    "laravel_session": {
+      "name": "Laravel Session",
+      "category": "authentication",
+      "vendor": "Laravel",
+      "description": "Laravel framework session",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Laravel session management"
+    },
+    "XSRF-TOKEN": {
+      "name": "CSRF Token",
+      "category": "security",
+      "vendor": "Various",
+      "description": "Cross-site request forgery protection token",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "CSRF protection"
+    },
+    "csrf_token": {
+      "name": "CSRF Token",
+      "category": "security",
+      "vendor": "Various",
+      "description": "CSRF protection token",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Prevent CSRF attacks"
+    },
+    "__stripe_mid": {
+      "name": "Stripe Merchant ID",
+      "category": "functional",
+      "vendor": "Stripe",
+      "description": "Stripe fraud detection merchant ID",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Fraud prevention"
+    },
+    "__stripe_sid": {
+      "name": "Stripe Session ID",
+      "category": "functional",
+      "vendor": "Stripe",
+      "description": "Stripe fraud detection session ID",
+      "expiration": "30 minutes",
+      "privacy": "medium",
+      "purpose": "Session fraud detection"
+    },
+    "mp_": {
+      "name": "Mixpanel",
+      "category": "analytics",
+      "vendor": "Mixpanel",
+      "description": "Mixpanel analytics tracking",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track user behavior"
+    },
+    "__qca": {
+      "name": "Quantcast",
+      "category": "advertising",
+      "vendor": "Quantcast",
+      "description": "Quantcast audience measurement",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Audience analytics"
+    },
+    "mc": {
+      "name": "Quantcast MC",
+      "category": "advertising",
+      "vendor": "Quantcast",
+      "description": "Quantcast measurement cookie",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Track ad performance"
+    },
+    "_pinterest_sess": {
+      "name": "Pinterest Session",
+      "category": "authentication",
+      "vendor": "Pinterest",
+      "description": "Pinterest session identifier",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Maintain Pinterest session"
+    },
+    "_pinterest_ct_ua": {
+      "name": "Pinterest Conversion Tag",
+      "category": "advertising",
+      "vendor": "Pinterest",
+      "description": "Pinterest conversion tracking",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Track conversions"
+    },
+    "_pin_unauth": {
+      "name": "Pinterest Unauth",
+      "category": "tracking",
+      "vendor": "Pinterest",
+      "description": "Pinterest unauthenticated user tracking",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track logged-out users"
+    },
+    "li_sugr": {
+      "name": "LinkedIn Sugar",
+      "category": "functional",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn browser identifier",
+      "expiration": "90 days",
+      "privacy": "medium",
+      "purpose": "Browser identification"
+    },
+    "li_at": {
+      "name": "LinkedIn Auth Token",
+      "category": "authentication",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn authentication token",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "User authentication"
+    },
+    "lidc": {
+      "name": "LinkedIn Data Center",
+      "category": "functional",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn data center routing",
+      "expiration": "1 day",
+      "privacy": "low",
+      "purpose": "Route to nearest datacenter"
+    },
+    "bcookie": {
+      "name": "LinkedIn Browser Cookie",
+      "category": "functional",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn browser ID cookie",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Browser identification"
+    },
+    "bscookie": {
+      "name": "LinkedIn Secure Browser",
+      "category": "security",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn secure browser cookie",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Secure browser verification"
+    },
+    "UserMatchHistory": {
+      "name": "LinkedIn Match History",
+      "category": "advertising",
+      "vendor": "LinkedIn",
+      "description": "LinkedIn Ads ID syncing",
+      "expiration": "30 days",
+      "privacy": "high",
+      "purpose": "Sync advertising IDs"
+    },
+    "lang": {
+      "name": "Language Preference",
+      "category": "preferences",
+      "vendor": "Various",
+      "description": "User language preference",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Store language choice"
+    },
+    "i18next": {
+      "name": "i18next Language",
+      "category": "preferences",
+      "vendor": "i18next",
+      "description": "i18next internationalization preference",
+      "expiration": "Persistent",
+      "privacy": "low",
+      "purpose": "Store language preference"
+    },
+    "TiPMix": {
+      "name": "TikTok Pixel Mix",
+      "category": "advertising",
+      "vendor": "TikTok",
+      "description": "TikTok Pixel tracking",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Track ad interactions"
+    },
+    "tt_csrf_token": {
+      "name": "TikTok CSRF",
+      "category": "security",
+      "vendor": "TikTok",
+      "description": "TikTok CSRF protection",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "CSRF protection"
+    },
+    "tt_chain_token": {
+      "name": "TikTok Chain Token",
+      "category": "authentication",
+      "vendor": "TikTok",
+      "description": "TikTok authentication chain",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Authentication flow"
+    },
+    "_ttp": {
+      "name": "TikTok Tracking Pixel",
+      "category": "advertising",
+      "vendor": "TikTok",
+      "description": "TikTok tracking pixel identifier",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Track user behavior for ads"
+    },
+    "_gcl_": {
+      "name": "Google Click",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google click identifier (various types)",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Track various click types"
+    },
+    "1P_JAR": {
+      "name": "Google JAR",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google advertising cookie",
+      "expiration": "1 month",
+      "privacy": "medium",
+      "purpose": "Collect website statistics"
+    },
+    "DV": {
+      "name": "Google DV",
+      "category": "functional",
+      "vendor": "Google",
+      "description": "Google data validation",
+      "expiration": "7 minutes",
+      "privacy": "low",
+      "purpose": "Validate data"
+    },
+    "OTZ": {
+      "name": "Google OTZ",
+      "category": "functional",
+      "vendor": "Google",
+      "description": "Google aggregate analytics",
+      "expiration": "1 month",
+      "privacy": "medium",
+      "purpose": "Aggregate user data"
+    },
+    "ANID": {
+      "name": "Google ANID",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google advertising ID",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Deliver targeted ads"
+    },
+    "SIDCC": {
+      "name": "Google Security Cookie",
+      "category": "security",
+      "vendor": "Google",
+      "description": "Google security cookie for session",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Security validation"
+    },
+    "__Secure-3PSIDCC": {
+      "name": "Google Secure 3P SIDCC",
+      "category": "security",
+      "vendor": "Google",
+      "description": "Google secure third-party session security",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Third-party security validation"
+    },
+    "UULE": {
+      "name": "Google Location",
+      "category": "functional",
+      "vendor": "Google",
+      "description": "Google encoded location",
+      "expiration": "6 hours",
+      "privacy": "medium",
+      "purpose": "Location-based services"
+    },
+    "dpr": {
+      "name": "Device Pixel Ratio",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "Device pixel ratio for responsive design",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Optimize image delivery"
+    },
+    "viewport-width": {
+      "name": "Viewport Width",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "Browser viewport width",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Responsive design"
+    },
+    "width": {
+      "name": "Screen Width",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "Screen width for optimization",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "Optimize content display"
+    },
+    "_scid": {
+      "name": "Snapchat ID",
+      "category": "advertising",
+      "vendor": "Snapchat",
+      "description": "Snapchat tracking cookie",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Track ad performance"
+    },
+    "_sctr": {
+      "name": "Snapchat Tracker",
+      "category": "advertising",
+      "vendor": "Snapchat",
+      "description": "Snapchat conversion tracking",
+      "expiration": "13 months",
+      "privacy": "high",
+      "purpose": "Track conversions"
+    },
+    "sc_at": {
+      "name": "Snapchat Auth Token",
+      "category": "authentication",
+      "vendor": "Snapchat",
+      "description": "Snapchat authentication token",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "User authentication"
+    },
+    "_twitter_sess": {
+      "name": "Twitter Session",
+      "category": "authentication",
+      "vendor": "Twitter/X",
+      "description": "Twitter session identifier",
+      "expiration": "Session",
+      "privacy": "high",
+      "purpose": "Maintain Twitter session"
+    },
+    "auth_token": {
+      "name": "Twitter Auth Token",
+      "category": "authentication",
+      "vendor": "Twitter/X",
+      "description": "Twitter authentication token",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "User authentication"
+    },
+    "twid": {
+      "name": "Twitter ID",
+      "category": "authentication",
+      "vendor": "Twitter/X",
+      "description": "Twitter user identifier",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Identify logged-in user"
+    },
+    "ct0": {
+      "name": "Twitter CSRF",
+      "category": "security",
+      "vendor": "Twitter/X",
+      "description": "Twitter CSRF protection token",
+      "expiration": "Session",
+      "privacy": "low",
+      "purpose": "CSRF protection"
+    },
+    "personalization_id": {
+      "name": "Twitter Personalization",
+      "category": "advertising",
+      "vendor": "Twitter/X",
+      "description": "Twitter ad personalization",
+      "expiration": "2 years",
+      "privacy": "high",
+      "purpose": "Personalize ads"
+    },
+    "guest_id": {
+      "name": "Twitter Guest ID",
+      "category": "tracking",
+      "vendor": "Twitter/X",
+      "description": "Twitter logged-out user tracking",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Track logged-out users"
+    },
+    "AMP_TOKEN": {
+      "name": "Google AMP Token",
+      "category": "functional",
+      "vendor": "Google",
+      "description": "Google AMP client ID token",
+      "expiration": "1 hour to 1 year",
+      "privacy": "medium",
+      "purpose": "AMP analytics"
+    },
+    "_gac_": {
+      "name": "Google Ads Cookie",
+      "category": "advertising",
+      "vendor": "Google",
+      "description": "Google Ads campaign information",
+      "expiration": "90 days",
+      "privacy": "high",
+      "purpose": "Store campaign data"
+    },
+    "__utma": {
+      "name": "Google Analytics Classic A",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics Classic visitor tracking (deprecated)",
+      "expiration": "2 years",
+      "privacy": "medium",
+      "purpose": "Track unique visitors (deprecated)"
+    },
+    "__utmb": {
+      "name": "Google Analytics Classic B",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics Classic session (deprecated)",
+      "expiration": "30 minutes",
+      "privacy": "medium",
+      "purpose": "Track session (deprecated)"
+    },
+    "__utmc": {
+      "name": "Google Analytics Classic C",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics Classic session end (deprecated)",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Determine session end (deprecated)"
+    },
+    "__utmt": {
+      "name": "Google Analytics Classic T",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics Classic throttle (deprecated)",
+      "expiration": "10 minutes",
+      "privacy": "low",
+      "purpose": "Throttle requests (deprecated)"
+    },
+    "__utmz": {
+      "name": "Google Analytics Classic Z",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Analytics Classic traffic source (deprecated)",
+      "expiration": "6 months",
+      "privacy": "medium",
+      "purpose": "Store traffic source (deprecated)"
+    },
+    "_derived_epik": {
+      "name": "Pinterest Derived EPIK",
+      "category": "advertising",
+      "vendor": "Pinterest",
+      "description": "Pinterest Enhanced Match ID (derived)",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Enhanced conversion tracking"
+    },
+    "_epik": {
+      "name": "Pinterest EPIK",
+      "category": "advertising",
+      "vendor": "Pinterest",
+      "description": "Pinterest Enhanced Match ID",
+      "expiration": "1 year",
+      "privacy": "high",
+      "purpose": "Track Pinterest conversions"
+    },
+    "ab": {
+      "name": "A/B Testing",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "A/B testing bucket assignment",
+      "expiration": "Varies",
+      "privacy": "low",
+      "purpose": "Assign users to test groups"
+    },
+    "experiments": {
+      "name": "Experiments",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "Feature experiments tracking",
+      "expiration": "Varies",
+      "privacy": "low",
+      "purpose": "Track experiment participation"
+    },
+    "amplitude_id": {
+      "name": "Amplitude ID",
+      "category": "analytics",
+      "vendor": "Amplitude",
+      "description": "Amplitude analytics user ID",
+      "expiration": "10 years",
+      "privacy": "medium",
+      "purpose": "Track user analytics"
+    },
+    "amplitude_session": {
+      "name": "Amplitude Session",
+      "category": "analytics",
+      "vendor": "Amplitude",
+      "description": "Amplitude session tracking",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Track current session"
+    },
+    "_clck": {
+      "name": "Microsoft Clarity Click",
+      "category": "analytics",
+      "vendor": "Microsoft",
+      "description": "Microsoft Clarity click tracking",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track user clicks"
+    },
+    "_clsk": {
+      "name": "Microsoft Clarity Session",
+      "category": "analytics",
+      "vendor": "Microsoft",
+      "description": "Microsoft Clarity session tracking",
+      "expiration": "1 day",
+      "privacy": "medium",
+      "purpose": "Track user sessions"
+    },
+    "CLID": {
+      "name": "Microsoft Clarity ID",
+      "category": "analytics",
+      "vendor": "Microsoft",
+      "description": "Microsoft Clarity user ID",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Identify users in Clarity"
+    },
+    "SM": {
+      "name": "Clarity Session Management",
+      "category": "analytics",
+      "vendor": "Microsoft",
+      "description": "Microsoft Clarity session management",
+      "expiration": "Session",
+      "privacy": "medium",
+      "purpose": "Manage recording sessions"
+    },
+    "_gat_UA-": {
+      "name": "Google Analytics UA Throttle",
+      "category": "performance",
+      "vendor": "Google",
+      "description": "Universal Analytics property throttle",
+      "expiration": "1 minute",
+      "privacy": "low",
+      "purpose": "Rate limit specific property"
+    },
+    "AEC": {
+      "name": "Google Security AEC",
+      "category": "security",
+      "vendor": "Google",
+      "description": "Google security cookie for abuse prevention",
+      "expiration": "6 months",
+      "privacy": "medium",
+      "purpose": "Prevent abuse and ensure security"
+    },
+    "_dc_gtm_": {
+      "name": "Google Tag Manager DC",
+      "category": "analytics",
+      "vendor": "Google",
+      "description": "Google Tag Manager data collection",
+      "expiration": "1 minute",
+      "privacy": "low",
+      "purpose": "Load GTM on Floodlight containers"
+    },
+    "receive-cookie-deprecation": {
+      "name": "Cookie Deprecation Test",
+      "category": "functional",
+      "vendor": "Various",
+      "description": "Chrome cookie deprecation trial",
+      "expiration": "6 months",
+      "privacy": "low",
+      "purpose": "Test cookie deprecation impact"
+    },
+    "_tt_enable_cookie": {
+      "name": "TikTok Enable Cookie",
+      "category": "preferences",
+      "vendor": "TikTok",
+      "description": "TikTok cookie enablement flag",
+      "expiration": "13 months",
+      "privacy": "low",
+      "purpose": "Check if cookies are enabled"
+    },
+    "msToken": {
+      "name": "TikTok MS Token",
+      "category": "security",
+      "vendor": "TikTok",
+      "description": "TikTok security token",
+      "expiration": "10 days",
+      "privacy": "medium",
+      "purpose": "Security verification"
+    },
+    "ttwid": {
+      "name": "TikTok Web ID",
+      "category": "tracking",
+      "vendor": "TikTok",
+      "description": "TikTok web user identifier",
+      "expiration": "1 year",
+      "privacy": "medium",
+      "purpose": "Track web users"
     }
   }
+}

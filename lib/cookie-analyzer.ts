@@ -1,9 +1,17 @@
-import cookieData from './cookies.json';
+import cookieData from "./cookies.json";
 
 interface CookieAnalysis {
   name: string;
   type: string;
-  category: 'tracking' | 'authentication' | 'functional' | 'advertising' | 'analytics' | 'security' | 'session' | 'unknown';
+  category:
+    | "tracking"
+    | "authentication"
+    | "functional"
+    | "advertising"
+    | "analytics"
+    | "security"
+    | "session"
+    | "unknown";
   value: any;
   parsedValue?: any;
   metadata: {
@@ -26,19 +34,27 @@ interface CookieAnalysis {
   insights: string[];
 }
 
-type CookieCategory = 'tracking' | 'authentication' | 'functional' | 'advertising' | 'analytics' | 'security' | 'session' | 'unknown';
+type CookieCategory =
+  | "tracking"
+  | "authentication"
+  | "functional"
+  | "advertising"
+  | "analytics"
+  | "security"
+  | "session"
+  | "unknown";
 
 const categoryMap: Record<string, CookieCategory> = {
-  'analytics': 'analytics',
-  'advertising': 'advertising',
-  'functional': 'functional',
-  'security': 'security',
-  'authentication': 'authentication',
-  'tracking': 'tracking',
-  'session': 'session',
-  'performance': 'functional',
-  'social_media': 'tracking',
-  'preferences': 'functional'
+  analytics: "analytics",
+  advertising: "advertising",
+  functional: "functional",
+  security: "security",
+  authentication: "authentication",
+  tracking: "tracking",
+  session: "session",
+  performance: "functional",
+  social_media: "tracking",
+  preferences: "functional",
 };
 
 let cookiePatternsCache: Map<string, any> | null = null;
@@ -54,12 +70,12 @@ function loadCookiePatterns(): Map<string, any> {
   for (const [pattern, info] of Object.entries(cookies)) {
     cookiePatternsCache.set(pattern.toLowerCase(), {
       name: info.name,
-      category: categoryMap[info.category] || 'unknown',
+      category: categoryMap[info.category] || "unknown",
       vendor: info.vendor,
       description: info.description,
       expiration: info.expiration,
       privacy: info.privacy,
-      purpose: info.purpose
+      purpose: info.purpose,
     });
   }
 
@@ -76,10 +92,10 @@ function findCookieMatch(cookieName: string): any | null {
   }
 
   for (const [pattern, info] of patterns.entries()) {
-    if (pattern.endsWith('_') && lowerName.startsWith(pattern)) {
+    if (pattern.endsWith("_") && lowerName.startsWith(pattern)) {
       return info;
     }
-    if (pattern.startsWith('_') && pattern.endsWith('_') && lowerName.includes(pattern)) {
+    if (pattern.startsWith("_") && pattern.endsWith("_") && lowerName.includes(pattern)) {
       return info;
     }
     if (lowerName.startsWith(pattern) || lowerName.includes(pattern)) {
@@ -93,13 +109,13 @@ function findCookieMatch(cookieName: string): any | null {
 export function analyzeCookie(name: string, value: string, parsedValue?: any): CookieAnalysis {
   const analysis: CookieAnalysis = {
     name,
-    type: 'Unknown',
-    category: 'unknown',
+    type: "Unknown",
+    category: "unknown",
     value,
     parsedValue,
     metadata: {},
-    description: 'Unknown cookie type',
-    insights: []
+    description: "Unknown cookie type",
+    insights: [],
   };
 
   const match = findCookieMatch(name);
@@ -123,76 +139,81 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
 
   const valueToAnalyze = parsedValue || value;
 
-  if (typeof valueToAnalyze === 'object' && valueToAnalyze !== null) {
+  if (typeof valueToAnalyze === "object" && valueToAnalyze !== null) {
     analysis.parsedValue = valueToAnalyze;
 
-    if ('timestamp' in valueToAnalyze) {
-      analysis.metadata.timestamp = typeof valueToAnalyze.timestamp === 'number' 
-        ? valueToAnalyze.timestamp 
-        : Date.parse(valueToAnalyze.timestamp);
+    if ("timestamp" in valueToAnalyze) {
+      analysis.metadata.timestamp =
+        typeof valueToAnalyze.timestamp === "number"
+          ? valueToAnalyze.timestamp
+          : Date.parse(valueToAnalyze.timestamp);
       if (analysis.metadata.timestamp) {
         analysis.metadata.firstSeen = new Date(analysis.metadata.timestamp).toUTCString();
       }
     }
 
-    if ('created' in valueToAnalyze) {
-      const created = typeof valueToAnalyze.created === 'number' ? valueToAnalyze.created : Date.parse(valueToAnalyze.created);
+    if ("created" in valueToAnalyze) {
+      const created =
+        typeof valueToAnalyze.created === "number"
+          ? valueToAnalyze.created
+          : Date.parse(valueToAnalyze.created);
       if (created) {
         analysis.metadata.firstSeen = new Date(created).toUTCString();
         analysis.metadata.timestamp = created;
       }
     }
 
-    if ('time' in valueToAnalyze) {
+    if ("time" in valueToAnalyze) {
       analysis.metadata.timestamp = valueToAnalyze.time;
       analysis.metadata.lastAccess = new Date(valueToAnalyze.time).toUTCString();
     }
 
-    if ('c' in valueToAnalyze) {
+    if ("c" in valueToAnalyze) {
       analysis.metadata.timestamp = valueToAnalyze.c;
       analysis.metadata.lastAccess = new Date(valueToAnalyze.c).toUTCString();
     }
 
-    if ('userId' in valueToAnalyze) {
+    if ("userId" in valueToAnalyze) {
       analysis.metadata.userId = valueToAnalyze.userId;
     }
 
-    if ('id' in valueToAnalyze) {
-      if (name.includes('user') || name.includes('User')) {
+    if ("id" in valueToAnalyze) {
+      if (name.includes("user") || name.includes("User")) {
         analysis.metadata.userId = valueToAnalyze.id;
-      } else if (name.includes('session') || name.includes('Session')) {
+      } else if (name.includes("session") || name.includes("Session")) {
         analysis.metadata.sessionId = valueToAnalyze.id;
       }
     }
 
-    if ('sessionId' in valueToAnalyze) {
+    if ("sessionId" in valueToAnalyze) {
       analysis.metadata.sessionId = valueToAnalyze.sessionId;
     }
 
-    if ('purposes' in valueToAnalyze) {
+    if ("purposes" in valueToAnalyze) {
       analysis.metadata.purposes = valueToAnalyze.purposes;
       analysis.metadata.confirmed = valueToAnalyze.confirmed;
     }
 
-    if ('duration' in valueToAnalyze) {
+    if ("duration" in valueToAnalyze) {
       analysis.metadata.duration = valueToAnalyze.duration;
     }
 
-    if ('version' in valueToAnalyze) {
+    if ("version" in valueToAnalyze) {
       analysis.metadata.version = valueToAnalyze.version;
     }
 
-    if ('lastAccess' in valueToAnalyze) {
-      const lastAccess = typeof valueToAnalyze.lastAccess === 'number' 
-        ? valueToAnalyze.lastAccess 
-        : Date.parse(valueToAnalyze.lastAccess);
+    if ("lastAccess" in valueToAnalyze) {
+      const lastAccess =
+        typeof valueToAnalyze.lastAccess === "number"
+          ? valueToAnalyze.lastAccess
+          : Date.parse(valueToAnalyze.lastAccess);
       if (lastAccess) {
         analysis.metadata.lastAccess = new Date(lastAccess).toUTCString();
       }
     }
-  } else if (typeof valueToAnalyze === 'string') {
-    if (valueToAnalyze.startsWith('GA1.')) {
-      const parts = valueToAnalyze.split('.');
+  } else if (typeof valueToAnalyze === "string") {
+    if (valueToAnalyze.startsWith("GA1.")) {
+      const parts = valueToAnalyze.split(".");
       if (parts.length >= 3) {
         const timestamp = parseInt(parts[2], 10);
         if (timestamp) {
@@ -202,10 +223,10 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
       }
     }
 
-    if (valueToAnalyze.startsWith('GS')) {
-      const parts = valueToAnalyze.split('$');
+    if (valueToAnalyze.startsWith("GS")) {
+      const parts = valueToAnalyze.split("$");
       if (parts.length > 0) {
-        const sessionData = parts[0].replace('GS', '').split('.');
+        const sessionData = parts[0].replace("GS", "").split(".");
         if (sessionData.length >= 2) {
           const timestamp = parseInt(sessionData[1], 10);
           if (timestamp) {
@@ -216,8 +237,8 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
       }
     }
 
-    if (valueToAnalyze.startsWith('fb.')) {
-      const parts = valueToAnalyze.split('.');
+    if (valueToAnalyze.startsWith("fb.")) {
+      const parts = valueToAnalyze.split(".");
       if (parts.length >= 3) {
         const timestamp = parseInt(parts[2], 10);
         if (timestamp) {
@@ -228,8 +249,8 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
     }
   }
 
-  if (name === '__cf_bm') {
-    const parts = valueToAnalyze.split('.');
+  if (name === "__cf_bm") {
+    const parts = valueToAnalyze.split(".");
     if (parts.length >= 2) {
       try {
         const decoded = atob(parts[0]);
@@ -247,8 +268,8 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
     }
   }
 
-  if (name === '_cfuvid') {
-    if (typeof valueToAnalyze === 'string') {
+  if (name === "_cfuvid") {
+    if (typeof valueToAnalyze === "string") {
       analysis.metadata.duration = 604800000;
       if (analysis.metadata.timestamp) {
         const expiry = new Date(analysis.metadata.timestamp + 604800000);
@@ -259,10 +280,10 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
 
   if (analysis.metadata.purposes) {
     const purposes = Object.keys(analysis.metadata.purposes).filter(
-      p => analysis.metadata.purposes![p]
+      (p) => analysis.metadata.purposes![p]
     );
     if (purposes.length > 0) {
-      analysis.insights.push(`Consent purposes: ${purposes.join(', ')}`);
+      analysis.insights.push(`Consent purposes: ${purposes.join(", ")}`);
     }
   }
 
@@ -285,7 +306,10 @@ export function analyzeCookie(name: string, value: string, parsedValue?: any): C
   return analysis;
 }
 
-export function generateCookieSummary(analyses: CookieAnalysis[], domain?: string): {
+export function generateCookieSummary(
+  analyses: CookieAnalysis[],
+  domain?: string
+): {
   domain: string;
   totalCookies: number;
   categories: Record<string, number>;
@@ -301,25 +325,29 @@ export function generateCookieSummary(analyses: CookieAnalysis[], domain?: strin
   insights: string[];
 } {
   const summary = {
-    domain: domain || 'Unknown',
+    domain: domain || "Unknown",
     totalCookies: analyses.length,
     categories: {} as Record<string, number>,
     trackingServices: [] as string[],
     consentStatus: {
       hasConsent: false,
-      purposes: {} as Record<string, boolean>
+      purposes: {} as Record<string, boolean>,
     },
     sessionInfo: {} as { firstSeen?: string; lastAccess?: string },
-    insights: [] as string[]
+    insights: [] as string[],
   };
 
   const seenServices = new Set<string>();
   const timestamps: number[] = [];
 
-  analyses.forEach(analysis => {
+  analyses.forEach((analysis) => {
     summary.categories[analysis.category] = (summary.categories[analysis.category] || 0) + 1;
 
-    if (analysis.category === 'analytics' || analysis.category === 'advertising' || analysis.category === 'tracking') {
+    if (
+      analysis.category === "analytics" ||
+      analysis.category === "advertising" ||
+      analysis.category === "tracking"
+    ) {
       if (!seenServices.has(analysis.type)) {
         seenServices.add(analysis.type);
         summary.trackingServices.push(analysis.type);
@@ -341,7 +369,10 @@ export function generateCookieSummary(analyses: CookieAnalysis[], domain?: strin
 
     if (analysis.metadata.lastAccess) {
       const lastAccessTime = new Date(analysis.metadata.lastAccess).getTime();
-      if (!summary.sessionInfo.lastAccess || lastAccessTime > new Date(summary.sessionInfo.lastAccess).getTime()) {
+      if (
+        !summary.sessionInfo.lastAccess ||
+        lastAccessTime > new Date(summary.sessionInfo.lastAccess).getTime()
+      ) {
         summary.sessionInfo.lastAccess = analysis.metadata.lastAccess;
       }
     }
@@ -353,13 +384,13 @@ export function generateCookieSummary(analyses: CookieAnalysis[], domain?: strin
   }
 
   if (summary.trackingServices.length > 0) {
-    summary.insights.push(`Active tracking services: ${summary.trackingServices.join(', ')}`);
+    summary.insights.push(`Active tracking services: ${summary.trackingServices.join(", ")}`);
   }
 
   if (summary.consentStatus.hasConsent) {
     const purposes = Object.keys(summary.consentStatus.purposes || {});
     if (purposes.length > 0) {
-      summary.insights.push(`User consented to: ${purposes.join(', ')}`);
+      summary.insights.push(`User consented to: ${purposes.join(", ")}`);
     }
   }
 
@@ -368,7 +399,9 @@ export function generateCookieSummary(analyses: CookieAnalysis[], domain?: strin
     const lastDate = new Date(summary.sessionInfo.lastAccess);
     const daysDiff = Math.floor((lastDate.getTime() - firstDate.getTime()) / (1000 * 60 * 60 * 24));
     if (daysDiff > 0) {
-      summary.insights.push(`User tracked since ${firstDate.toLocaleDateString()} (${daysDiff} days)`);
+      summary.insights.push(
+        `User tracked since ${firstDate.toLocaleDateString()} (${daysDiff} days)`
+      );
     }
   }
 

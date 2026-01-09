@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 
 interface MapProps {
   latitude: number;
@@ -10,7 +10,7 @@ interface MapProps {
   className?: string;
 }
 
-export function Map({ latitude, longitude, city, country, className = '' }: MapProps) {
+export function Map({ latitude, longitude, city, country, className = "" }: MapProps) {
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapInstanceRef = useRef<any>(null);
@@ -27,17 +27,17 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
 
       const existingLink = document.querySelector('link[href*="leaflet.css"]');
       if (!existingLink) {
-        const link = document.createElement('link');
-        link.rel = 'stylesheet';
-        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-        link.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-        link.crossOrigin = '';
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css";
+        link.integrity = "sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=";
+        link.crossOrigin = "";
         document.head.appendChild(link);
       }
 
       const existingScript = document.querySelector('script[src*="leaflet.js"]');
       if (existingScript) {
-        existingScript.addEventListener('load', () => {
+        existingScript.addEventListener("load", () => {
           setTimeout(() => initializeMap(), 100);
         });
         if ((window as any).L) {
@@ -46,15 +46,15 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
         return;
       }
 
-      const script = document.createElement('script');
-      script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
-      script.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
-      script.crossOrigin = '';
+      const script = document.createElement("script");
+      script.src = "https://unpkg.com/leaflet@1.9.4/dist/leaflet.js";
+      script.integrity = "sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=";
+      script.crossOrigin = "";
       script.onload = () => {
         setTimeout(() => initializeMap(), 100);
       };
       script.onerror = () => {
-        console.error('Failed to load Leaflet');
+        console.error("Failed to load Leaflet");
         setMapLoaded(false);
       };
       document.body.appendChild(script);
@@ -63,7 +63,7 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
     const initializeMap = () => {
       const L = (window as any).L;
       if (!L || !mapRef.current) {
-        console.error('Leaflet not loaded or map ref missing');
+        console.error("Leaflet not loaded or map ref missing");
         return;
       }
 
@@ -83,29 +83,29 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
           doubleClickZoom: false,
           scrollWheelZoom: false,
           boxZoom: false,
-          keyboard: false
+          keyboard: false,
         }).setView([latitude, longitude], 10);
 
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
-          className: 'map-tiles-green'
+          className: "map-tiles-green",
         }).addTo(map);
 
         L.marker([latitude, longitude], {
           icon: L.divIcon({
-            className: 'custom-marker',
+            className: "custom-marker",
             html: '<div style="width: 20px; height: 20px; background: #00ff00; border: 2px solid #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00;"></div>',
             iconSize: [20, 20],
-            iconAnchor: [10, 10]
-          })
+            iconAnchor: [10, 10],
+          }),
         }).addTo(map);
 
         mapInstanceRef.current = map;
         setMapLoaded(true);
 
-        if (!document.getElementById('leaflet-green-style')) {
-          const style = document.createElement('style');
-          style.id = 'leaflet-green-style';
+        if (!document.getElementById("leaflet-green-style")) {
+          const style = document.createElement("style");
+          style.id = "leaflet-green-style";
           style.textContent = `
             .map-tiles-green {
               filter: hue-rotate(120deg) saturate(0.5) brightness(0.8) contrast(1.2);
@@ -126,7 +126,7 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
           document.head.appendChild(style);
         }
       } catch (error) {
-        console.error('Error initializing map:', error);
+        console.error("Error initializing map:", error);
         setMapLoaded(false);
       }
     };
@@ -141,7 +141,7 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
         try {
           mapInstanceRef.current.remove();
         } catch (e) {
-          console.error('Error removing map:', e);
+          console.error("Error removing map:", e);
         }
         mapInstanceRef.current = null;
       }
@@ -150,7 +150,9 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
 
   if (!latitude || !longitude) {
     return (
-      <div className={`w-full h-64 bg-black border-2 border-green-500 rounded-lg flex items-center justify-center ${className}`}>
+      <div
+        className={`w-full h-64 bg-black border-2 border-green-500 rounded-lg flex items-center justify-center ${className}`}
+      >
         <p className="text-green-500 font-mono">No location data available</p>
       </div>
     );
@@ -163,10 +165,10 @@ export function Map({ latitude, longitude, city, country, className = '' }: MapP
           <p className="text-green-500 font-mono animate-pulse">Loading map...</p>
         </div>
       )}
-      <div 
-        ref={mapRef} 
+      <div
+        ref={mapRef}
         className="w-full h-64 rounded-lg border-2 border-green-500 shadow-[0_0_20px_rgba(0,255,0,0.3)] pointer-events-none"
-        style={{ background: '#000000', minHeight: '256px', zIndex: 1 }}
+        style={{ background: "#000000", minHeight: "256px", zIndex: 1 }}
       />
       {(city || country) && (
         <div className="absolute top-2 left-2 bg-black/90 border border-green-500 px-3 py-1 rounded font-mono text-green-500 text-sm z-[1000]">

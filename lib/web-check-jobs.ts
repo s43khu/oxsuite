@@ -20,8 +20,8 @@ import {
   analyzeCookies,
   checkVulnerabilityIndicators,
   calculateSecurityScore,
-  generateRecommendations
-} from './web-check-utils';
+  generateRecommendations,
+} from "./web-check-utils";
 import {
   getIPAddress,
   getGeolocation,
@@ -40,12 +40,12 @@ import {
   checkTLSSecurityConfig,
   checkTLSClientSupport,
   checkFeatures,
-  checkCarbon
-} from './web-check-enhanced';
+  checkCarbon,
+} from "./web-check-enhanced";
 
 export interface JobResult {
   name: string;
-  status: 'success' | 'error' | 'skipped';
+  status: "success" | "error" | "skipped";
   duration: number;
   data?: any;
   error?: string;
@@ -257,12 +257,12 @@ async function runJob<T = any>(
   skipCondition?: () => boolean
 ): Promise<JobResult> {
   const startTime = Date.now();
-  
+
   if (skipCondition && skipCondition()) {
     return {
       name,
-      status: 'skipped',
-      duration: Date.now() - startTime
+      status: "skipped",
+      duration: Date.now() - startTime,
     };
   }
 
@@ -270,16 +270,16 @@ async function runJob<T = any>(
     const data = await fn();
     return {
       name,
-      status: 'success',
+      status: "success",
       duration: Date.now() - startTime,
-      data
+      data,
     };
   } catch (error: any) {
     return {
       name,
-      status: 'error',
+      status: "error",
       duration: Date.now() - startTime,
-      error: error.message || 'Unknown error'
+      error: error.message || "Unknown error",
     };
   }
 }
@@ -288,24 +288,24 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
   const urlObj = new URL(url);
   const baseUrl = `${urlObj.protocol}//${urlObj.hostname}`;
   const domain = urlObj.hostname;
-  
-  const results: WebCheckJobsResult['results'] = {};
+
+  const results: WebCheckJobsResult["results"] = {};
   const jobs: JobResult[] = [];
 
   const jobFunctions = [
     {
-      name: 'get-ip',
+      name: "get-ip",
       fn: async () => {
         const ip = await getIPAddress(domain);
         results.ip = ip;
         return { ip };
-      }
+      },
     },
     {
-      name: 'location',
+      name: "location",
       fn: async () => {
-        const ip = results.ip || await getIPAddress(domain);
-        if (!ip || ip === 'Unknown') {
+        const ip = results.ip || (await getIPAddress(domain));
+        if (!ip || ip === "Unknown") {
           return null;
         }
         const location = await getGeolocation(ip);
@@ -313,30 +313,30 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
           results.location = location;
         }
         return location || null;
-      }
+      },
     },
     {
-      name: 'ssl',
+      name: "ssl",
       fn: async () => {
         const ssl = await getSSLInfo(domain);
         if (ssl) {
           results.ssl = ssl;
         }
         return ssl || null;
-      }
+      },
     },
     {
-      name: 'domain',
+      name: "domain",
       fn: async () => {
         const domainInfo = await getDomainInfo(domain);
         if (domainInfo) {
           results.domain = domainInfo;
         }
         return domainInfo || null;
-      }
+      },
     },
     {
-      name: 'quality',
+      name: "quality",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
@@ -347,10 +347,10 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const quality = await checkQuality(url, html, headers);
         results.quality = quality;
         return quality;
-      }
+      },
     },
     {
-      name: 'tech-stack',
+      name: "tech-stack",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
@@ -360,10 +360,10 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         });
         const technologies = detectTechnologies(html, headers);
         return { technologies };
-      }
+      },
     },
     {
-      name: 'server-info',
+      name: "server-info",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const headers: Record<string, string> = {};
@@ -371,15 +371,15 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
           headers[key] = value;
         });
         const serverInfo = {
-          server: headers['server'] || 'Unknown',
-          poweredBy: headers['x-powered-by'] || undefined
+          server: headers["server"] || "Unknown",
+          poweredBy: headers["x-powered-by"] || undefined,
         };
         results.serverInfo = serverInfo;
         return serverInfo;
-      }
+      },
     },
     {
-      name: 'cookies',
+      name: "cookies",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const headers: Record<string, string> = {};
@@ -389,10 +389,10 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const cookies = analyzeCookies(headers);
         results.cookies = cookies;
         return cookies;
-      }
+      },
     },
     {
-      name: 'headers',
+      name: "headers",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const headers: Record<string, string> = {};
@@ -401,26 +401,26 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         });
         results.headers = headers;
         return headers;
-      }
+      },
     },
     {
-      name: 'dns',
+      name: "dns",
       fn: async () => {
         const dns = await getDNSRecords(domain);
         results.dns = dns;
         return dns;
-      }
+      },
     },
     {
-      name: 'hosts',
+      name: "hosts",
       fn: async () => {
         const hosts: string[] = [domain];
         results.hosts = hosts;
         return hosts;
-      }
+      },
     },
     {
-      name: 'http-security',
+      name: "http-security",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const headers: Record<string, string> = {};
@@ -433,14 +433,14 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
           strictTransportSecurity: security.hasHsts || false,
           xContentTypeOptions: security.hasContentTypeOptions || false,
           xFrameOptions: security.hasXFrameOptions || false,
-          xXssProtection: security.hasXssProtection || false
+          xXssProtection: security.hasXssProtection || false,
         };
         results.httpSecurity = httpSecurity;
         return httpSecurity;
-      }
+      },
     },
     {
-      name: 'social-tags',
+      name: "social-tags",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
@@ -450,38 +450,38 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
           keywords: metadata.keywords,
           canonicalUrl: url,
           author: metadata.author,
-          banner: metadata.ogTags?.image
+          banner: metadata.ogTags?.image,
         };
         results.socialTags = socialTags;
         return socialTags;
-      }
+      },
     },
     {
-      name: 'trace-route',
+      name: "trace-route",
       fn: async () => {
         const traceRoute = await checkTraceRoute(domain);
         results.traceRoute = traceRoute;
         return traceRoute;
-      }
+      },
     },
     {
-      name: 'security-txt',
+      name: "security-txt",
       fn: async () => {
         const securityTxt = await checkSecurityTxt(baseUrl);
         results.securityTxt = securityTxt;
         return securityTxt;
-      }
+      },
     },
     {
-      name: 'dns-server',
+      name: "dns-server",
       fn: async () => {
         const dnsServer = await getDNSServerInfo(domain);
         results.dnsServer = dnsServer;
         return dnsServer;
-      }
+      },
     },
     {
-      name: 'firewall',
+      name: "firewall",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const headers: Record<string, string> = {};
@@ -491,118 +491,118 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const cdn = detectCDN(headers);
         const firewall = {
           detected: cdn.detected,
-          provider: cdn.provider
+          provider: cdn.provider,
         };
         results.firewall = firewall;
         return firewall;
-      }
+      },
     },
     {
-      name: 'dnssec',
+      name: "dnssec",
       fn: async () => {
         const dnssec = {
           dnskey: false,
           ds: false,
-          rrsig: false
+          rrsig: false,
         };
         results.dnssec = dnssec;
         return dnssec;
-      }
+      },
     },
     {
-      name: 'hsts',
+      name: "hsts",
       fn: async () => {
         const response = await fetchWithTimeout(url);
-        const hstsHeader = response.headers.get('strict-transport-security');
+        const hstsHeader = response.headers.get("strict-transport-security");
         const hsts = {
           enabled: !!hstsHeader,
-          preload: hstsHeader?.includes('preload') || false
+          preload: hstsHeader?.includes("preload") || false,
         };
         results.hsts = hsts;
         return hsts;
-      }
+      },
     },
     {
-      name: 'threats',
+      name: "threats",
       fn: async () => {
         const threats = await checkThreats(url);
         results.threats = threats;
         return threats;
-      }
+      },
     },
     {
-      name: 'mail-config',
+      name: "mail-config",
       fn: async () => {
         const mailConfig = await checkMailConfig(domain);
         results.mailConfig = mailConfig;
         return mailConfig;
-      }
+      },
     },
     {
-      name: 'archives',
+      name: "archives",
       fn: async () => {
         const archives = await getArchiveInfo(url);
         if (archives) {
           results.archives = archives;
         }
         return archives || null;
-      }
+      },
     },
     {
-      name: 'rank',
+      name: "rank",
       fn: async () => {
         const rank = await checkRank(domain);
         results.rank = rank;
         return rank;
-      }
+      },
     },
     {
-      name: 'screenshot',
+      name: "screenshot",
       fn: async () => {
         const screenshot = await getScreenshot(url);
         results.screenshot = screenshot;
         return screenshot;
-      }
+      },
     },
     {
-      name: 'tls-cipher-suites',
+      name: "tls-cipher-suites",
       fn: async () => {
         const tlsCipherSuites = await checkTLSCipherSuites(domain);
         results.tlsCipherSuites = tlsCipherSuites;
         return tlsCipherSuites;
-      }
+      },
     },
     {
-      name: 'tls-security-config',
+      name: "tls-security-config",
       fn: async () => {
         const tlsSecurityConfig = await checkTLSSecurityConfig(domain);
         results.tlsSecurityConfig = tlsSecurityConfig;
         return tlsSecurityConfig;
-      }
+      },
     },
     {
-      name: 'tls-client-support',
+      name: "tls-client-support",
       fn: async () => {
         const tlsClientSupport = await checkTLSClientSupport(domain);
         results.tlsClientSupport = tlsClientSupport;
         return tlsClientSupport;
-      }
+      },
     },
     {
-      name: 'redirects',
+      name: "redirects",
       fn: async () => {
         let redirectCount = 0;
         let currentUrl = url;
         const chain: string[] = [url];
-        
+
         try {
           const response = await fetch(currentUrl, {
-            redirect: 'manual',
-            method: 'HEAD'
+            redirect: "manual",
+            method: "HEAD",
           });
-          
+
           if (response.status >= 300 && response.status < 400) {
-            const location = response.headers.get('location');
+            const location = response.headers.get("location");
             if (location) {
               redirectCount++;
               chain.push(location);
@@ -611,17 +611,17 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         } catch {
           // Ignore errors
         }
-        
+
         const redirects = {
           count: redirectCount,
-          chain
+          chain,
         };
         results.redirects = redirects;
         return redirects;
-      }
+      },
     },
     {
-      name: 'linked-pages',
+      name: "linked-pages",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
@@ -629,18 +629,18 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const linkedPages = links.internal.slice(0, 50);
         results.linkedPages = linkedPages;
         return linkedPages;
-      }
+      },
     },
     {
-      name: 'robots-txt',
+      name: "robots-txt",
       fn: async () => {
         const robotsTxt = await checkRobotsTxt(baseUrl);
         results.robotsTxt = robotsTxt;
         return robotsTxt;
-      }
+      },
     },
     {
-      name: 'status',
+      name: "status",
       fn: async () => {
         const startTime = Date.now();
         const response = await fetchWithTimeout(url);
@@ -648,60 +648,60 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const status = {
           isUp: response.ok,
           statusCode: response.status,
-          responseTime
+          responseTime,
         };
         results.status = status;
         return status;
-      }
+      },
     },
     {
-      name: 'ports',
+      name: "ports",
       fn: async () => {
         // NOTE: Port scanning from browser/server is limited
         // Common ports check would require external service
         const ports = {
           open: [80, 443],
-          closed: [20, 21, 22, 23, 25, 53, 110, 143, 3306, 3389, 8080]
+          closed: [20, 21, 22, 23, 25, 53, 110, 143, 3306, 3389, 8080],
         };
         results.ports = ports;
         return ports;
-      }
+      },
     },
     {
-      name: 'txt-records',
+      name: "txt-records",
       fn: async () => {
         const txtRecords: Array<{ name: string; value: string }> = [];
         results.txtRecords = txtRecords;
         return txtRecords;
-      }
+      },
     },
     {
-      name: 'block-lists',
+      name: "block-lists",
       fn: async () => {
         const blockLists: Record<string, boolean> = {
-          'AdGuard': false,
-          'AdGuard Family': false,
-          'CleanBrowsing Adult': false,
-          'CleanBrowsing Family': false,
-          'CleanBrowsing Security': false,
-          'CloudFlare': false,
-          'CloudFlare Family': false,
-          'Comodo Secure': false,
-          'Google DNS': false,
-          'Neustar Family': false,
-          'Neustar Protection': false,
-          'Norton Family': false,
-          'OpenDNS': false,
-          'OpenDNS Family': false,
-          'Quad9': false,
-          'Yandex Family': false
+          AdGuard: false,
+          "AdGuard Family": false,
+          "CleanBrowsing Adult": false,
+          "CleanBrowsing Family": false,
+          "CleanBrowsing Security": false,
+          CloudFlare: false,
+          "CloudFlare Family": false,
+          "Comodo Secure": false,
+          "Google DNS": false,
+          "Neustar Family": false,
+          "Neustar Protection": false,
+          "Norton Family": false,
+          OpenDNS: false,
+          "OpenDNS Family": false,
+          Quad9: false,
+          "Yandex Family": false,
         };
         results.blockLists = blockLists;
         return blockLists;
-      }
+      },
     },
     {
-      name: 'features',
+      name: "features",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
@@ -712,62 +712,61 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
         const features = await checkFeatures(url, html, headers);
         results.features = features;
         return features;
-      }
+      },
     },
     {
-      name: 'sitemap',
+      name: "sitemap",
       fn: async () => {
         try {
           const response = await fetchWithTimeout(`${baseUrl}/sitemap.xml`, 5000);
           if (response.ok) {
             const text = await response.text();
             const urlMatches = text.match(/<loc>([^<]+)<\/loc>/g) || [];
-            const urls = urlMatches.map(match => match.replace(/<\/?loc>/g, ''));
+            const urls = urlMatches.map((match) => match.replace(/<\/?loc>/g, ""));
             const sitemap = {
               exists: true,
-              urls: urls.slice(0, 100)
+              urls: urls.slice(0, 100),
             };
             results.sitemap = sitemap;
             return sitemap;
           }
-          throw new Error('Sitemap not found');
+          throw new Error("Sitemap not found");
         } catch {
           const sitemap = {
             exists: false,
-            urls: []
+            urls: [],
           };
           results.sitemap = sitemap;
           return sitemap;
         }
-      }
+      },
     },
     {
-      name: 'carbon',
+      name: "carbon",
       fn: async () => {
         const response = await fetchWithTimeout(url);
         const html = await response.text();
         const carbon = await checkCarbon(url, html);
         results.carbon = carbon;
         return carbon;
-      }
-    }
+      },
+    },
   ];
 
-  const jobPromises = jobFunctions.map((job: any) => 
+  const jobPromises = jobFunctions.map((job: any) =>
     runJob<any>(job.name, job.fn, job.skipCondition)
   );
 
   const jobResults = await Promise.all(jobPromises);
   jobs.push(...jobResults);
 
-  const successfulJobs = jobResults.filter(j => j.status === 'success').length;
-  const failedJobs = jobResults.filter(j => j.status === 'error').length;
-  const skippedJobs = jobResults.filter(j => j.status === 'skipped').length;
+  const successfulJobs = jobResults.filter((j) => j.status === "success").length;
+  const failedJobs = jobResults.filter((j) => j.status === "error").length;
+  const skippedJobs = jobResults.filter((j) => j.status === "skipped").length;
   const totalTime = jobResults.reduce((sum, j) => sum + j.duration, 0);
 
   return {
     jobs,
-    results
+    results,
   };
 }
-

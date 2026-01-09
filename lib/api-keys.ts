@@ -6,11 +6,11 @@ const VALID_API_KEYS = new Set<string>();
 
 // NOTE: Load valid keys from environment or initialize with a default key for development
 if (process.env.API_KEYS) {
-  const keys = process.env.API_KEYS.split(',').map(k => k.trim());
-  keys.forEach(key => VALID_API_KEYS.add(key));
+  const keys = process.env.API_KEYS.split(",").map((k) => k.trim());
+  keys.forEach((key) => VALID_API_KEYS.add(key));
 } else {
   // HACK: Default development key - remove in production
-  VALID_API_KEYS.add('dev-key-12345');
+  VALID_API_KEYS.add("dev-key-12345");
 }
 
 export function isValidApiKey(key: string | null | undefined): boolean {
@@ -29,4 +29,3 @@ export function removeApiKey(key: string): void {
 export function getAllApiKeys(): string[] {
   return Array.from(VALID_API_KEYS);
 }
-
