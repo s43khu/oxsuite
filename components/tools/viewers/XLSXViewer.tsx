@@ -6,6 +6,8 @@ import * as XLSX from "xlsx";
 import { FileSpreadsheet, Download, Sheet, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface SheetData {
   name: string;
@@ -18,6 +20,7 @@ interface XLSXViewerProps {
 }
 
 export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
+  const { theme } = useTheme();
   const [workbook, setWorkbook] = useState<XLSX.WorkBook | null>(null);
   const [sheets, setSheets] = useState<SheetData[]>([]);
   const [activeSheetIndex, setActiveSheetIndex] = useState(0);
@@ -92,12 +95,17 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
       <Card variant="hacker" className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <FileSpreadsheet className="w-6 h-6 text-green-500" />
+            <FileSpreadsheet className="w-6 h-6" style={{ color: theme.colors.primary }} />
             <div>
-              <h3 className="text-lg font-semibold text-green-500 smooch-sans font-effect-anaglyph">
+              <h3
+                className="text-lg font-semibold smooch-sans font-effect-anaglyph"
+                style={{ color: theme.colors.primary }}
+              >
                 Excel File Viewer
               </h3>
-              <p className="text-sm text-green-500/70 font-mono">{file.name}</p>
+              <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                {file.name}
+              </p>
             </div>
           </div>
           <div className="flex gap-2">
@@ -157,24 +165,34 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
           {currentSheet && (
             <Card variant="hacker" className="p-6">
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-xl font-semibold text-green-500 smooch-sans font-effect-anaglyph">
+                <h2
+                  className="text-xl font-semibold smooch-sans font-effect-anaglyph"
+                  style={{ color: theme.colors.primary }}
+                >
                   Sheet: {currentSheet.name}
                 </h2>
-                <p className="text-sm text-green-500/70 font-mono">
+                <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                   {maxRows} rows × {maxCols} columns
                 </p>
               </div>
 
-              <div className="overflow-x-auto border border-green-500/30 rounded">
+              <div
+                className="overflow-x-auto border rounded"
+                style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+              >
                 <div className="min-w-full">
                   <table className="w-full border-collapse">
                     <thead>
                       {currentSheet.data[0] && (
-                        <tr className="bg-green-500/10">
+                        <tr style={{ backgroundColor: hexToRgba(theme.colors.primary, 0.1) }}>
                           {currentSheet.data[0].map((header, colIndex) => (
                             <th
                               key={colIndex}
-                              className="px-4 py-3 text-left text-sm font-semibold text-green-500 border-b border-green-500/30 font-mono"
+                              className="px-4 py-3 text-left text-sm font-semibold border-b font-mono"
+                              style={{
+                                color: theme.colors.primary,
+                                borderColor: hexToRgba(theme.colors.primary, 0.3),
+                              }}
                             >
                               {String(header || `Column ${colIndex + 1}`)}
                             </th>
@@ -186,12 +204,22 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
                       {currentSheet.data.slice(1).map((row, rowIndex) => (
                         <tr
                           key={rowIndex}
-                          className="border-b border-green-500/10 hover:bg-green-500/5 transition-colors"
+                          className="border-b transition-colors"
+                          style={{
+                            borderColor: hexToRgba(theme.colors.primary, 0.1),
+                          }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.05);
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.backgroundColor = "transparent";
+                          }}
                         >
                           {row.map((cell, colIndex) => (
                             <td
                               key={colIndex}
-                              className="px-4 py-2 text-sm text-green-500/80 font-mono"
+                              className="px-4 py-2 text-sm font-mono"
+                              style={{ color: theme.colors.foreground, opacity: 0.8 }}
                             >
                               {String(cell || "")}
                             </td>
@@ -205,7 +233,9 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
 
               {currentSheet.data.length === 0 && (
                 <div className="text-center py-12">
-                  <p className="text-green-500/70 font-mono">No data in this sheet</p>
+                  <p className="font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    No data in this sheet
+                  </p>
                 </div>
               )}
             </Card>

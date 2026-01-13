@@ -17,6 +17,7 @@ import {
   File,
 } from "lucide-react";
 import ToolCard from "./ToolCard";
+import { useTheme } from "@/components/ui/ThemeProvider";
 
 const tools = [
   {
@@ -112,6 +113,7 @@ const tools = [
 
 export default function ToolsDashboard() {
   const cardsRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (cardsRef.current) {
@@ -127,10 +129,16 @@ export default function ToolsDashboard() {
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="text-center mb-12">
-        <h1 className="text-5xl font-bold text-green-500 smooch-sans font-effect-anaglyph tracking-wider mb-4">
+        <h1
+          className="text-5xl font-bold smooch-sans font-effect-anaglyph tracking-wider mb-4"
+          style={{ color: theme.colors.primary }}
+        >
           OXsuite Tools
         </h1>
-        <p className="text-lg text-green-500/70 font-mono max-w-2xl mx-auto">
+        <p
+          className="text-lg font-mono max-w-2xl mx-auto"
+          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+        >
           {">"} Professional tools for daily use. Choose a tool to get started or explore what's
           coming soon.
         </p>

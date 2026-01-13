@@ -15,6 +15,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface JWTPayload {
   header: any;
@@ -25,6 +27,7 @@ interface JWTPayload {
 }
 
 export default function JWTViewer() {
+  const { theme } = useTheme();
   const [jwtInput, setJwtInput] = useState("");
   const [decodedJWT, setDecodedJWT] = useState<JWTPayload | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -235,8 +238,8 @@ export default function JWTViewer() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <Key className="w-8 h-8 text-green-500" />
-          <h2 className="text-3xl font-bold text-green-500 smooch-sans font-effect-anaglyph">
+          <Key className="w-8 h-8" style={{ color: theme.colors.primary }} />
+          <h2 className="text-3xl font-bold smooch-sans font-effect-anaglyph" style={{ color: theme.colors.primary }}>
             JWT Viewer
           </h2>
         </div>
@@ -260,12 +263,12 @@ export default function JWTViewer() {
               Open JWT File
             </Button>
             {fileName && (
-              <div className="flex items-center gap-2 text-sm text-green-500/70 font-mono">
+              <div className="flex items-center gap-2 text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                 <File className="w-4 h-4" />
                 <span>{fileName}</span>
               </div>
             )}
-            <span className="text-xs text-green-500/50 font-mono">(Max 5MB)</span>
+            <span className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>(Max 5MB)</span>
           </div>
           {fileError && (
             <div className="p-2 bg-red-500/10 border border-red-500 rounded text-red-400 text-sm font-mono">
@@ -275,16 +278,29 @@ export default function JWTViewer() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+          <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             JWT Token
           </label>
           <textarea
             ref={textareaRef}
             value={jwtInput}
             onChange={(e) => setJwtInput(e.target.value)}
-            className="w-full h-32 px-4 py-3 rounded-lg border-2 bg-black text-green-500 font-mono border-green-500/50 focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-green-500/30 resize-none"
+            className="w-full h-32 px-4 py-3 rounded-lg border-2 font-mono focus:outline-none focus:ring-2 resize-none"
             placeholder="Paste your JWT token here...&#10;Example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-            style={{ lineHeight: "1.25rem" }}
+            style={{
+              lineHeight: "1.25rem",
+              backgroundColor: theme.colors.background,
+              color: theme.colors.primary,
+              borderColor: hexToRgba(theme.colors.primary, 0.5),
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = theme.colors.primary;
+              e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.boxShadow = "none";
+            }}
           />
         </div>
 
@@ -361,15 +377,15 @@ export default function JWTViewer() {
           <Card variant="hacker" className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-green-500" />
-                <h3 className="text-xl font-semibold text-green-500 font-mono">Decoded JWT</h3>
+                <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
+                <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>Decoded JWT</h3>
               </div>
             </div>
 
             <div className="space-y-6">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-green-500/70 font-mono">
+                  <label className="block text-sm font-medium font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                     Header
                   </label>
                   <Button
@@ -382,8 +398,14 @@ export default function JWTViewer() {
                     Copy
                   </Button>
                 </div>
-                <div className="w-full px-4 py-3 rounded-lg border-2 bg-black border-green-500/50 overflow-auto">
-                  <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                <div
+                  className="w-full px-4 py-3 rounded-lg border-2 overflow-auto"
+                  style={{
+                    backgroundColor: theme.colors.background,
+                    borderColor: hexToRgba(theme.colors.primary, 0.5),
+                  }}
+                >
+                  <pre className="font-mono text-sm whitespace-pre-wrap" style={{ color: theme.colors.accent }}>
                     {formatJSON(decodedJWT.header)}
                   </pre>
                 </div>
@@ -391,7 +413,7 @@ export default function JWTViewer() {
 
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <label className="block text-sm font-medium text-green-500/70 font-mono">
+                  <label className="block text-sm font-medium font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                     Payload
                   </label>
                   <Button
@@ -404,19 +426,31 @@ export default function JWTViewer() {
                     Copy
                   </Button>
                 </div>
-                <div className="w-full px-4 py-3 rounded-lg border-2 bg-black border-green-500/50 overflow-auto">
-                  <pre className="text-green-400 font-mono text-sm whitespace-pre-wrap">
+                <div
+                  className="w-full px-4 py-3 rounded-lg border-2 overflow-auto"
+                  style={{
+                    backgroundColor: theme.colors.background,
+                    borderColor: hexToRgba(theme.colors.primary, 0.5),
+                  }}
+                >
+                  <pre className="font-mono text-sm whitespace-pre-wrap" style={{ color: theme.colors.accent }}>
                     {formatJSON(decodedJWT.payload)}
                   </pre>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+                <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                   Signature
                 </label>
-                <div className="w-full px-4 py-3 rounded-lg border-2 bg-black border-green-500/50 overflow-auto">
-                  <pre className="text-green-400 font-mono text-sm break-all">
+                <div
+                  className="w-full px-4 py-3 rounded-lg border-2 overflow-auto"
+                  style={{
+                    backgroundColor: theme.colors.background,
+                    borderColor: hexToRgba(theme.colors.primary, 0.5),
+                  }}
+                >
+                  <pre className="font-mono text-sm break-all" style={{ color: theme.colors.accent }}>
                     {decodedJWT.signature}
                   </pre>
                 </div>
@@ -424,42 +458,56 @@ export default function JWTViewer() {
 
               {decodedJWT.payload && (
                 <div>
-                  <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+                  <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                     Token Information
                   </label>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                     {decodedJWT.payload.iat && (
-                      <div className="p-3 bg-black/50 rounded border border-green-500/30">
-                        <div className="text-xs text-green-500/50 font-mono mb-1">Issued At</div>
-                        <div className="text-sm text-green-400 font-mono">
+                      <div
+                        className="p-3 rounded border"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          borderColor: hexToRgba(theme.colors.primary, 0.3),
+                        }}
+                      >
+                        <div className="text-xs font-mono mb-1" style={{ color: theme.colors.foreground, opacity: 0.5 }}>Issued At</div>
+                        <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
                           {formatTimestamp(decodedJWT.payload.iat)}
                         </div>
                       </div>
                     )}
                     {decodedJWT.payload.exp && (
                       <div
-                        className={`p-3 bg-black/50 rounded border ${isExpired(decodedJWT.payload.exp) ? "border-red-500/50" : "border-green-500/30"}`}
+                        className="p-3 rounded border"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          borderColor: isExpired(decodedJWT.payload.exp) ? "rgba(239, 68, 68, 0.5)" : hexToRgba(theme.colors.primary, 0.3),
+                        }}
                       >
-                        <div className="text-xs text-green-500/50 font-mono mb-1">Expires At</div>
-                        <div
-                          className={`text-sm font-mono ${isExpired(decodedJWT.payload.exp) ? "text-red-400" : "text-green-400"}`}
-                        >
+                        <div className="text-xs font-mono mb-1" style={{ color: theme.colors.foreground, opacity: 0.5 }}>Expires At</div>
+                        <div className="text-sm font-mono" style={{ color: isExpired(decodedJWT.payload.exp) ? "#f87171" : theme.colors.accent }}>
                           {formatTimestamp(decodedJWT.payload.exp)}
                           {isExpired(decodedJWT.payload.exp) && (
-                            <span className="ml-2 text-red-500">(Expired)</span>
+                            <span className="ml-2" style={{ color: "#ef4444" }}>(Expired)</span>
                           )}
                         </div>
                         {!isExpired(decodedJWT.payload.exp) && (
-                          <div className="text-xs text-green-500/70 font-mono mt-1">
+                          <div className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                             Expires in: {getTimeUntilExpiry(decodedJWT.payload.exp)}
                           </div>
                         )}
                       </div>
                     )}
                     {decodedJWT.payload.nbf && (
-                      <div className="p-3 bg-black/50 rounded border border-green-500/30">
-                        <div className="text-xs text-green-500/50 font-mono mb-1">Not Before</div>
-                        <div className="text-sm text-green-400 font-mono">
+                      <div
+                        className="p-3 rounded border"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          borderColor: hexToRgba(theme.colors.primary, 0.3),
+                        }}
+                      >
+                        <div className="text-xs font-mono mb-1" style={{ color: theme.colors.foreground, opacity: 0.5 }}>Not Before</div>
+                        <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
                           {formatTimestamp(decodedJWT.payload.nbf)}
                         </div>
                       </div>

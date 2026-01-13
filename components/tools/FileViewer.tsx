@@ -5,11 +5,13 @@ import { gsap } from "gsap";
 import { File, Upload, X, FileQuestion } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/components/ui/ThemeProvider";
 import { detectFileType, type FileType, isSupportedFileType } from "@/lib/file-type-detector";
 import XLSXViewer from "./viewers/XLSXViewer";
 import TextViewer from "./viewers/TextViewer";
 
 export default function FileViewer() {
+  const { theme } = useTheme();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileType, setFileType] = useState<FileType | null>(null);
   const [error, setError] = useState<string>("");
@@ -61,7 +63,7 @@ export default function FileViewer() {
       case "csv":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="text-green-500/70 font-mono text-center py-8">
+            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
               CSV viewer coming soon
             </p>
           </Card>
@@ -69,7 +71,7 @@ export default function FileViewer() {
       case "json":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="text-green-500/70 font-mono text-center py-8">
+            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
               JSON viewer coming soon
             </p>
           </Card>
@@ -79,7 +81,7 @@ export default function FileViewer() {
       case "pdf":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="text-green-500/70 font-mono text-center py-8">
+            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
               PDF viewer coming soon
             </p>
           </Card>
@@ -93,12 +95,15 @@ export default function FileViewer() {
     <div className="w-full max-w-7xl mx-auto p-6">
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-4">
-          <File className="w-12 h-12 text-green-500" />
-          <h1 className="text-4xl font-bold text-green-500 smooch-sans font-effect-anaglyph tracking-wider">
+          <File className="w-12 h-12" style={{ color: theme.colors.primary }} />
+          <h1
+            className="text-4xl font-bold smooch-sans font-effect-anaglyph tracking-wider"
+            style={{ color: theme.colors.primary }}
+          >
             File Viewer
           </h1>
         </div>
-        <p className="text-lg text-green-500/70 font-mono">
+        <p className="text-lg font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
           {">"} Upload and view various file types with auto-detection
         </p>
       </div>
@@ -139,18 +144,24 @@ export default function FileViewer() {
         </div>
 
         {selectedFile && (
-          <div className="mt-4 p-3 bg-green-500/10 border border-green-500/30 rounded">
+          <div
+            className="mt-4 p-3 border rounded"
+            style={{
+              backgroundColor: `${theme.colors.primary}1a`,
+              borderColor: `${theme.colors.primary}4d`,
+            }}
+          >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-green-500 font-mono">
+                <p className="text-sm font-mono" style={{ color: theme.colors.primary }}>
                   <span className="font-semibold">File:</span> {selectedFile.name}
                 </p>
-                <p className="text-xs text-green-500/70 font-mono mt-1">
+                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                   <span className="font-semibold">Type:</span>{" "}
                   {detectFileType(selectedFile).description} (Auto-detected)
                 </p>
               </div>
-              <FileQuestion className="w-5 h-5 text-green-500/50" />
+              <FileQuestion className="w-5 h-5" style={{ color: theme.colors.primary, opacity: 0.5 }} />
             </div>
           </div>
         )}
@@ -170,11 +181,11 @@ export default function FileViewer() {
 
       {!selectedFile && (
         <Card variant="hacker" className="p-12 text-center">
-          <File className="w-16 h-16 text-green-500/30 mx-auto mb-4" />
-          <p className="text-green-500/70 font-mono mb-2">
+          <File className="w-16 h-16 mx-auto mb-4" style={{ color: theme.colors.primary, opacity: 0.3 }} />
+          <p className="font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             Upload a file to get started
           </p>
-          <p className="text-sm text-green-500/50 font-mono">
+          <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
             Supported: XLSX, XLS, CSV, JSON, TXT, PDF (Auto-detected)
           </p>
         </Card>

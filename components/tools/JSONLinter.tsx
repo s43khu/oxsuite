@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface ValidationResult {
   isValid: boolean;
@@ -39,6 +41,7 @@ interface JSONViewerProps {
   collapsed?: Set<string>;
   onToggle?: (path: string) => void;
   path?: string;
+  theme?: any;
 }
 
 function JSONViewer({
@@ -47,6 +50,7 @@ function JSONViewer({
   collapsed = new Set(),
   onToggle,
   path = "",
+  theme,
 }: JSONViewerProps) {
   const indent = level * 20;
   const isCollapsed = collapsed.has(path);
@@ -70,11 +74,11 @@ function JSONViewer({
       case "number":
         return <span className="text-yellow-400">{String(value)}</span>;
       case "string":
-        return <span className="text-green-300">"{value}"</span>;
+        return <span style={{ color: theme.colors.accent }}>"{value}"</span>;
       case "object":
         if (Array.isArray(value)) {
           if (value.length === 0) {
-            return <span className="text-green-500/50">[]</span>;
+            return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>[]</span>;
           }
           const arrayPath = path ? `${path}[]` : "[]";
           const isArrayCollapsed = collapsed.has(arrayPath);
@@ -82,27 +86,35 @@ function JSONViewer({
             <span className="inline-flex items-center gap-1">
               <button
                 onClick={() => onToggle?.(arrayPath)}
-                className="flex items-center justify-center text-green-500 hover:text-green-400 transition-colors"
+                className="flex items-center justify-center transition-colors"
+                style={{ color: theme.colors.primary }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.color = theme.colors.accent;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = theme.colors.primary;
+                }}
               >
                 {isArrayCollapsed ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
               </button>
-              <span className="text-green-500/50">[</span>
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>[</span>
               {!isArrayCollapsed && (
                 <div className="ml-2 inline-block">
                   {value.map((item, index) => {
                     const itemPath = `${arrayPath}[${index}]`;
                     return (
                       <div key={index} className="flex items-start mb-1">
-                        <span className="text-green-500/50 mr-2">{index}:</span>
+                        <span style={{ color: theme.colors.foreground, opacity: 0.5 }} className="mr-2">{index}:</span>
                         <div className="flex-1">
                           {typeof item === "object" && item !== null ? (
-                            <JSONViewer
-                              data={item}
-                              level={level + 1}
-                              collapsed={collapsed}
-                              onToggle={onToggle}
-                              path={itemPath}
-                            />
+                        <JSONViewer
+                          data={item}
+                          level={level + 1}
+                          collapsed={collapsed}
+                          onToggle={onToggle}
+                          path={itemPath}
+                          theme={theme}
+                        />
                           ) : (
                             renderValue(item)
                           )}
@@ -113,20 +125,20 @@ function JSONViewer({
                 </div>
               )}
               {isArrayCollapsed && (
-                <span className="text-green-500/50">... {value.length} items</span>
+                <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>... {value.length} items</span>
               )}
-              <span className="text-green-500/50">]</span>
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>]</span>
             </span>
           );
         } else {
           const keys = Object.keys(value);
           if (keys.length === 0) {
-            return <span className="text-green-500/50">{"{}"}</span>;
+            return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{"{}"}</span>;
           }
-          return <span className="text-green-500/50">{"{...}"}</span>;
+          return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{"{...}"}</span>;
         }
       default:
-        return <span className="text-green-500/50">{String(value)}</span>;
+        return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{String(value)}</span>;
     }
   };
 
@@ -139,7 +151,14 @@ function JSONViewer({
         {hasChildren && (
           <button
             onClick={handleToggle}
-            className="flex-shrink-0 w-4 h-4 mt-0.5 mr-1 flex items-center justify-center text-green-500 hover:text-green-400 transition-colors"
+            className="flex-shrink-0 w-4 h-4 mt-0.5 mr-1 flex items-center justify-center transition-colors"
+            style={{ color: theme.colors.primary }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = theme.colors.accent;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = theme.colors.primary;
+            }}
           >
             {isCollapsed ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
           </button>
@@ -156,13 +175,22 @@ function JSONViewer({
               return (
                 <div key={key} className="mb-1 flex items-start">
                   <span className="text-red-400 font-semibold font-mono flex-shrink-0">{key}</span>
-                  <span className="text-green-500/70 mx-2">:</span>
+                  <span className="mx-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>:</span>
                   {isValueObject ? (
                     <div className="flex-1">
                       {isValueCollapsed ? (
                         <button
                           onClick={() => onToggle?.(valuePath)}
-                          className="flex items-center gap-1 text-green-500/70 hover:text-green-400 transition-colors"
+                          className="flex items-center gap-1 transition-colors"
+                          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.color = theme.colors.accent;
+                            e.currentTarget.style.opacity = "1";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.color = theme.colors.foreground;
+                            e.currentTarget.style.opacity = "0.7";
+                          }}
                         >
                           <Plus className="w-3 h-3" />
                           <span>
@@ -179,6 +207,7 @@ function JSONViewer({
                             collapsed={collapsed}
                             onToggle={onToggle}
                             path={valuePath}
+                            theme={theme}
                           />
                         </div>
                       )}
@@ -189,7 +218,7 @@ function JSONViewer({
                 </div>
               );
             })}
-          {isCollapsed && <span className="text-green-500/50">... {keys.length} keys</span>}
+          {isCollapsed && <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>... {keys.length} keys</span>}
         </div>
       </div>
     );
@@ -203,6 +232,7 @@ function JSONViewer({
 }
 
 export default function JSONLinter() {
+  const { theme } = useTheme();
   const [jsonInput, setJsonInput] = useState("");
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
   const [indentSize, setIndentSize] = useState(2);
@@ -489,21 +519,36 @@ export default function JSONLinter() {
 
     return (
       <div className="relative">
-        <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+        <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
           {label}
         </label>
-        <div className="flex border-2 border-green-500/50 rounded-lg overflow-hidden bg-black h-96">
+        <div
+          className="flex border-2 rounded-lg overflow-hidden h-96"
+          style={{
+            borderColor: hexToRgba(theme.colors.primary, 0.5),
+            backgroundColor: theme.colors.background,
+          }}
+        >
           <div
             ref={lineNumbersRef}
-            className="flex-shrink-0 px-2 py-3 bg-black/50 border-r border-green-500/30 text-green-500/50 font-mono text-sm select-none overflow-y-hidden"
-            style={{ width: `${Math.max(3, maxLineNumberLength + 1) * 0.6}rem` }}
+            className="flex-shrink-0 px-2 py-3 border-r font-mono text-sm select-none overflow-y-hidden"
+            style={{
+              width: `${Math.max(3, maxLineNumberLength + 1) * 0.6}rem`,
+              backgroundColor: hexToRgba(theme.colors.background, 0.5),
+              borderColor: hexToRgba(theme.colors.primary, 0.3),
+              color: theme.colors.foreground,
+              opacity: 0.5,
+            }}
           >
             {lineNumbers.map((num, i) => (
               <div
                 key={i}
-                className={`h-5 leading-5 text-right pr-2 ${
-                  highlightedLine === i + 1 ? "bg-red-500/30 text-red-400 font-bold" : ""
-                }`}
+                className="h-5 leading-5 text-right pr-2"
+                style={{
+                  backgroundColor: highlightedLine === i + 1 ? "rgba(239, 68, 68, 0.3)" : "transparent",
+                  color: highlightedLine === i + 1 ? "#f87171" : theme.colors.foreground,
+                  fontWeight: highlightedLine === i + 1 ? "bold" : "normal",
+                }}
               >
                 {num}
               </div>
@@ -514,9 +559,21 @@ export default function JSONLinter() {
             ref={textareaRef}
             value={value}
             onChange={onChange}
-            className="flex-1 px-4 py-3 bg-black text-green-500 font-mono focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-green-500/30 resize-none"
+            className="flex-1 px-4 py-3 font-mono focus:outline-none focus:ring-2 resize-none"
             placeholder={placeholder}
-            style={{ lineHeight: "1.25rem" }}
+            style={{
+              lineHeight: "1.25rem",
+              backgroundColor: theme.colors.background,
+              color: theme.colors.primary,
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = theme.colors.primary;
+              e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.boxShadow = "none";
+            }}
             onScroll={handleScroll}
           />
         </div>
@@ -528,8 +585,8 @@ export default function JSONLinter() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <Code className="w-8 h-8 text-green-500" />
-          <h2 className="text-3xl font-bold text-green-500 smooch-sans font-effect-anaglyph">
+          <Code className="w-8 h-8" style={{ color: theme.colors.primary }} />
+          <h2 className="text-3xl font-bold smooch-sans font-effect-anaglyph" style={{ color: theme.colors.primary }}>
             JSON Linter
           </h2>
         </div>
@@ -553,12 +610,12 @@ export default function JSONLinter() {
               Open JSON File
             </Button>
             {fileName && (
-              <div className="flex items-center gap-2 text-sm text-green-500/70 font-mono">
+              <div className="flex items-center gap-2 text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                 <File className="w-4 h-4" />
                 <span>{fileName}</span>
               </div>
             )}
-            <span className="text-xs text-green-500/50 font-mono">(Max 5MB)</span>
+            <span className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>(Max 5MB)</span>
           </div>
           {fileError && (
             <div className="p-2 bg-red-500/10 border border-red-500 rounded text-red-400 text-sm font-mono">
@@ -577,11 +634,24 @@ export default function JSONLinter() {
 
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm text-green-500/70 font-mono">Indent:</label>
+            <label className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Indent:</label>
             <select
               value={indentSize}
               onChange={(e) => setIndentSize(Number(e.target.value))}
-              className="px-3 py-1 bg-black border-2 border-green-500/50 text-green-500 font-mono rounded focus:outline-none focus:ring-2 focus:ring-green-500"
+              className="px-3 py-1 border-2 font-mono rounded focus:outline-none focus:ring-2"
+              style={{
+                backgroundColor: theme.colors.background,
+                borderColor: hexToRgba(theme.colors.primary, 0.5),
+                color: theme.colors.primary,
+              }}
+              onFocus={(e) => {
+                e.currentTarget.style.borderColor = theme.colors.primary;
+                e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+                e.currentTarget.style.boxShadow = "none";
+              }}
             >
               <option value={2}>2 spaces</option>
               <option value={4}>4 spaces</option>
@@ -595,9 +665,14 @@ export default function JSONLinter() {
               type="checkbox"
               checked={autoValidate}
               onChange={(e) => setAutoValidate(e.target.checked)}
-              className="w-4 h-4 text-green-500 bg-black border-green-500 rounded focus:ring-green-500"
+              className="w-4 h-4 rounded"
+              style={{
+                accentColor: theme.colors.primary,
+                backgroundColor: theme.colors.background,
+                borderColor: theme.colors.primary,
+              }}
             />
-            <span className="text-sm text-green-500/70 font-mono">Auto-validate</span>
+            <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Auto-validate</span>
           </label>
         </div>
 
@@ -665,8 +740,8 @@ export default function JSONLinter() {
             <div className="flex items-center gap-3 mb-4">
               {validationResult.isValid ? (
                 <>
-                  <CheckCircle className="w-6 h-6 text-green-500" />
-                  <h3 className="text-xl font-semibold text-green-500 font-mono">Valid JSON</h3>
+                  <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
+                  <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>Valid JSON</h3>
                 </>
               ) : (
                 <>
@@ -680,30 +755,48 @@ export default function JSONLinter() {
               <>
                 {validationResult.stats && (
                   <div className="grid grid-cols-3 gap-4 mb-4">
-                    <div className="text-center p-3 bg-black/50 rounded border border-green-500/30">
-                      <div className="text-2xl font-bold text-green-500 font-mono">
+                    <div
+                      className="text-center p-3 rounded border"
+                      style={{
+                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        borderColor: hexToRgba(theme.colors.primary, 0.3),
+                      }}
+                    >
+                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                         {validationResult.stats.keys}
                       </div>
-                      <div className="text-xs text-green-500/70 font-mono">Keys</div>
+                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Keys</div>
                     </div>
-                    <div className="text-center p-3 bg-black/50 rounded border border-green-500/30">
-                      <div className="text-2xl font-bold text-green-500 font-mono">
+                    <div
+                      className="text-center p-3 rounded border"
+                      style={{
+                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        borderColor: hexToRgba(theme.colors.primary, 0.3),
+                      }}
+                    >
+                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                         {validationResult.stats.depth}
                       </div>
-                      <div className="text-xs text-green-500/70 font-mono">Max Depth</div>
+                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Max Depth</div>
                     </div>
-                    <div className="text-center p-3 bg-black/50 rounded border border-green-500/30">
-                      <div className="text-2xl font-bold text-green-500 font-mono">
+                    <div
+                      className="text-center p-3 rounded border"
+                      style={{
+                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        borderColor: hexToRgba(theme.colors.primary, 0.3),
+                      }}
+                    >
+                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                         {validationResult.stats.size}
                       </div>
-                      <div className="text-xs text-green-500/70 font-mono">Size (chars)</div>
+                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Size (chars)</div>
                     </div>
                   </div>
                 )}
 
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium text-green-500/70 font-mono">
+                    <label className="block text-sm font-medium font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                       Formatted JSON Viewer
                     </label>
                     <div className="flex gap-2">
@@ -771,13 +864,20 @@ export default function JSONLinter() {
                       </Button>
                     </div>
                   </div>
-                  <div className="w-full h-96 px-4 py-3 rounded-lg border-2 bg-black border-green-500/50 overflow-auto">
+                  <div
+                    className="w-full h-96 px-4 py-3 rounded-lg border-2 overflow-auto"
+                    style={{
+                      backgroundColor: theme.colors.background,
+                      borderColor: hexToRgba(theme.colors.primary, 0.5),
+                    }}
+                  >
                     <div className="font-mono text-sm">
                       {parsedData && (
                         <JSONViewer
                           data={parsedData}
                           collapsed={collapsedPaths}
                           onToggle={handleToggleCollapse}
+                          theme={theme}
                         />
                       )}
                     </div>

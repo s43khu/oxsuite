@@ -5,6 +5,8 @@ import { gsap } from "gsap";
 import { FileText, RotateCcw, ArrowLeftRight, CheckCircle, Settings } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface DiffResult {
   original: string;
@@ -18,6 +20,7 @@ interface DiffResult {
 }
 
 export default function TextCompare() {
+  const { theme } = useTheme();
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [diffResult, setDiffResult] = useState<DiffResult | null>(null);
@@ -291,7 +294,6 @@ export default function TextCompare() {
   const renderDiffLine = (diff: DiffResult["differences"][0], index: number) => {
     const isSelected = selectedDiffIndex === index;
     const baseClass = "px-3 py-1 font-mono text-sm cursor-pointer transition-all duration-200";
-    const selectedClass = isSelected ? "ring-2 ring-green-500 ring-offset-2 ring-offset-black" : "";
 
     switch (diff.type) {
       case "equal":
@@ -299,7 +301,19 @@ export default function TextCompare() {
           <div
             key={index}
             onClick={() => handleDiffClick(diff, index)}
-            className={`${baseClass} ${selectedClass} text-green-500/70 bg-black hover:bg-green-500/5`}
+            className={baseClass}
+            style={{
+              color: theme.colors.foreground,
+              opacity: 0.7,
+              backgroundColor: theme.colors.background,
+              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.05);
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = theme.colors.background;
+            }}
           >
             {diff.value || "\u00A0"}
           </div>
@@ -309,7 +323,19 @@ export default function TextCompare() {
           <div
             key={index}
             onClick={() => handleDiffClick(diff, index)}
-            className={`${baseClass} ${selectedClass} text-red-500 bg-red-500/10 border-l-2 border-red-500 hover:bg-red-500/20`}
+            className={baseClass}
+            style={{
+              color: "#ef4444",
+              backgroundColor: "rgba(239, 68, 68, 0.1)",
+              borderLeft: "2px solid #ef4444",
+              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
+            }}
           >
             <span className="line-through">- {diff.value || "\u00A0"}</span>
           </div>
@@ -319,7 +345,19 @@ export default function TextCompare() {
           <div
             key={index}
             onClick={() => handleDiffClick(diff, index)}
-            className={`${baseClass} ${selectedClass} text-green-400 bg-green-500/10 border-l-2 border-green-500 hover:bg-green-500/20`}
+            className={baseClass}
+            style={{
+              color: theme.colors.accent,
+              backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+              borderLeft: `2px solid ${theme.colors.primary}`,
+              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.2);
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.1);
+            }}
           >
             + {diff.value || "\u00A0"}
           </div>
@@ -329,7 +367,19 @@ export default function TextCompare() {
           <div
             key={index}
             onClick={() => handleDiffClick(diff, index)}
-            className={`${baseClass} ${selectedClass} text-yellow-500 bg-yellow-500/10 border-l-2 border-yellow-500 hover:bg-yellow-500/20`}
+            className={baseClass}
+            style={{
+              color: "#eab308",
+              backgroundColor: "rgba(234, 179, 8, 0.1)",
+              borderLeft: "2px solid #eab308",
+              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(234, 179, 8, 0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "rgba(234, 179, 8, 0.1)";
+            }}
           >
             ~ {diff.value || "\u00A0"}
           </div>
@@ -376,21 +426,37 @@ export default function TextCompare() {
 
     return (
       <div className="relative">
-        <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+        <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
           {label}
         </label>
-        <div className="flex border-2 border-green-500/50 rounded-lg overflow-hidden bg-black h-64">
+        <div
+          className="flex border-2 rounded-lg overflow-hidden h-64"
+          style={{
+            borderColor: hexToRgba(theme.colors.primary, 0.5),
+            backgroundColor: theme.colors.background,
+          }}
+        >
           <div
             ref={lineNumbersRef}
-            className="flex-shrink-0 px-2 py-3 bg-black/50 border-r border-green-500/30 text-green-500/50 font-mono text-sm select-none overflow-y-hidden"
-            style={{ width: `${Math.max(3, maxLineNumberLength + 1) * 0.6}rem` }}
+            className="flex-shrink-0 px-2 py-3 border-r font-mono text-sm select-none overflow-y-hidden"
+            style={{
+              width: `${Math.max(3, maxLineNumberLength + 1) * 0.6}rem`,
+              backgroundColor: hexToRgba(theme.colors.background, 0.5),
+              borderColor: hexToRgba(theme.colors.primary, 0.3),
+              color: theme.colors.foreground,
+              opacity: 0.5,
+            }}
           >
             {lineNumbers.map((num, i) => (
               <div
                 key={i}
-                className={`h-5 leading-5 text-right pr-2 ${
-                  highlightedLine === i ? "bg-green-500/30 text-green-400 font-bold" : ""
-                }`}
+                className="h-5 leading-5 text-right pr-2"
+                style={{
+                  backgroundColor: highlightedLine === i ? hexToRgba(theme.colors.primary, 0.3) : "transparent",
+                  color: highlightedLine === i ? theme.colors.accent : theme.colors.foreground,
+                  opacity: highlightedLine === i ? 1 : 0.5,
+                  fontWeight: highlightedLine === i ? "bold" : "normal",
+                }}
               >
                 {num}
               </div>
@@ -401,9 +467,21 @@ export default function TextCompare() {
             ref={textareaRef}
             value={value}
             onChange={onChange}
-            className="flex-1 px-4 py-3 bg-black text-green-500 font-mono focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-green-500/30 resize-none"
+            className="flex-1 px-4 py-3 font-mono focus:outline-none focus:ring-2 resize-none"
             placeholder={placeholder}
-            style={{ lineHeight: "1.25rem" }}
+            style={{
+              lineHeight: "1.25rem",
+              backgroundColor: theme.colors.background,
+              color: theme.colors.primary,
+            }}
+            onFocus={(e) => {
+              e.currentTarget.style.borderColor = theme.colors.primary;
+              e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
+            }}
+            onBlur={(e) => {
+              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.boxShadow = "none";
+            }}
             onScroll={handleScroll}
           />
         </div>
@@ -425,8 +503,8 @@ export default function TextCompare() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <FileText className="w-8 h-8 text-green-500" />
-          <h2 className="text-3xl font-bold text-green-500 smooch-sans font-effect-anaglyph">
+          <FileText className="w-8 h-8" style={{ color: theme.colors.primary }} />
+          <h2 className="text-3xl font-bold smooch-sans font-effect-anaglyph" style={{ color: theme.colors.primary }}>
             Text Compare
           </h2>
         </div>
@@ -456,8 +534,10 @@ export default function TextCompare() {
 
         <Card variant="outlined" className="p-4 mb-4">
           <div className="flex items-center gap-2 mb-3">
-            <Settings className="w-5 h-5 text-green-500" />
-            <h3 className="text-lg font-semibold text-green-500 font-mono">Compare Options</h3>
+            <Settings className="w-5 h-5" style={{ color: theme.colors.primary }} />
+            <h3 className="text-lg font-semibold font-mono" style={{ color: theme.colors.primary }}>
+              Compare Options
+            </h3>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <label className="flex items-center gap-2 cursor-pointer">
@@ -465,27 +545,48 @@ export default function TextCompare() {
                 type="checkbox"
                 checked={options.toLowerCase}
                 onChange={(e) => setOptions({ ...options, toLowerCase: e.target.checked })}
-                className="w-4 h-4 text-green-500 bg-black border-green-500 rounded focus:ring-green-500"
+                className="w-4 h-4 rounded"
+                style={{
+                  accentColor: theme.colors.primary,
+                  backgroundColor: theme.colors.background,
+                  borderColor: theme.colors.primary,
+                }}
               />
-              <span className="text-sm text-green-500/70 font-mono">To lowercase</span>
+              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                To lowercase
+              </span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={options.sortLines}
                 onChange={(e) => setOptions({ ...options, sortLines: e.target.checked })}
-                className="w-4 h-4 text-green-500 bg-black border-green-500 rounded focus:ring-green-500"
+                className="w-4 h-4 rounded"
+                style={{
+                  accentColor: theme.colors.primary,
+                  backgroundColor: theme.colors.background,
+                  borderColor: theme.colors.primary,
+                }}
               />
-              <span className="text-sm text-green-500/70 font-mono">Sort lines</span>
+              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                Sort lines
+              </span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={options.replaceLineBreaks}
                 onChange={(e) => setOptions({ ...options, replaceLineBreaks: e.target.checked })}
-                className="w-4 h-4 text-green-500 bg-black border-green-500 rounded focus:ring-green-500"
+                className="w-4 h-4 rounded"
+                style={{
+                  accentColor: theme.colors.primary,
+                  backgroundColor: theme.colors.background,
+                  borderColor: theme.colors.primary,
+                }}
               />
-              <span className="text-sm text-green-500/70 font-mono">Replace line breaks</span>
+              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                Replace line breaks
+              </span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -494,9 +595,16 @@ export default function TextCompare() {
                 onChange={(e) =>
                   setOptions({ ...options, removeExcessWhitespace: e.target.checked })
                 }
-                className="w-4 h-4 text-green-500 bg-black border-green-500 rounded focus:ring-green-500"
+                className="w-4 h-4 rounded"
+                style={{
+                  accentColor: theme.colors.primary,
+                  backgroundColor: theme.colors.background,
+                  borderColor: theme.colors.primary,
+                }}
               />
-              <span className="text-sm text-green-500/70 font-mono">Remove excess whitespace</span>
+              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                Remove excess whitespace
+              </span>
             </label>
           </div>
         </Card>

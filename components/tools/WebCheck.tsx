@@ -43,8 +43,19 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { Map } from "@/components/ui/Map";
+import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 import { apiClient } from "@/lib/api-client";
 import heartbeatAnimation from "@/animations/heartbeat ECG.json";
+import {
+  SectionHeader,
+  StatusIndicator,
+  KeyValue,
+  InfoCard,
+  DNSRecordList,
+  BooleanStatusCard,
+  SimpleList,
+} from "./webcheck/WebCheckComponents";
 
 interface JobResult {
   name: string;
@@ -103,6 +114,7 @@ interface WebCheckData {
 }
 
 export default function WebCheck() {
+  const { theme } = useTheme();
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<WebCheckData | null>(null);
@@ -329,15 +341,21 @@ export default function WebCheck() {
   const techStack = getTechStack();
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6 space-y-6 min-h-screen bg-black">
+    <div
+      className="w-full max-w-7xl mx-auto p-6 space-y-6 min-h-screen"
+      style={{ backgroundColor: theme.colors.background }}
+    >
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-2">
-          <Globe className="w-12 h-12 text-green-500 animate-pulse" />
-          <h1 className="text-5xl font-bold text-green-500 smooch-sans font-effect-anaglyph tracking-wider">
+          <Globe className="w-12 h-12 animate-pulse" style={{ color: theme.colors.primary }} />
+          <h1
+            className="text-5xl font-bold smooch-sans font-effect-anaglyph tracking-wider"
+            style={{ color: theme.colors.primary }}
+          >
             WEB CHECK
           </h1>
         </div>
-        <p className="text-green-400/70 font-mono text-sm">
+        <p className="font-mono text-sm" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
           {">"} Comprehensive website analysis and security check
         </p>
       </div>
@@ -351,13 +369,19 @@ export default function WebCheck() {
               value={url}
               onChange={(e) => setUrl(e.target.value)}
               onKeyPress={(e) => e.key === "Enter" && !loading && handleCheck()}
-              className="flex-1 bg-black border-green-500/50 text-green-500 placeholder:text-green-500/30 font-mono focus:border-green-500 focus:ring-green-500"
+              className="flex-1 font-mono"
+              style={{
+                backgroundColor: theme.colors.background,
+                borderColor: hexToRgba(theme.colors.primary, 0.5),
+                color: theme.colors.primary,
+              }}
             />
             <Button
               onClick={handleCheck}
               disabled={loading}
               size="md"
-              className="bg-green-500/20 border-green-500 text-green-500 hover:bg-green-500/30 font-mono relative overflow-hidden min-w-[120px]"
+              variant="primary"
+              className="font-mono relative overflow-hidden min-w-[120px]"
             >
               {loading ? (
                 <>
@@ -400,25 +424,38 @@ export default function WebCheck() {
                       }}
                     />
                   )}
-                  <h2 className="text-2xl font-bold text-green-500 smooch-sans font-effect-anaglyph">
+                  <h2
+                    className="text-2xl font-bold smooch-sans font-effect-anaglyph"
+                    style={{ color: theme.colors.primary }}
+                  >
                     {getDomainName()}
                   </h2>
                 </div>
-                <div className="text-green-400/70 font-mono text-sm">
+                <div className="font-mono text-sm" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                   {">"} Completed in {formatDuration(result.summary?.totalTime || 0)}
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-                <div className="bg-green-500/10 border-2 border-green-500 p-4 rounded-lg">
+                <div
+                  className="border-2 p-4 rounded-lg"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                    borderColor: theme.colors.primary,
+                  }}
+                >
                   <div className="flex items-center gap-2 mb-2">
-                    <CheckCircle className="w-5 h-5 text-green-500" />
-                    <span className="text-sm font-medium text-green-500 font-mono">SUCCESS</span>
+                    <CheckCircle className="w-5 h-5" style={{ color: theme.colors.primary }} />
+                    <span className="text-sm font-medium font-mono" style={{ color: theme.colors.primary }}>
+                      SUCCESS
+                    </span>
                   </div>
-                  <p className="text-3xl font-bold text-green-400 font-mono">
+                  <p className="text-3xl font-bold font-mono" style={{ color: theme.colors.accent }}>
                     {progress.successful}
                   </p>
-                  <p className="text-xs text-green-500/70 font-mono mt-1">Jobs with data</p>
+                  <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    Jobs with data
+                  </p>
                 </div>
 
                 <div className="bg-red-500/10 border-2 border-red-500 p-4 rounded-lg">
@@ -462,9 +499,9 @@ export default function WebCheck() {
                   FAILED JOBS ({failedJobs.length})
                 </h3>
                 {expandedFailedJobs ? (
-                  <ChevronUp className="w-5 h-5 text-green-500" />
+                  <ChevronUp className="w-5 h-5" style={{ color: theme.colors.primary }} />
                 ) : (
-                  <ChevronDown className="w-5 h-5 text-green-500" />
+                  <ChevronDown className="w-5 h-5" style={{ color: theme.colors.primary }} />
                 )}
               </div>
               {expandedFailedJobs && (
@@ -476,15 +513,15 @@ export default function WebCheck() {
                     >
                       <div className="flex items-center gap-3 mb-2">
                         <XCircle className="w-5 h-5 text-red-500" />
-                        <span className="text-green-400 font-mono font-semibold">
+                        <span className="font-mono font-semibold" style={{ color: theme.colors.accent }}>
                           {job.name.toUpperCase()}
                         </span>
-                        <span className="text-green-500/50 font-mono text-xs">
+                        <span className="font-mono text-xs" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
                           ({formatDuration(job.duration)})
                         </span>
                       </div>
                       <p className="text-red-400 font-mono text-sm">
-                        <span className="text-green-500/70">ERROR:</span>{" "}
+                        <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>ERROR:</span>{" "}
                         {job.error || "Unknown error occurred"}
                       </p>
                     </div>
@@ -496,89 +533,76 @@ export default function WebCheck() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {hasData("ip") && result.results.ip && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Network className="w-5 h-5" />
-                  IP ADDRESS
-                </h3>
-                <p className="text-green-400 font-mono text-sm">{result.results.ip}</p>
-              </Card>
+              <InfoCard icon={Network} title="IP ADDRESS">
+                <p className="font-mono text-sm" style={{ color: theme.colors.accent }}>
+                  {result.results.ip}
+                </p>
+              </InfoCard>
             )}
 
             {hasData("status") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Activity className="w-5 h-5" />
-                  SERVER STATUS
-                </h3>
+              <InfoCard icon={Activity} title="SERVER STATUS">
                 <div className="space-y-2 text-sm font-mono">
                   <div className="flex items-center gap-2">
                     {result.results.status?.isUp ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">IS UP?</span>
+                    <span style={{ color: theme.colors.accent }}>IS UP?</span>
                   </div>
-                  <div>
-                    <span className="text-green-500/70">STATUS CODE:</span>
-                    <span className="text-green-400 ml-2">{result.results.status?.statusCode}</span>
-                  </div>
-                  <div>
-                    <span className="text-green-500/70">RESPONSE TIME:</span>
-                    <span className="text-green-400 ml-2">
-                      {result.results.status?.responseTime}ms
-                    </span>
-                  </div>
+                  {result.results.status?.statusCode && (
+                    <KeyValue label="STATUS CODE" value={result.results.status.statusCode} />
+                  )}
+                  {result.results.status?.responseTime && (
+                    <KeyValue label="RESPONSE TIME" value={`${result.results.status.responseTime}ms`} />
+                  )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("serverInfo") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Server className="w-5 h-5" />
-                  SERVER INFO
-                </h3>
+              <InfoCard icon={Server} title="SERVER INFO">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.serverInfo?.server && (
-                    <div>
-                      <span className="text-green-500/70">SERVER:</span>
-                      <span className="text-green-400 ml-2">
-                        {result.results.serverInfo.server}
-                      </span>
-                    </div>
+                    <KeyValue label="SERVER" value={result.results.serverInfo.server} />
                   )}
                   {result.results.serverInfo?.poweredBy && (
-                    <div>
-                      <span className="text-green-500/70">POWERED BY:</span>
-                      <span className="text-green-400 ml-2">
-                        {result.results.serverInfo.poweredBy}
-                      </span>
-                    </div>
+                    <KeyValue label="POWERED BY" value={result.results.serverInfo.poweredBy} />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {techStack.length > 0 && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Code2 className="w-5 h-5" />
                   TECH STACK
                 </h3>
                 <div className="space-y-2 text-sm font-mono">
                   {techStack.map((tech: any, idx: number) => (
                     <div key={idx} className="flex items-center justify-between">
-                      <span className="text-green-400">{tech.name}</span>
+                      <span style={{ color: theme.colors.accent }}>{tech.name}</span>
                       <span
-                        className={`text-xs px-2 py-1 rounded ${
-                          tech.confidence === "high"
-                            ? "bg-green-500/20 text-green-400"
-                            : tech.confidence === "medium"
-                              ? "bg-yellow-500/20 text-yellow-400"
-                              : "bg-gray-500/20 text-gray-400"
-                        }`}
+                        className="text-xs px-2 py-1 rounded"
+                        style={{
+                          backgroundColor:
+                            tech.confidence === "high"
+                              ? hexToRgba(theme.colors.primary, 0.2)
+                              : tech.confidence === "medium"
+                                ? "rgba(234, 179, 8, 0.2)"
+                                : "rgba(107, 114, 128, 0.2)",
+                          color:
+                            tech.confidence === "high"
+                              ? theme.colors.accent
+                              : tech.confidence === "medium"
+                                ? "#fbbf24"
+                                : "#9ca3af",
+                        }}
                       >
                         {tech.confidence?.toUpperCase() || "LOW"}
                       </span>
@@ -589,193 +613,155 @@ export default function WebCheck() {
             )}
 
             {hasData("ssl") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Lock className="w-5 h-5" />
-                  SSL CERTIFICATE
-                </h3>
+              <InfoCard icon={Lock} title="SSL CERTIFICATE">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.ssl?.subject && (
-                    <div>
-                      <span className="text-green-500/70">SUBJECT:</span>
-                      <span className="text-green-400 ml-2 text-xs break-all">
-                        {result.results.ssl.subject}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="SUBJECT"
+                      value={<span className="text-xs break-all">{result.results.ssl.subject}</span>}
+                    />
                   )}
                   {result.results.ssl?.issuer && (
-                    <div>
-                      <span className="text-green-500/70">ISSUER:</span>
-                      <span className="text-green-400 ml-2 text-xs break-all">
-                        {result.results.ssl.issuer}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="ISSUER"
+                      value={<span className="text-xs break-all">{result.results.ssl.issuer}</span>}
+                    />
                   )}
                   {result.results.ssl?.daysRemaining !== undefined && (
-                    <div>
-                      <span className="text-green-500/70">DAYS REMAINING:</span>
-                      <span
-                        className={`ml-2 font-mono ${result.results.ssl.daysRemaining < 30 ? "text-red-500" : "text-green-400"}`}
-                      >
-                        {result.results.ssl.daysRemaining}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="DAYS REMAINING"
+                      value={
+                        <span
+                          className="font-mono"
+                          style={{
+                            color: result.results.ssl.daysRemaining < 30 ? "#ef4444" : theme.colors.accent,
+                          }}
+                        >
+                          {result.results.ssl.daysRemaining}
+                        </span>
+                      }
+                    />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("domain") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Globe className="w-5 h-5" />
-                  DOMAIN INFO
-                </h3>
+              <InfoCard icon={Globe} title="DOMAIN INFO">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.domain?.creationDate && (
-                    <div>
-                      <span className="text-green-500/70">CREATED:</span>
-                      <span className="text-green-400 ml-2">
-                        {result.results.domain.creationDate}
-                      </span>
-                    </div>
+                    <KeyValue label="CREATED" value={result.results.domain.creationDate} />
                   )}
                   {result.results.domain?.expiryDate && (
-                    <div>
-                      <span className="text-green-500/70">EXPIRES:</span>
-                      <span className="text-green-400 ml-2">
-                        {result.results.domain.expiryDate}
-                      </span>
-                    </div>
+                    <KeyValue label="EXPIRES" value={result.results.domain.expiryDate} />
                   )}
                   {result.results.domain?.registrar && (
-                    <div>
-                      <span className="text-green-500/70">REGISTRAR:</span>
-                      <span className="text-green-400 ml-2 text-xs break-all">
-                        {result.results.domain.registrar}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="REGISTRAR"
+                      value={<span className="text-xs break-all">{result.results.domain.registrar}</span>}
+                    />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("httpSecurity") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5" />
-                  HTTP SECURITY HEADERS
-                </h3>
+              <InfoCard icon={Shield} title="HTTP SECURITY HEADERS">
                 <div className="space-y-3 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.httpSecurity?.contentSecurityPolicy ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        CSP (Content Security Policy)
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.httpSecurity?.contentSecurityPolicy
+                  <StatusIndicator
+                    enabled={!!result.results.httpSecurity?.contentSecurityPolicy}
+                    label="CSP (Content Security Policy)"
+                    description={
+                      result.results.httpSecurity?.contentSecurityPolicy
                         ? "Active - Prevents XSS attacks by controlling which resources can be loaded"
-                        : "Missing - Site vulnerable to cross-site scripting (XSS) attacks"}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.httpSecurity?.strictTransportSecurity ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        HSTS (HTTP Strict Transport Security)
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.httpSecurity?.strictTransportSecurity
+                        : "Missing - Site vulnerable to cross-site scripting (XSS) attacks"
+                    }
+                  />
+                  <StatusIndicator
+                    enabled={!!result.results.httpSecurity?.strictTransportSecurity}
+                    label="HSTS (HTTP Strict Transport Security)"
+                    description={
+                      result.results.httpSecurity?.strictTransportSecurity
                         ? "Active - Forces browsers to use HTTPS connection only"
-                        : "Missing - Site may be accessed over insecure HTTP connection"}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.httpSecurity?.xContentTypeOptions ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">X-Content-Type-Options</span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.httpSecurity?.xContentTypeOptions
+                        : "Missing - Site may be accessed over insecure HTTP connection"
+                    }
+                  />
+                  <StatusIndicator
+                    enabled={!!result.results.httpSecurity?.xContentTypeOptions}
+                    label="X-Content-Type-Options"
+                    description={
+                      result.results.httpSecurity?.xContentTypeOptions
                         ? "Active - Prevents browsers from MIME-sniffing content types"
-                        : "Missing - Browsers may misinterpret file types, leading to security risks"}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.httpSecurity?.xFrameOptions ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">X-Frame-Options</span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.httpSecurity?.xFrameOptions
+                        : "Missing - Browsers may misinterpret file types, leading to security risks"
+                    }
+                  />
+                  <StatusIndicator
+                    enabled={!!result.results.httpSecurity?.xFrameOptions}
+                    label="X-Frame-Options"
+                    description={
+                      result.results.httpSecurity?.xFrameOptions
                         ? "Active - Prevents site from being embedded in iframes (clickjacking protection)"
-                        : "Missing - Site vulnerable to clickjacking attacks"}
-                    </p>
-                  </div>
+                        : "Missing - Site vulnerable to clickjacking attacks"
+                    }
+                  />
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("cookies") &&
               result.results.cookies?.cookies &&
               result.results.cookies.cookies.length > 0 && (
                 <Card className="p-6" variant="hacker">
-                  <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                  <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                     <Cookie className="w-5 h-5" />
                     COOKIES ({result.results.cookies.cookies.length})
                   </h3>
                   <div className="space-y-3 text-sm font-mono max-h-96 overflow-y-auto">
                     {result.results.cookies.cookies.map((cookie: any, idx: number) => (
-                      <div key={idx} className="border border-green-500/30 rounded p-3 bg-black/50">
-                        <div className="text-green-400 font-semibold mb-2 break-all">
+                      <div
+                        key={idx}
+                        className="border rounded p-3"
+                        style={{
+                          borderColor: hexToRgba(theme.colors.primary, 0.3),
+                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        }}
+                      >
+                        <div className="font-semibold mb-2 break-all" style={{ color: theme.colors.accent }}>
                           {cookie.name}
                         </div>
                         <div className="space-y-1 text-xs">
                           <div className="flex items-center gap-2">
-                            <span className="text-green-500/70">Secure:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>Secure:</span>
                             {cookie.hasSecure ? (
-                              <CheckCircle className="w-3 h-3 text-green-500" />
+                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-green-500/70">HttpOnly:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>HttpOnly:</span>
                             {cookie.hasHttpOnly ? (
-                              <CheckCircle className="w-3 h-3 text-green-500" />
+                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span className="text-green-500/70">SameSite:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>SameSite:</span>
                             {cookie.hasSameSite ? (
-                              <CheckCircle className="w-3 h-3 text-green-500" />
+                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
                           </div>
                           {cookie.issues && cookie.issues.length > 0 && (
-                            <div className="mt-2 pt-2 border-t border-green-500/20">
+                            <div
+                              className="mt-2 pt-2 border-t"
+                              style={{ borderColor: hexToRgba(theme.colors.primary, 0.2) }}
+                            >
                               <div className="text-red-400 text-xs">
                                 {cookie.issues.map((issue: string, i: number) => (
                                   <div key={i}>• {issue}</div>
@@ -788,7 +774,10 @@ export default function WebCheck() {
                     ))}
                     {result.results.cookies.overallIssues &&
                       result.results.cookies.overallIssues.length > 0 && (
-                        <div className="mt-3 pt-3 border-t border-green-500/30">
+                        <div
+                          className="mt-3 pt-3 border-t"
+                          style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                        >
                           <div className="text-yellow-400 text-xs">
                             <div className="font-semibold mb-1">Overall Issues:</div>
                             {result.results.cookies.overallIssues.map(
@@ -804,496 +793,306 @@ export default function WebCheck() {
               )}
 
             {hasData("dns") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Eye className="w-5 h-5" />
-                  DNS RECORDS
-                </h3>
+              <InfoCard icon={Eye} title="DNS RECORDS">
                 <div className="space-y-4 text-sm font-mono max-h-96 overflow-y-auto">
-                  {result.results.dns?.a && result.results.dns.a.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        A Records ({result.results.dns.a.length}):
+                  <DNSRecordList
+                    label="A Records"
+                    records={result.results.dns?.a || []}
+                  />
+                  <DNSRecordList
+                    label="AAAA Records"
+                    records={result.results.dns?.aaaa || []}
+                  />
+                  <DNSRecordList
+                    label="MX Records"
+                    records={result.results.dns?.mx || []}
+                    formatRecord={(record: any, idx: number) => (
+                      <div key={idx} className="text-xs break-all" style={{ color: theme.colors.accent }}>
+                        • {record.exchange} (Priority: {record.priority})
                       </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.a.map((record: string, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {record}
-                          </div>
-                        ))}
+                    )}
+                  />
+                  <DNSRecordList
+                    label="NS Records"
+                    records={result.results.dns?.ns || []}
+                  />
+                  <DNSRecordList
+                    label="CNAME Records"
+                    records={result.results.dns?.cname || []}
+                  />
+                  <DNSRecordList
+                    label="TXT Records"
+                    records={result.results.dns?.txt || []}
+                    formatRecord={(record: any, idx: number) => (
+                      <div key={idx} className="text-xs break-all" style={{ color: theme.colors.accent }}>
+                        • {Array.isArray(record) ? record.join(" ") : record}
                       </div>
-                    </div>
-                  )}
-                  {result.results.dns?.aaaa && result.results.dns.aaaa.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        AAAA Records ({result.results.dns.aaaa.length}):
-                      </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.aaaa.map((record: string, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {record}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {result.results.dns?.mx && result.results.dns.mx.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        MX Records ({result.results.dns.mx.length}):
-                      </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.mx.map((record: any, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {record.exchange} (Priority: {record.priority})
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {result.results.dns?.ns && result.results.dns.ns.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        NS Records ({result.results.dns.ns.length}):
-                      </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.ns.map((record: string, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {record}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {result.results.dns?.cname && result.results.dns.cname.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        CNAME Records ({result.results.dns.cname.length}):
-                      </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.cname.map((record: string, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {record}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  {result.results.dns?.txt && result.results.dns.txt.length > 0 && (
-                    <div>
-                      <div className="text-green-500/70 mb-2 font-semibold">
-                        TXT Records ({result.results.dns.txt.length}):
-                      </div>
-                      <div className="space-y-1 ml-4">
-                        {result.results.dns.txt.map((record: any, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs break-all">
-                            • {Array.isArray(record) ? record.join(" ") : record}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  />
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("redirects") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Link2 className="w-5 h-5" />
-                  HTTP REDIRECTS
-                </h3>
+              <InfoCard icon={Link2} title="HTTP REDIRECTS">
                 <div className="space-y-2 text-sm font-mono">
-                  <div>
-                    <p className="text-green-400 font-semibold">
-                      {result.results.redirects?.count || 0} redirect
-                      {(result.results.redirects?.count || 0) !== 1 ? "s" : ""} detected
-                    </p>
-                  </div>
-                  <p className="text-green-500/60 text-xs">
+                  <p className="font-semibold" style={{ color: theme.colors.accent }}>
+                    {result.results.redirects?.count || 0} redirect
+                    {(result.results.redirects?.count || 0) !== 1 ? "s" : ""} detected
+                  </p>
+                  <p className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.6 }}>
                     {result.results.redirects?.count === 0
                       ? "No redirects found - URL resolves directly to the final destination"
                       : `Site redirects ${result.results.redirects?.count} time${(result.results.redirects?.count || 0) !== 1 ? "s" : ""} before reaching the final page. Multiple redirects can slow down page loading.`}
                   </p>
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("hsts") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5" />
-                  HSTS (HTTP STRICT TRANSPORT SECURITY)
-                </h3>
-                <div className="space-y-3 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.hsts?.enabled ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        {result.results.hsts?.enabled ? "Enabled" : "Not Enabled"}
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.hsts?.enabled
-                        ? "Active - Browsers will only connect via HTTPS, preventing man-in-the-middle attacks"
-                        : "Disabled - Site can be accessed over insecure HTTP, making it vulnerable to attacks"}
-                    </p>
-                  </div>
-                  {result.results.hsts?.preload && (
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span className="text-green-400 font-semibold">Preload Enabled</span>
-                      </div>
-                      <p className="text-green-500/60 text-xs ml-6">
-                        Site is in browser preload lists - maximum security protection enabled
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </Card>
+              <BooleanStatusCard
+                icon={Shield}
+                title="HSTS (HTTP STRICT TRANSPORT SECURITY)"
+                enabled={result.results.hsts?.enabled || false}
+                enabledDescription="Active - Browsers will only connect via HTTPS, preventing man-in-the-middle attacks"
+                disabledDescription="Disabled - Site can be accessed over insecure HTTP, making it vulnerable to attacks"
+                additionalInfo={
+                  result.results.hsts?.preload ? (
+                    <StatusIndicator
+                      enabled={true}
+                      label="Preload Enabled"
+                      description="Site is in browser preload lists - maximum security protection enabled"
+                    />
+                  ) : null
+                }
+              />
             )}
 
             {hasData("threats") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <AlertCircle className="w-5 h-5" />
-                  THREAT ANALYSIS
-                </h3>
+              <InfoCard icon={AlertCircle} title="THREAT ANALYSIS">
                 <div className="space-y-3 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.threats?.phishing ? (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      ) : (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">Phishing</span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.threats?.phishing
+                  <StatusIndicator
+                    enabled={!result.results.threats?.phishing}
+                    label="Phishing"
+                    description={
+                      result.results.threats?.phishing
                         ? "Detected - Site flagged for phishing attempts"
-                        : "Not detected - Site appears safe"}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.threats?.malware ? (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      ) : (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">Malware</span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.threats?.malware
+                        : "Not detected - Site appears safe"
+                    }
+                  />
+                  <StatusIndicator
+                    enabled={!result.results.threats?.malware}
+                    label="Malware"
+                    description={
+                      result.results.threats?.malware
                         ? "Detected - Site contains malicious software"
-                        : "Not detected - No malware found"}
-                    </p>
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.threats?.suspicious ? (
-                        <XCircle className="w-4 h-4 text-yellow-500" />
-                      ) : (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">Suspicious Activity</span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.threats?.suspicious
+                        : "Not detected - No malware found"
+                    }
+                  />
+                  <StatusIndicator
+                    enabled={!result.results.threats?.suspicious}
+                    label="Suspicious Activity"
+                    description={
+                      result.results.threats?.suspicious
                         ? "Detected - Site shows suspicious behavior patterns"
-                        : "Not detected - No suspicious activity"}
-                    </p>
-                  </div>
+                        : "Not detected - No suspicious activity"
+                    }
+                    warning={!!result.results.threats?.suspicious}
+                  />
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("ports") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Network className="w-5 h-5" />
-                  PORTS
-                </h3>
+              <InfoCard icon={Network} title="PORTS">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.ports?.open && result.results.ports.open.length > 0 && (
-                    <div>
-                      <span className="text-green-500/70">OPEN:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {result.results.ports.open.join(", ")}
-                      </span>
-                    </div>
+                    <KeyValue label="OPEN" value={<span className="text-xs">{result.results.ports.open.join(", ")}</span>} />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("robotsTxt") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <FileText className="w-5 h-5" />
-                  ROBOTS.TXT FILE
-                </h3>
-                <div className="space-y-2 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.robotsTxt?.exists ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        {result.results.robotsTxt?.exists ? "File Found" : "File Not Found"}
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.robotsTxt?.exists
-                        ? "File tells search engines which pages to crawl or ignore"
-                        : "No robots.txt file - search engines can crawl all pages"}
-                    </p>
-                  </div>
-                  {result.results.robotsTxt?.disallowedPaths &&
-                    result.results.robotsTxt.disallowedPaths.length > 0 && (
-                      <div>
-                        <span className="text-green-500/70">Blocked Paths:</span>
-                        <span className="text-green-400 ml-2 text-xs">
-                          {result.results.robotsTxt.disallowedPaths.length} paths
-                        </span>
-                      </div>
-                    )}
-                </div>
-              </Card>
+              <BooleanStatusCard
+                icon={FileText}
+                title="ROBOTS.TXT FILE"
+                enabled={result.results.robotsTxt?.exists || false}
+                enabledLabel="File Found"
+                disabledLabel="File Not Found"
+                enabledDescription="File tells search engines which pages to crawl or ignore"
+                disabledDescription="No robots.txt file - search engines can crawl all pages"
+                additionalInfo={
+                  result.results.robotsTxt?.disallowedPaths &&
+                  result.results.robotsTxt.disallowedPaths.length > 0 ? (
+                    <KeyValue
+                      label="Blocked Paths"
+                      value={<span className="text-xs">{result.results.robotsTxt.disallowedPaths.length} paths</span>}
+                    />
+                  ) : null
+                }
+              />
             )}
 
             {hasData("sitemap") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <List className="w-5 h-5" />
-                  SITEMAP FILE
-                </h3>
-                <div className="space-y-2 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.sitemap?.exists ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        {result.results.sitemap?.exists ? "File Found" : "File Not Found"}
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.sitemap?.exists
-                        ? "File helps search engines discover and index all pages on the site"
-                        : "No sitemap.xml file - search engines may miss some pages"}
-                    </p>
-                  </div>
-                  {result.results.sitemap?.urls && result.results.sitemap.urls.length > 0 && (
-                    <div>
-                      <span className="text-green-500/70">Pages Listed:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {result.results.sitemap.urls.length} URLs
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </Card>
+              <BooleanStatusCard
+                icon={List}
+                title="SITEMAP FILE"
+                enabled={result.results.sitemap?.exists || false}
+                enabledLabel="File Found"
+                disabledLabel="File Not Found"
+                enabledDescription="File helps search engines discover and index all pages on the site"
+                disabledDescription="No sitemap.xml file - search engines may miss some pages"
+                additionalInfo={
+                  result.results.sitemap?.urls && result.results.sitemap.urls.length > 0 ? (
+                    <KeyValue
+                      label="Pages Listed"
+                      value={<span className="text-xs">{result.results.sitemap.urls.length} URLs</span>}
+                    />
+                  ) : null
+                }
+              />
             )}
 
             {hasData("securityTxt") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5" />
-                  SECURITY.TXT FILE
-                </h3>
-                <div className="space-y-2 text-sm font-mono">
-                  <div className="flex items-center gap-2">
-                    {result.results.securityTxt?.exists ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
-                    )}
-                    <span className="text-green-400 font-semibold">
-                      {result.results.securityTxt?.exists ? "File Found" : "File Not Found"}
-                    </span>
-                  </div>
-                  <p className="text-green-500/60 text-xs">
-                    {result.results.securityTxt?.exists
-                      ? "Security contact information is publicly available for responsible disclosure"
-                      : "No security.txt file found - security researchers cannot easily contact the site"}
-                  </p>
-                </div>
-              </Card>
+              <BooleanStatusCard
+                icon={Shield}
+                title="SECURITY.TXT FILE"
+                enabled={result.results.securityTxt?.exists || false}
+                enabledLabel="File Found"
+                disabledLabel="File Not Found"
+                enabledDescription="Security contact information is publicly available for responsible disclosure"
+                disabledDescription="No security.txt file found - security researchers cannot easily contact the site"
+              />
             )}
 
             {hasData("dnsServer") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Server className="w-5 h-5" />
-                  DNS SERVER
-                </h3>
+              <InfoCard icon={Server} title="DNS SERVER">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.dnsServer?.hostname && (
-                    <div>
-                      <span className="text-green-500/70">HOSTNAME:</span>
-                      <span className="text-green-400 ml-2 text-xs break-all">
-                        {result.results.dnsServer.hostname}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="HOSTNAME"
+                      value={<span className="text-xs break-all">{result.results.dnsServer.hostname}</span>}
+                    />
                   )}
                   {result.results.dnsServer?.ip && (
-                    <div>
-                      <span className="text-green-500/70">IP:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {result.results.dnsServer.ip}
-                      </span>
-                    </div>
+                    <KeyValue label="IP" value={<span className="text-xs">{result.results.dnsServer.ip}</span>} />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("firewall") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Shield className="w-5 h-5" />
-                  FIREWALL / CDN PROTECTION
-                </h3>
-                <div className="space-y-2 text-sm font-mono">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      {result.results.firewall?.detected ? (
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                      ) : (
-                        <XCircle className="w-4 h-4 text-red-500" />
-                      )}
-                      <span className="text-green-400 font-semibold">
-                        {result.results.firewall?.detected
-                          ? "Protection Active"
-                          : "No Protection Detected"}
-                      </span>
-                    </div>
-                    <p className="text-green-500/60 text-xs ml-6">
-                      {result.results.firewall?.detected
-                        ? "Site is protected by a firewall or CDN service"
-                        : "No firewall or CDN protection detected"}
-                    </p>
-                  </div>
-                  {result.results.firewall?.provider && (
-                    <div>
-                      <span className="text-green-500/70">Service Provider:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {result.results.firewall.provider}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </Card>
+              <BooleanStatusCard
+                icon={Shield}
+                title="FIREWALL / CDN PROTECTION"
+                enabled={result.results.firewall?.detected || false}
+                enabledLabel="Protection Active"
+                disabledLabel="No Protection Detected"
+                enabledDescription="Site is protected by a firewall or CDN service"
+                disabledDescription="No firewall or CDN protection detected"
+                additionalInfo={
+                  result.results.firewall?.provider ? (
+                    <KeyValue
+                      label="Service Provider"
+                      value={<span className="text-xs">{result.results.firewall.provider}</span>}
+                    />
+                  ) : null
+                }
+              />
             )}
 
             {hasData("archives") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Archive className="w-5 h-5" />
-                  ARCHIVES
-                </h3>
+              <InfoCard icon={Archive} title="ARCHIVES">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.archives?.totalScans !== undefined && (
-                    <div>
-                      <span className="text-green-500/70">SCANS:</span>
-                      <span className="text-green-400 ml-2">
-                        {result.results.archives.totalScans}
-                      </span>
-                    </div>
+                    <KeyValue label="SCANS" value={result.results.archives.totalScans} />
                   )}
                   {result.results.archives?.firstScan && (
-                    <div>
-                      <span className="text-green-500/70">FIRST:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {new Date(result.results.archives.firstScan).toLocaleDateString()}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="FIRST"
+                      value={<span className="text-xs">{new Date(result.results.archives.firstScan).toLocaleDateString()}</span>}
+                    />
                   )}
                   {result.results.archives?.lastScan && (
-                    <div>
-                      <span className="text-green-500/70">LAST SCANNED:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {new Date(result.results.archives.lastScan).toLocaleDateString()}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="LAST SCANNED"
+                      value={<span className="text-xs">{new Date(result.results.archives.lastScan).toLocaleDateString()}</span>}
+                    />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("socialTags") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Tag className="w-5 h-5" />
-                  SOCIAL TAGS
-                </h3>
+              <InfoCard icon={Tag} title="SOCIAL TAGS">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.socialTags?.description && (
-                    <div className="text-green-400 text-xs line-clamp-2">
+                    <div className="text-xs line-clamp-2" style={{ color: theme.colors.accent }}>
                       {result.results.socialTags.description}
                     </div>
                   )}
                   {result.results.socialTags?.keywords && (
-                    <div>
-                      <span className="text-green-500/70">KEYWORDS:</span>
-                      <span className="text-green-400 ml-2 text-xs">
-                        {result.results.socialTags.keywords.split(",").length} tags
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="KEYWORDS"
+                      value={<span className="text-xs">{result.results.socialTags.keywords.split(",").length} tags</span>}
+                    />
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("quality") && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Award className="w-5 h-5" />
                   QUALITY SCORE
                 </h3>
                 <div className="space-y-4">
                   <div className="text-center">
-                    <div className="text-4xl font-bold text-green-400 mb-2">
+                    <div className="text-4xl font-bold mb-2" style={{ color: theme.colors.accent }}>
                       {result.results.quality?.overall || 0}
                     </div>
-                    <div className="text-green-500/70 text-xs font-mono">OVERALL SCORE</div>
+                    <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      OVERALL SCORE
+                    </div>
                   </div>
                   <div className="grid grid-cols-3 gap-3 text-sm font-mono">
                     <div className="text-center">
-                      <div className="text-xl font-bold text-green-400">
+                      <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.performance?.score || 0}
                       </div>
-                      <div className="text-green-500/70 text-xs">PERFORMANCE</div>
+                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        PERFORMANCE
+                      </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-green-400">
+                      <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.seo?.score || 0}
                       </div>
-                      <div className="text-green-500/70 text-xs">SEO</div>
+                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        SEO
+                      </div>
                     </div>
                     <div className="text-center">
-                      <div className="text-xl font-bold text-green-400">
+                      <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.accessibility?.score || 0}
                       </div>
-                      <div className="text-green-500/70 text-xs">ACCESSIBILITY</div>
+                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        ACCESSIBILITY
+                      </div>
                     </div>
                   </div>
                   {(result.results.quality?.performance?.issues?.length > 0 ||
                     result.results.quality?.seo?.issues?.length > 0 ||
                     result.results.quality?.accessibility?.issues?.length > 0) && (
-                    <div className="mt-4 pt-4 border-t border-green-500/30 space-y-2 text-xs">
+                    <div
+                      className="mt-4 pt-4 border-t space-y-2 text-xs"
+                      style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                    >
                       {result.results.quality?.performance?.issues?.map(
                         (issue: string, i: number) => (
                           <div key={i} className="text-yellow-400">
@@ -1320,41 +1119,37 @@ export default function WebCheck() {
             )}
 
             {hasData("traceRoute") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Route className="w-5 h-5" />
-                  TRACEROUTE
-                </h3>
+              <InfoCard icon={Route} title="TRACEROUTE">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.traceRoute?.hops && result.results.traceRoute.hops.length > 0 ? (
                     result.results.traceRoute.hops.map((hop: any, idx: number) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <span className="text-green-500/70">HOP {hop.hop}:</span>
-                        <span className="text-green-400">
-                          {hop.ip || hop.hostname || "Unknown"}
-                        </span>
-                      </div>
+                      <KeyValue key={idx} label={`HOP ${hop.hop}`} value={hop.ip || hop.hostname || "Unknown"} />
                     ))
                   ) : (
-                    <div className="text-green-500/70">No route information available</div>
+                    <div style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      No route information available
+                    </div>
                   )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("mailConfig") && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Mail className="w-5 h-5" />
                   MAIL CONFIG
                 </h3>
                 <div className="space-y-3 text-sm font-mono">
                   {result.results.mailConfig?.mx && result.results.mailConfig.mx.length > 0 && (
                     <div>
-                      <span className="text-green-500/70">MX RECORDS:</span>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>MX RECORDS:</span>
                       <div className="mt-1 space-y-1">
                         {result.results.mailConfig.mx.map((mx: any, idx: number) => (
-                          <div key={idx} className="text-green-400 text-xs">
+                          <div key={idx} className="text-xs" style={{ color: theme.colors.accent }}>
                             {mx.priority} - {mx.exchange}
                           </div>
                         ))}
@@ -1363,29 +1158,29 @@ export default function WebCheck() {
                   )}
                   <div className="flex items-center gap-2">
                     {result.results.mailConfig?.spf?.exists ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">SPF Record</span>
+                    <span style={{ color: theme.colors.accent }}>SPF Record</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.mailConfig?.dkim?.exists ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">DKIM Record</span>
+                    <span style={{ color: theme.colors.accent }}>DKIM Record</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.mailConfig?.dmarc?.exists ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">DMARC Record</span>
+                    <span style={{ color: theme.colors.accent }}>DMARC Record</span>
                     {result.results.mailConfig?.dmarc?.policy && (
-                      <span className="text-green-500/70 text-xs ml-2">
+                      <span className="text-xs ml-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                         ({result.results.mailConfig.dmarc.policy})
                       </span>
                     )}
@@ -1395,30 +1190,25 @@ export default function WebCheck() {
             )}
 
             {hasData("rank") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <TrendingUp className="w-5 h-5" />
-                  RANKING
-                </h3>
+              <InfoCard icon={TrendingUp} title="RANKING">
                 <div className="space-y-2 text-sm font-mono">
-                  {result.results.rank?.alexa && (
-                    <div>
-                      <span className="text-green-500/70">ALEXA RANK:</span>
-                      <span className="text-green-400 ml-2">
-                        #{result.results.rank.alexa.toLocaleString()}
-                      </span>
+                  {result.results.rank?.alexa ? (
+                    <KeyValue label="ALEXA RANK" value={`#${result.results.rank.alexa.toLocaleString()}`} />
+                  ) : (
+                    <div style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      Ranking data not available
                     </div>
                   )}
-                  {!result.results.rank?.alexa && (
-                    <div className="text-green-500/70">Ranking data not available</div>
-                  )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("screenshot") && result.results.screenshot?.url && (
               <Card className="p-6 md:col-span-2" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Camera className="w-5 h-5" />
                   SCREENSHOT
                 </h3>
@@ -1427,12 +1217,13 @@ export default function WebCheck() {
                     <img
                       src={result.results.screenshot.url}
                       alt="Website screenshot"
-                      className="w-full border-2 border-green-500/30 rounded"
+                      className="w-full border-2 rounded"
+                      style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
                       onError={(e) => {
                         (e.target as HTMLImageElement).style.display = "none";
                       }}
                     />
-                    <div className="text-xs text-green-500/70 font-mono">
+                    <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                       {result.results.screenshot.width}x{result.results.screenshot.height}px
                       {result.results.screenshot.service &&
                         ` • ${result.results.screenshot.service}`}
@@ -1443,93 +1234,81 @@ export default function WebCheck() {
             )}
 
             {hasData("tlsCipherSuites") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Settings className="w-5 h-5" />
-                  TLS CIPHER SUITES
-                </h3>
+              <InfoCard icon={Settings} title="TLS CIPHER SUITES">
                 <div className="space-y-3 text-sm font-mono">
                   {result.results.tlsCipherSuites?.grade && (
-                    <div>
-                      <span className="text-green-500/70">SSL LABS GRADE:</span>
-                      <span className="text-green-400 ml-2 font-bold">
-                        {result.results.tlsCipherSuites.grade}
-                      </span>
-                    </div>
+                    <KeyValue
+                      label="SSL LABS GRADE"
+                      value={<span className="font-bold">{result.results.tlsCipherSuites.grade}</span>}
+                    />
                   )}
                   {result.results.tlsCipherSuites?.supported &&
                     result.results.tlsCipherSuites.supported.length > 0 && (
-                      <div>
-                        <span className="text-green-500/70">SUPPORTED:</span>
-                        <span className="text-green-400 ml-2">
-                          {result.results.tlsCipherSuites.supported.length}
-                        </span>
-                      </div>
+                      <KeyValue label="SUPPORTED" value={result.results.tlsCipherSuites.supported.length} />
                     )}
                   {result.results.tlsCipherSuites?.recommended &&
                     result.results.tlsCipherSuites.recommended.length > 0 && (
-                      <div>
-                        <span className="text-green-500/70">RECOMMENDED:</span>
-                        <span className="text-green-400 ml-2">
-                          {result.results.tlsCipherSuites.recommended.length}
-                        </span>
-                      </div>
+                      <KeyValue label="RECOMMENDED" value={result.results.tlsCipherSuites.recommended.length} />
                     )}
                   {result.results.tlsCipherSuites?.weak &&
                     result.results.tlsCipherSuites.weak.length > 0 && (
                       <div>
                         <span className="text-red-500/70">WEAK:</span>
-                        <span className="text-red-400 ml-2">
-                          {result.results.tlsCipherSuites.weak.length}
-                        </span>
+                        <span className="text-red-400 ml-2">{result.results.tlsCipherSuites.weak.length}</span>
                       </div>
                     )}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("tlsSecurityConfig") && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Shield className="w-5 h-5" />
                   TLS SECURITY
                 </h3>
                 <div className="space-y-3 text-sm font-mono">
                   {result.results.tlsSecurityConfig?.protocol && (
                     <div>
-                      <span className="text-green-500/70">PROTOCOL:</span>
-                      <span className="text-green-400 ml-2">
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>PROTOCOL:</span>
+                      <span className="ml-2" style={{ color: theme.colors.accent }}>
                         {result.results.tlsSecurityConfig.protocol}
                       </span>
                     </div>
                   )}
                   {result.results.tlsSecurityConfig?.grade && (
                     <div>
-                      <span className="text-green-500/70">GRADE:</span>
-                      <span className="text-green-400 ml-2 font-bold">
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>GRADE:</span>
+                      <span className="ml-2 font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.tlsSecurityConfig.grade}
                       </span>
                     </div>
                   )}
                   <div className="flex items-center gap-2">
                     {result.results.tlsSecurityConfig?.certificate?.valid ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">Certificate Valid</span>
+                    <span style={{ color: theme.colors.accent }}>Certificate Valid</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsSecurityConfig?.hsts ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">HSTS Enabled</span>
+                    <span style={{ color: theme.colors.accent }}>HSTS Enabled</span>
                   </div>
                   {result.results.tlsSecurityConfig?.issues &&
                     result.results.tlsSecurityConfig.issues.length > 0 && (
-                      <div className="mt-2 pt-2 border-t border-green-500/30">
+                      <div
+                        className="mt-2 pt-2 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
                         {result.results.tlsSecurityConfig.issues.map((issue: string, i: number) => (
                           <div key={i} className="text-yellow-400 text-xs">
                             • {issue}
@@ -1543,26 +1322,29 @@ export default function WebCheck() {
 
             {hasData("tlsClientSupport") && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Zap className="w-5 h-5" />
                   TLS CLIENT SUPPORT
                 </h3>
                 <div className="space-y-2 text-sm font-mono">
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls13 ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">TLS 1.3</span>
+                    <span style={{ color: theme.colors.accent }}>TLS 1.3</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls12 ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-red-500" />
                     )}
-                    <span className="text-green-400">TLS 1.2</span>
+                    <span style={{ color: theme.colors.accent }}>TLS 1.2</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls11 ? (
@@ -1570,7 +1352,7 @@ export default function WebCheck() {
                     ) : (
                       <XCircle className="w-4 h-4 text-gray-500" />
                     )}
-                    <span className="text-green-400">TLS 1.1 (Deprecated)</span>
+                    <span style={{ color: theme.colors.accent }}>TLS 1.1 (Deprecated)</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls10 ? (
@@ -1578,12 +1360,17 @@ export default function WebCheck() {
                     ) : (
                       <XCircle className="w-4 h-4 text-gray-500" />
                     )}
-                    <span className="text-green-400">TLS 1.0 (Deprecated)</span>
+                    <span style={{ color: theme.colors.accent }}>TLS 1.0 (Deprecated)</span>
                   </div>
                   {result.results.tlsClientSupport?.recommended &&
                     result.results.tlsClientSupport.recommended.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-green-500/30">
-                        <div className="text-green-500/70 text-xs mb-1">RECOMMENDATIONS:</div>
+                      <div
+                        className="mt-3 pt-3 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
+                        <div className="text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                          RECOMMENDATIONS:
+                        </div>
                         {result.results.tlsClientSupport.recommended.map(
                           (rec: string, i: number) => (
                             <div key={i} className="text-yellow-400 text-xs">
@@ -1598,101 +1385,74 @@ export default function WebCheck() {
             )}
 
             {hasData("features") && (
-              <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
-                  <Star className="w-5 h-5" />
-                  WEBSITE FEATURES
-                </h3>
+              <InfoCard icon={Star} title="WEBSITE FEATURES">
                 <div className="space-y-2 text-sm font-mono">
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.pwa ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Progressive Web App</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.serviceWorker ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Service Worker</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.webPush ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Web Push Notifications</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.offline ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Offline Support</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.responsive ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Responsive Design</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {result.results.features?.darkMode ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
-                    ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
-                    )}
-                    <span className="text-green-400">Dark Mode</span>
-                  </div>
+                  {[
+                    { key: "pwa", label: "Progressive Web App" },
+                    { key: "serviceWorker", label: "Service Worker" },
+                    { key: "webPush", label: "Web Push Notifications" },
+                    { key: "offline", label: "Offline Support" },
+                    { key: "responsive", label: "Responsive Design" },
+                    { key: "darkMode", label: "Dark Mode" },
+                  ].map(({ key, label }) => (
+                    <div key={key} className="flex items-center gap-2">
+                      {result.results.features?.[key as keyof typeof result.results.features] ? (
+                        <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      ) : (
+                        <XCircle className="w-4 h-4 text-gray-500" />
+                      )}
+                      <span style={{ color: theme.colors.accent }}>{label}</span>
+                    </div>
+                  ))}
                 </div>
-              </Card>
+              </InfoCard>
             )}
 
             {hasData("carbon") && (
               <Card className="p-6" variant="hacker">
-                <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                   <Leaf className="w-5 h-5" />
                   CARBON FOOTPRINT
                 </h3>
                 <div className="space-y-3 text-sm font-mono">
                   <div>
-                    <span className="text-green-500/70">EMISSIONS:</span>
-                    <span className="text-green-400 ml-2">
-                      {result.results.carbon?.emissions?.toFixed(4) || 0} g CO₂
-                    </span>
-                  </div>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>EMISSIONS:</span>
+                      <span className="ml-2" style={{ color: theme.colors.accent }}>
+                        {result.results.carbon?.emissions?.toFixed(4) || 0} g CO₂
+                      </span>
+                    </div>
                   <div>
-                    <span className="text-green-500/70">CLEANER THAN:</span>
-                    <span className="text-green-400 ml-2">
+                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CLEANER THAN:</span>
+                    <span className="ml-2" style={{ color: theme.colors.accent }}>
                       {result.results.carbon?.cleanerThan || 0}% of websites
                     </span>
                   </div>
                   <div>
-                    <span className="text-green-500/70">PAGE SIZE:</span>
-                    <span className="text-green-400 ml-2">
+                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>PAGE SIZE:</span>
+                    <span className="ml-2" style={{ color: theme.colors.accent }}>
                       {(result.results.carbon?.size || 0) / 1024} KB
                     </span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.carbon?.greenHosting ? (
-                      <CheckCircle className="w-4 h-4 text-green-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
                       <XCircle className="w-4 h-4 text-gray-500" />
                     )}
-                    <span className="text-green-400">Green Hosting</span>
+                    <span style={{ color: theme.colors.accent }}>Green Hosting</span>
                   </div>
                   {result.results.carbon?.recommendations &&
                     result.results.carbon.recommendations.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-green-500/30">
-                        <div className="text-green-500/70 text-xs mb-1">RECOMMENDATIONS:</div>
+                      <div
+                        className="mt-3 pt-3 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
+                        <div className="text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                          RECOMMENDATIONS:
+                        </div>
                         {result.results.carbon.recommendations.map((rec: string, i: number) => (
                           <div key={i} className="text-yellow-400 text-xs">
                             • {rec}
@@ -1708,7 +1468,10 @@ export default function WebCheck() {
               result.results.location?.latitude &&
               result.results.location?.longitude && (
                 <Card className="p-6 md:col-span-3" variant="hacker">
-                  <h3 className="text-lg font-bold text-green-500 smooch-sans flex items-center gap-2 mb-4">
+                  <h3
+                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                  style={{ color: theme.colors.primary }}
+                >
                     <MapPin className="w-5 h-5" />
                     SERVER LOCATION
                   </h3>
@@ -1723,40 +1486,40 @@ export default function WebCheck() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm font-mono">
                       {result.results.location?.city && (
                         <div>
-                          <span className="text-green-500/70">CITY:</span>
-                          <span className="text-green-400 ml-2">
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CITY:</span>
+                          <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.city}
                           </span>
                         </div>
                       )}
                       {result.results.location?.country && (
                         <div>
-                          <span className="text-green-500/70">COUNTRY:</span>
-                          <span className="text-green-400 ml-2">
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>COUNTRY:</span>
+                          <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.country}
                           </span>
                         </div>
                       )}
                       {result.results.location?.region && (
                         <div>
-                          <span className="text-green-500/70">REGION:</span>
-                          <span className="text-green-400 ml-2">
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>REGION:</span>
+                          <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.region}
                           </span>
                         </div>
                       )}
                       {result.results.location?.timezone && (
                         <div>
-                          <span className="text-green-500/70">TIMEZONE:</span>
-                          <span className="text-green-400 ml-2">
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>TIMEZONE:</span>
+                          <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.timezone}
                           </span>
                         </div>
                       )}
                       {result.results.location?.currency && (
                         <div>
-                          <span className="text-green-500/70">CURRENCY:</span>
-                          <span className="text-green-400 ml-2">
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CURRENCY:</span>
+                          <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.currency}
                           </span>
                         </div>

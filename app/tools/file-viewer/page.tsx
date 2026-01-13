@@ -4,11 +4,14 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { PageHeader } from "@/components/ui/PageHeader";
 import FileViewer from "@/components/tools/FileViewer";
 import Link from "next/link";
+import { useTheme } from "@/components/ui/ThemeProvider";
 
 export default function FileViewerPage() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (containerRef.current) {
@@ -21,21 +24,8 @@ export default function FileViewerPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-black">
-      <div className="border-b-2 border-green-500/30 bg-black/90 backdrop-blur-sm sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-2xl font-bold text-green-500 smooch-sans font-effect-anaglyph tracking-wider">
-                OXsuite
-              </h1>
-              <p className="text-sm text-green-500/70 font-mono mt-1">
-                {">"} Professional tools for daily use
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="min-h-screen" style={{ backgroundColor: theme.colors.background }}>
+      <PageHeader />
 
       <div ref={containerRef} className="max-w-7xl mx-auto py-12 px-6">
         <Link href="/">

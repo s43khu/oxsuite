@@ -1,6 +1,8 @@
 "use client";
 
 import { InputHTMLAttributes, forwardRef } from "react";
+import { useTheme } from "./ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -8,11 +10,23 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className = "", label, error, ...props }, ref) => {
+  ({ className = "", label, error, style, ...props }, ref) => {
+    const { theme } = useTheme();
+
+    const inputStyle = {
+      backgroundColor: theme.colors.background,
+      borderColor: error ? "#ef4444" : hexToRgba(theme.colors.primary, 0.5),
+      color: theme.colors.primary,
+      ...style,
+    };
+
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+          <label
+            className="block text-sm font-medium font-mono mb-2"
+            style={{ color: theme.colors.foreground, opacity: 0.7 }}
+          >
             {label}
           </label>
         )}
@@ -20,13 +34,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           className={`
             w-full px-4 py-3 rounded-lg border-2 transition-all duration-200
-            bg-black text-green-500 font-mono
-            border-green-500/50
-            focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-green-500
-            placeholder:text-green-500/30
-            ${error ? "border-red-500 focus:ring-red-500" : ""}
+            font-mono
+            focus:outline-none focus:ring-2
+            ${error ? "focus:ring-red-500" : ""}
             ${className}
           `}
+          style={inputStyle}
           {...props}
         />
         {error && <p className="mt-1 text-sm text-red-500 font-mono">{error}</p>}

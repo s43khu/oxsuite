@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useTheme } from "./ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface MapProps {
   latitude: number;
@@ -11,9 +13,38 @@ interface MapProps {
 }
 
 export function Map({ latitude, longitude, city, country, className = "" }: MapProps) {
+  const { theme, themeId } = useTheme();
   const mapRef = useRef<HTMLDivElement>(null);
   const [mapLoaded, setMapLoaded] = useState(false);
   const mapInstanceRef = useRef<any>(null);
+
+  const getHueRotate = (primaryColor: string) => {
+    const hex = primaryColor.replace("#", "");
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    const max = Math.max(r, g, b);
+    const min = Math.min(r, g, b);
+    let h = 0;
+
+    if (max === min) {
+      h = 0;
+    } else if (max === r) {
+      h = ((g - b) / (max - min)) % 6;
+    } else if (max === g) {
+      h = (b - r) / (max - min) + 2;
+    } else {
+      h = (r - g) / (max - min) + 4;
+    }
+
+    h = Math.round(h * 60);
+    if (h < 0) h += 360;
+
+    const greenHue = 120;
+    const hueDiff = h - greenHue;
+    return hueDiff;
+  };
 
   useEffect(() => {
     if (!mapRef.current || !latitude || !longitude) return;
@@ -86,15 +117,18 @@ export function Map({ latitude, longitude, city, country, className = "" }: MapP
           keyboard: false,
         }).setView([latitude, longitude], 10);
 
+        const hueRotate = getHueRotate(theme.colors.primary);
+        const styleId = `leaflet-theme-style-${themeId}`;
+
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
           maxZoom: 19,
-          className: "map-tiles-green",
+          className: `map-tiles-theme-${themeId}`,
         }).addTo(map);
 
         L.marker([latitude, longitude], {
           icon: L.divIcon({
             className: "custom-marker",
-            html: '<div style="width: 20px; height: 20px; background: #00ff00; border: 2px solid #00ff00; border-radius: 50%; box-shadow: 0 0 10px #00ff00;"></div>',
+            html: `<div style="width: 20px; height: 20px; background: ${theme.colors.primary}; border: 2px solid ${theme.colors.primary}; border-radius: 50%; box-shadow: 0 0 10px ${hexToRgba(theme.colors.primary, 0.8)};"></div>`,
             iconSize: [20, 20],
             iconAnchor: [10, 10],
           }),
@@ -103,15 +137,19 @@ export function Map({ latitude, longitude, city, country, className = "" }: MapP
         mapInstanceRef.current = map;
         setMapLoaded(true);
 
-        if (!document.getElementById("leaflet-green-style")) {
-          const style = document.createElement("style");
-          style.id = "leaflet-green-style";
-          style.textContent = `
-            .map-tiles-green {
-              filter: hue-rotate(120deg) saturate(0.5) brightness(0.8) contrast(1.2);
+        const existingStyle = document.getElementById(styleId);
+        if (existingStyle) {
+          existingStyle.remove();
+        }
+
+        const style = document.createElement("style");
+        style.id = styleId;
+        style.textContent = `
+            .map-tiles-theme-${themeId} {
+              filter: hue-rotate(${hueRotate}deg) saturate(0.5) brightness(0.8) contrast(1.2);
             }
             .leaflet-container {
-              background: #000000 !important;
+              background: ${theme.colors.background} !important;
               pointer-events: none !important;
               cursor: default !important;
             }
@@ -123,8 +161,7 @@ export function Map({ latitude, longitude, city, country, className = "" }: MapP
               display: none !important;
             }
           `;
-          document.head.appendChild(style);
-        }
+        document.head.appendChild(style);
       } catch (error) {
         console.error("Error initializing map:", error);
         setMapLoaded(false);
@@ -146,14 +183,20 @@ export function Map({ latitude, longitude, city, country, className = "" }: MapP
         mapInstanceRef.current = null;
       }
     };
-  }, [latitude, longitude]);
+  }, [latitude, longitude, theme]);
 
   if (!latitude || !longitude) {
     return (
       <div
-        className={`w-full h-64 bg-black border-2 border-green-500 rounded-lg flex items-center justify-center ${className}`}
+        className={`w-full h-64 border-2 rounded-lg flex items-center justify-center ${className}`}
+        style={{
+          backgroundColor: theme.colors.background,
+          borderColor: theme.colors.primary,
+        }}
       >
-        <p className="text-green-500 font-mono">No location data available</p>
+        <p className="font-mono" style={{ color: theme.colors.primary }}>
+          No location data available
+        </p>
       </div>
     );
   }
@@ -161,17 +204,35 @@ export function Map({ latitude, longitude, city, country, className = "" }: MapP
   return (
     <div className={`relative ${className}`}>
       {!mapLoaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black z-10 rounded-lg">
-          <p className="text-green-500 font-mono animate-pulse">Loading map...</p>
+        <div
+          className="absolute inset-0 flex items-center justify-center z-10 rounded-lg"
+          style={{ backgroundColor: theme.colors.background }}
+        >
+          <p className="font-mono animate-pulse" style={{ color: theme.colors.primary }}>
+            Loading map...
+          </p>
         </div>
       )}
       <div
         ref={mapRef}
-        className="w-full h-64 rounded-lg border-2 border-green-500 shadow-[0_0_20px_rgba(0,255,0,0.3)] pointer-events-none"
-        style={{ background: "#000000", minHeight: "256px", zIndex: 1 }}
+        className="w-full h-64 rounded-lg border-2 pointer-events-none"
+        style={{
+          background: theme.colors.background,
+          borderColor: theme.colors.primary,
+          boxShadow: `0 0 20px ${hexToRgba(theme.colors.primary, 0.3)}`,
+          minHeight: "256px",
+          zIndex: 1,
+        }}
       />
       {(city || country) && (
-        <div className="absolute top-2 left-2 bg-black/90 border border-green-500 px-3 py-1 rounded font-mono text-green-500 text-sm z-[1000]">
+        <div
+          className="absolute top-2 left-2 border px-3 py-1 rounded font-mono text-sm z-[1000]"
+          style={{
+            backgroundColor: `${theme.colors.background}e6`,
+            borderColor: theme.colors.primary,
+            color: theme.colors.primary,
+          }}
+        >
           {city && country ? `${city}, ${country}` : city || country}
         </div>
       )}
