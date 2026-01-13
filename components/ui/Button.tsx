@@ -52,18 +52,21 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const style = {
       ...variantStyles[variant],
-      ...(variant === "primary" && {
-        "--hover-bg": `${primaryRgba}0.3)`,
-        "--hover-border": theme.colors.accent,
-        "--hover-shadow": `0 0 25px ${primaryRgba}0.4)`,
-      } as React.CSSProperties),
-      ...(variant === "secondary" && {
-        "--hover-bg": `${primaryRgba}0.1)`,
-        "--hover-border": theme.colors.primary,
-      } as React.CSSProperties),
-      ...(variant === "outline" && {
-        "--hover-bg": `${primaryRgba}0.1)`,
-      } as React.CSSProperties),
+      ...(variant === "primary" &&
+        ({
+          "--hover-bg": `${primaryRgba}0.3)`,
+          "--hover-border": theme.colors.accent,
+          "--hover-shadow": `0 0 25px ${primaryRgba}0.4)`,
+        } as React.CSSProperties)),
+      ...(variant === "secondary" &&
+        ({
+          "--hover-bg": `${primaryRgba}0.1)`,
+          "--hover-border": theme.colors.primary,
+        } as React.CSSProperties)),
+      ...(variant === "outline" &&
+        ({
+          "--hover-bg": `${primaryRgba}0.1)`,
+        } as React.CSSProperties)),
     };
 
     return (

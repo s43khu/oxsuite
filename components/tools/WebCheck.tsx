@@ -431,7 +431,10 @@ export default function WebCheck() {
                     {getDomainName()}
                   </h2>
                 </div>
-                <div className="font-mono text-sm" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-sm"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   {">"} Completed in {formatDuration(result.summary?.totalTime || 0)}
                 </div>
               </div>
@@ -446,14 +449,23 @@ export default function WebCheck() {
                 >
                   <div className="flex items-center gap-2 mb-2">
                     <CheckCircle className="w-5 h-5" style={{ color: theme.colors.primary }} />
-                    <span className="text-sm font-medium font-mono" style={{ color: theme.colors.primary }}>
+                    <span
+                      className="text-sm font-medium font-mono"
+                      style={{ color: theme.colors.primary }}
+                    >
                       SUCCESS
                     </span>
                   </div>
-                  <p className="text-3xl font-bold font-mono" style={{ color: theme.colors.accent }}>
+                  <p
+                    className="text-3xl font-bold font-mono"
+                    style={{ color: theme.colors.accent }}
+                  >
                     {progress.successful}
                   </p>
-                  <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                  <p
+                    className="text-xs font-mono mt-1"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
                     Jobs with data
                   </p>
                 </div>
@@ -513,10 +525,16 @@ export default function WebCheck() {
                     >
                       <div className="flex items-center gap-3 mb-2">
                         <XCircle className="w-5 h-5 text-red-500" />
-                        <span className="font-mono font-semibold" style={{ color: theme.colors.accent }}>
+                        <span
+                          className="font-mono font-semibold"
+                          style={{ color: theme.colors.accent }}
+                        >
                           {job.name.toUpperCase()}
                         </span>
-                        <span className="font-mono text-xs" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                        <span
+                          className="font-mono text-xs"
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                        >
                           ({formatDuration(job.duration)})
                         </span>
                       </div>
@@ -555,7 +573,10 @@ export default function WebCheck() {
                     <KeyValue label="STATUS CODE" value={result.results.status.statusCode} />
                   )}
                   {result.results.status?.responseTime && (
-                    <KeyValue label="RESPONSE TIME" value={`${result.results.status.responseTime}ms`} />
+                    <KeyValue
+                      label="RESPONSE TIME"
+                      value={`${result.results.status.responseTime}ms`}
+                    />
                   )}
                 </div>
               </InfoCard>
@@ -618,7 +639,9 @@ export default function WebCheck() {
                   {result.results.ssl?.subject && (
                     <KeyValue
                       label="SUBJECT"
-                      value={<span className="text-xs break-all">{result.results.ssl.subject}</span>}
+                      value={
+                        <span className="text-xs break-all">{result.results.ssl.subject}</span>
+                      }
                     />
                   )}
                   {result.results.ssl?.issuer && (
@@ -634,7 +657,10 @@ export default function WebCheck() {
                         <span
                           className="font-mono"
                           style={{
-                            color: result.results.ssl.daysRemaining < 30 ? "#ef4444" : theme.colors.accent,
+                            color:
+                              result.results.ssl.daysRemaining < 30
+                                ? "#ef4444"
+                                : theme.colors.accent,
                           }}
                         >
                           {result.results.ssl.daysRemaining}
@@ -658,7 +684,9 @@ export default function WebCheck() {
                   {result.results.domain?.registrar && (
                     <KeyValue
                       label="REGISTRAR"
-                      value={<span className="text-xs break-all">{result.results.domain.registrar}</span>}
+                      value={
+                        <span className="text-xs break-all">{result.results.domain.registrar}</span>
+                      }
                     />
                   )}
                 </div>
@@ -713,9 +741,9 @@ export default function WebCheck() {
               result.results.cookies.cookies.length > 0 && (
                 <Card className="p-6" variant="hacker">
                   <h3
-                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
-                  style={{ color: theme.colors.primary }}
-                >
+                    className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                    style={{ color: theme.colors.primary }}
+                  >
                     <Cookie className="w-5 h-5" />
                     COOKIES ({result.results.cookies.cookies.length})
                   </h3>
@@ -729,30 +757,48 @@ export default function WebCheck() {
                           backgroundColor: hexToRgba(theme.colors.background, 0.5),
                         }}
                       >
-                        <div className="font-semibold mb-2 break-all" style={{ color: theme.colors.accent }}>
+                        <div
+                          className="font-semibold mb-2 break-all"
+                          style={{ color: theme.colors.accent }}
+                        >
                           {cookie.name}
                         </div>
                         <div className="space-y-1 text-xs">
                           <div className="flex items-center gap-2">
-                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>Secure:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                              Secure:
+                            </span>
                             {cookie.hasSecure ? (
-                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
+                              <CheckCircle
+                                className="w-3 h-3"
+                                style={{ color: theme.colors.primary }}
+                              />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>HttpOnly:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                              HttpOnly:
+                            </span>
                             {cookie.hasHttpOnly ? (
-                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
+                              <CheckCircle
+                                className="w-3 h-3"
+                                style={{ color: theme.colors.primary }}
+                              />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
-                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>SameSite:</span>
+                            <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                              SameSite:
+                            </span>
                             {cookie.hasSameSite ? (
-                              <CheckCircle className="w-3 h-3" style={{ color: theme.colors.primary }} />
+                              <CheckCircle
+                                className="w-3 h-3"
+                                style={{ color: theme.colors.primary }}
+                              />
                             ) : (
                               <XCircle className="w-3 h-3 text-red-500" />
                             )}
@@ -795,36 +841,32 @@ export default function WebCheck() {
             {hasData("dns") && (
               <InfoCard icon={Eye} title="DNS RECORDS">
                 <div className="space-y-4 text-sm font-mono max-h-96 overflow-y-auto">
-                  <DNSRecordList
-                    label="A Records"
-                    records={result.results.dns?.a || []}
-                  />
-                  <DNSRecordList
-                    label="AAAA Records"
-                    records={result.results.dns?.aaaa || []}
-                  />
+                  <DNSRecordList label="A Records" records={result.results.dns?.a || []} />
+                  <DNSRecordList label="AAAA Records" records={result.results.dns?.aaaa || []} />
                   <DNSRecordList
                     label="MX Records"
                     records={result.results.dns?.mx || []}
                     formatRecord={(record: any, idx: number) => (
-                      <div key={idx} className="text-xs break-all" style={{ color: theme.colors.accent }}>
+                      <div
+                        key={idx}
+                        className="text-xs break-all"
+                        style={{ color: theme.colors.accent }}
+                      >
                         • {record.exchange} (Priority: {record.priority})
                       </div>
                     )}
                   />
-                  <DNSRecordList
-                    label="NS Records"
-                    records={result.results.dns?.ns || []}
-                  />
-                  <DNSRecordList
-                    label="CNAME Records"
-                    records={result.results.dns?.cname || []}
-                  />
+                  <DNSRecordList label="NS Records" records={result.results.dns?.ns || []} />
+                  <DNSRecordList label="CNAME Records" records={result.results.dns?.cname || []} />
                   <DNSRecordList
                     label="TXT Records"
                     records={result.results.dns?.txt || []}
                     formatRecord={(record: any, idx: number) => (
-                      <div key={idx} className="text-xs break-all" style={{ color: theme.colors.accent }}>
+                      <div
+                        key={idx}
+                        className="text-xs break-all"
+                        style={{ color: theme.colors.accent }}
+                      >
                         • {Array.isArray(record) ? record.join(" ") : record}
                       </div>
                     )}
@@ -907,7 +949,12 @@ export default function WebCheck() {
               <InfoCard icon={Network} title="PORTS">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.ports?.open && result.results.ports.open.length > 0 && (
-                    <KeyValue label="OPEN" value={<span className="text-xs">{result.results.ports.open.join(", ")}</span>} />
+                    <KeyValue
+                      label="OPEN"
+                      value={
+                        <span className="text-xs">{result.results.ports.open.join(", ")}</span>
+                      }
+                    />
                   )}
                 </div>
               </InfoCard>
@@ -927,7 +974,11 @@ export default function WebCheck() {
                   result.results.robotsTxt.disallowedPaths.length > 0 ? (
                     <KeyValue
                       label="Blocked Paths"
-                      value={<span className="text-xs">{result.results.robotsTxt.disallowedPaths.length} paths</span>}
+                      value={
+                        <span className="text-xs">
+                          {result.results.robotsTxt.disallowedPaths.length} paths
+                        </span>
+                      }
                     />
                   ) : null
                 }
@@ -947,7 +998,9 @@ export default function WebCheck() {
                   result.results.sitemap?.urls && result.results.sitemap.urls.length > 0 ? (
                     <KeyValue
                       label="Pages Listed"
-                      value={<span className="text-xs">{result.results.sitemap.urls.length} URLs</span>}
+                      value={
+                        <span className="text-xs">{result.results.sitemap.urls.length} URLs</span>
+                      }
                     />
                   ) : null
                 }
@@ -972,11 +1025,18 @@ export default function WebCheck() {
                   {result.results.dnsServer?.hostname && (
                     <KeyValue
                       label="HOSTNAME"
-                      value={<span className="text-xs break-all">{result.results.dnsServer.hostname}</span>}
+                      value={
+                        <span className="text-xs break-all">
+                          {result.results.dnsServer.hostname}
+                        </span>
+                      }
                     />
                   )}
                   {result.results.dnsServer?.ip && (
-                    <KeyValue label="IP" value={<span className="text-xs">{result.results.dnsServer.ip}</span>} />
+                    <KeyValue
+                      label="IP"
+                      value={<span className="text-xs">{result.results.dnsServer.ip}</span>}
+                    />
                   )}
                 </div>
               </InfoCard>
@@ -1011,13 +1071,21 @@ export default function WebCheck() {
                   {result.results.archives?.firstScan && (
                     <KeyValue
                       label="FIRST"
-                      value={<span className="text-xs">{new Date(result.results.archives.firstScan).toLocaleDateString()}</span>}
+                      value={
+                        <span className="text-xs">
+                          {new Date(result.results.archives.firstScan).toLocaleDateString()}
+                        </span>
+                      }
                     />
                   )}
                   {result.results.archives?.lastScan && (
                     <KeyValue
                       label="LAST SCANNED"
-                      value={<span className="text-xs">{new Date(result.results.archives.lastScan).toLocaleDateString()}</span>}
+                      value={
+                        <span className="text-xs">
+                          {new Date(result.results.archives.lastScan).toLocaleDateString()}
+                        </span>
+                      }
                     />
                   )}
                 </div>
@@ -1035,7 +1103,11 @@ export default function WebCheck() {
                   {result.results.socialTags?.keywords && (
                     <KeyValue
                       label="KEYWORDS"
-                      value={<span className="text-xs">{result.results.socialTags.keywords.split(",").length} tags</span>}
+                      value={
+                        <span className="text-xs">
+                          {result.results.socialTags.keywords.split(",").length} tags
+                        </span>
+                      }
                     />
                   )}
                 </div>
@@ -1056,7 +1128,10 @@ export default function WebCheck() {
                     <div className="text-4xl font-bold mb-2" style={{ color: theme.colors.accent }}>
                       {result.results.quality?.overall || 0}
                     </div>
-                    <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <div
+                      className="text-xs font-mono"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       OVERALL SCORE
                     </div>
                   </div>
@@ -1065,7 +1140,10 @@ export default function WebCheck() {
                       <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.performance?.score || 0}
                       </div>
-                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      <div
+                        className="text-xs"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
                         PERFORMANCE
                       </div>
                     </div>
@@ -1073,7 +1151,10 @@ export default function WebCheck() {
                       <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.seo?.score || 0}
                       </div>
-                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      <div
+                        className="text-xs"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
                         SEO
                       </div>
                     </div>
@@ -1081,7 +1162,10 @@ export default function WebCheck() {
                       <div className="text-xl font-bold" style={{ color: theme.colors.accent }}>
                         {result.results.quality?.accessibility?.score || 0}
                       </div>
-                      <div className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      <div
+                        className="text-xs"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
                         ACCESSIBILITY
                       </div>
                     </div>
@@ -1123,7 +1207,11 @@ export default function WebCheck() {
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.traceRoute?.hops && result.results.traceRoute.hops.length > 0 ? (
                     result.results.traceRoute.hops.map((hop: any, idx: number) => (
-                      <KeyValue key={idx} label={`HOP ${hop.hop}`} value={hop.ip || hop.hostname || "Unknown"} />
+                      <KeyValue
+                        key={idx}
+                        label={`HOP ${hop.hop}`}
+                        value={hop.ip || hop.hostname || "Unknown"}
+                      />
                     ))
                   ) : (
                     <div style={{ color: theme.colors.foreground, opacity: 0.7 }}>
@@ -1146,7 +1234,9 @@ export default function WebCheck() {
                 <div className="space-y-3 text-sm font-mono">
                   {result.results.mailConfig?.mx && result.results.mailConfig.mx.length > 0 && (
                     <div>
-                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>MX RECORDS:</span>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        MX RECORDS:
+                      </span>
                       <div className="mt-1 space-y-1">
                         {result.results.mailConfig.mx.map((mx: any, idx: number) => (
                           <div key={idx} className="text-xs" style={{ color: theme.colors.accent }}>
@@ -1180,7 +1270,10 @@ export default function WebCheck() {
                     )}
                     <span style={{ color: theme.colors.accent }}>DMARC Record</span>
                     {result.results.mailConfig?.dmarc?.policy && (
-                      <span className="text-xs ml-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      <span
+                        className="text-xs ml-2"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
                         ({result.results.mailConfig.dmarc.policy})
                       </span>
                     )}
@@ -1193,7 +1286,10 @@ export default function WebCheck() {
               <InfoCard icon={TrendingUp} title="RANKING">
                 <div className="space-y-2 text-sm font-mono">
                   {result.results.rank?.alexa ? (
-                    <KeyValue label="ALEXA RANK" value={`#${result.results.rank.alexa.toLocaleString()}`} />
+                    <KeyValue
+                      label="ALEXA RANK"
+                      value={`#${result.results.rank.alexa.toLocaleString()}`}
+                    />
                   ) : (
                     <div style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                       Ranking data not available
@@ -1223,7 +1319,10 @@ export default function WebCheck() {
                         (e.target as HTMLImageElement).style.display = "none";
                       }}
                     />
-                    <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <div
+                      className="text-xs font-mono"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       {result.results.screenshot.width}x{result.results.screenshot.height}px
                       {result.results.screenshot.service &&
                         ` • ${result.results.screenshot.service}`}
@@ -1239,22 +1338,32 @@ export default function WebCheck() {
                   {result.results.tlsCipherSuites?.grade && (
                     <KeyValue
                       label="SSL LABS GRADE"
-                      value={<span className="font-bold">{result.results.tlsCipherSuites.grade}</span>}
+                      value={
+                        <span className="font-bold">{result.results.tlsCipherSuites.grade}</span>
+                      }
                     />
                   )}
                   {result.results.tlsCipherSuites?.supported &&
                     result.results.tlsCipherSuites.supported.length > 0 && (
-                      <KeyValue label="SUPPORTED" value={result.results.tlsCipherSuites.supported.length} />
+                      <KeyValue
+                        label="SUPPORTED"
+                        value={result.results.tlsCipherSuites.supported.length}
+                      />
                     )}
                   {result.results.tlsCipherSuites?.recommended &&
                     result.results.tlsCipherSuites.recommended.length > 0 && (
-                      <KeyValue label="RECOMMENDED" value={result.results.tlsCipherSuites.recommended.length} />
+                      <KeyValue
+                        label="RECOMMENDED"
+                        value={result.results.tlsCipherSuites.recommended.length}
+                      />
                     )}
                   {result.results.tlsCipherSuites?.weak &&
                     result.results.tlsCipherSuites.weak.length > 0 && (
                       <div>
                         <span className="text-red-500/70">WEAK:</span>
-                        <span className="text-red-400 ml-2">{result.results.tlsCipherSuites.weak.length}</span>
+                        <span className="text-red-400 ml-2">
+                          {result.results.tlsCipherSuites.weak.length}
+                        </span>
                       </div>
                     )}
                 </div>
@@ -1273,7 +1382,9 @@ export default function WebCheck() {
                 <div className="space-y-3 text-sm font-mono">
                   {result.results.tlsSecurityConfig?.protocol && (
                     <div>
-                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>PROTOCOL:</span>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        PROTOCOL:
+                      </span>
                       <span className="ml-2" style={{ color: theme.colors.accent }}>
                         {result.results.tlsSecurityConfig.protocol}
                       </span>
@@ -1368,7 +1479,10 @@ export default function WebCheck() {
                         className="mt-3 pt-3 border-t"
                         style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
                       >
-                        <div className="text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        <div
+                          className="text-xs mb-1"
+                          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                        >
                           RECOMMENDATIONS:
                         </div>
                         {result.results.tlsClientSupport.recommended.map(
@@ -1419,13 +1533,15 @@ export default function WebCheck() {
                 </h3>
                 <div className="space-y-3 text-sm font-mono">
                   <div>
-                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>EMISSIONS:</span>
-                      <span className="ml-2" style={{ color: theme.colors.accent }}>
-                        {result.results.carbon?.emissions?.toFixed(4) || 0} g CO₂
-                      </span>
-                    </div>
+                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>EMISSIONS:</span>
+                    <span className="ml-2" style={{ color: theme.colors.accent }}>
+                      {result.results.carbon?.emissions?.toFixed(4) || 0} g CO₂
+                    </span>
+                  </div>
                   <div>
-                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CLEANER THAN:</span>
+                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      CLEANER THAN:
+                    </span>
                     <span className="ml-2" style={{ color: theme.colors.accent }}>
                       {result.results.carbon?.cleanerThan || 0}% of websites
                     </span>
@@ -1450,7 +1566,10 @@ export default function WebCheck() {
                         className="mt-3 pt-3 border-t"
                         style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
                       >
-                        <div className="text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        <div
+                          className="text-xs mb-1"
+                          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                        >
                           RECOMMENDATIONS:
                         </div>
                         {result.results.carbon.recommendations.map((rec: string, i: number) => (
@@ -1469,9 +1588,9 @@ export default function WebCheck() {
               result.results.location?.longitude && (
                 <Card className="p-6 md:col-span-3" variant="hacker">
                   <h3
-                  className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
-                  style={{ color: theme.colors.primary }}
-                >
+                    className="text-lg font-bold smooch-sans flex items-center gap-2 mb-4"
+                    style={{ color: theme.colors.primary }}
+                  >
                     <MapPin className="w-5 h-5" />
                     SERVER LOCATION
                   </h3>
@@ -1486,7 +1605,9 @@ export default function WebCheck() {
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm font-mono">
                       {result.results.location?.city && (
                         <div>
-                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CITY:</span>
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                            CITY:
+                          </span>
                           <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.city}
                           </span>
@@ -1494,7 +1615,9 @@ export default function WebCheck() {
                       )}
                       {result.results.location?.country && (
                         <div>
-                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>COUNTRY:</span>
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                            COUNTRY:
+                          </span>
                           <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.country}
                           </span>
@@ -1502,7 +1625,9 @@ export default function WebCheck() {
                       )}
                       {result.results.location?.region && (
                         <div>
-                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>REGION:</span>
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                            REGION:
+                          </span>
                           <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.region}
                           </span>
@@ -1510,7 +1635,9 @@ export default function WebCheck() {
                       )}
                       {result.results.location?.timezone && (
                         <div>
-                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>TIMEZONE:</span>
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                            TIMEZONE:
+                          </span>
                           <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.timezone}
                           </span>
@@ -1518,7 +1645,9 @@ export default function WebCheck() {
                       )}
                       {result.results.location?.currency && (
                         <div>
-                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>CURRENCY:</span>
+                          <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                            CURRENCY:
+                          </span>
                           <span className="ml-2" style={{ color: theme.colors.accent }}>
                             {result.results.location.currency}
                           </span>

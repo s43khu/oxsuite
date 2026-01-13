@@ -63,7 +63,10 @@ export default function FileViewer() {
       case "csv":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+            <p
+              className="font-mono text-center py-8"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
               CSV viewer coming soon
             </p>
           </Card>
@@ -71,7 +74,10 @@ export default function FileViewer() {
       case "json":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+            <p
+              className="font-mono text-center py-8"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
               JSON viewer coming soon
             </p>
           </Card>
@@ -81,7 +87,10 @@ export default function FileViewer() {
       case "pdf":
         return (
           <Card variant="hacker" className="p-6">
-            <p className="font-mono text-center py-8" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+            <p
+              className="font-mono text-center py-8"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
               PDF viewer coming soon
             </p>
           </Card>
@@ -132,11 +141,7 @@ export default function FileViewer() {
           </div>
 
           {selectedFile && (
-            <Button
-              variant="outline"
-              onClick={handleClear}
-              className="flex items-center gap-2"
-            >
+            <Button variant="outline" onClick={handleClear} className="flex items-center gap-2">
               <X className="w-4 h-4" />
               Clear
             </Button>
@@ -156,12 +161,18 @@ export default function FileViewer() {
                 <p className="text-sm font-mono" style={{ color: theme.colors.primary }}>
                   <span className="font-semibold">File:</span> {selectedFile.name}
                 </p>
-                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-xs font-mono mt-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   <span className="font-semibold">Type:</span>{" "}
                   {detectFileType(selectedFile).description} (Auto-detected)
                 </p>
               </div>
-              <FileQuestion className="w-5 h-5" style={{ color: theme.colors.primary, opacity: 0.5 }} />
+              <FileQuestion
+                className="w-5 h-5"
+                style={{ color: theme.colors.primary, opacity: 0.5 }}
+              />
             </div>
           </div>
         )}
@@ -181,7 +192,10 @@ export default function FileViewer() {
 
       {!selectedFile && (
         <Card variant="hacker" className="p-12 text-center">
-          <File className="w-16 h-16 mx-auto mb-4" style={{ color: theme.colors.primary, opacity: 0.3 }} />
+          <File
+            className="w-16 h-16 mx-auto mb-4"
+            style={{ color: theme.colors.primary, opacity: 0.3 }}
+          />
           <p className="font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             Upload a file to get started
           </p>

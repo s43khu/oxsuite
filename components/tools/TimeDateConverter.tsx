@@ -505,14 +505,20 @@ export default function TimeDateConverter() {
                           >
                             <div className="flex flex-col">
                               <span className="text-sm">{getTimezoneDisplayName(tz)}</span>
-                              <span className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                              <span
+                                className="text-xs"
+                                style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                              >
                                 {tz}
                               </span>
                             </div>
                           </button>
                         ))
                       ) : (
-                        <div className="px-3 py-4 text-center text-sm" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                        <div
+                          className="px-3 py-4 text-center text-sm"
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                        >
                           No timezones found
                         </div>
                       )}
@@ -648,7 +654,10 @@ export default function TimeDateConverter() {
                         className="w-full text-left px-3 py-2 transition-colors"
                         style={{ color: theme.colors.primary }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.2);
+                          e.currentTarget.style.backgroundColor = hexToRgba(
+                            theme.colors.primary,
+                            0.2
+                          );
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.backgroundColor = "transparent";
@@ -656,14 +665,20 @@ export default function TimeDateConverter() {
                       >
                         <div className="flex flex-col">
                           <span className="text-sm">{getTimezoneDisplayName(tz)}</span>
-                          <span className="text-xs" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                          <span
+                            className="text-xs"
+                            style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          >
                             {tz}
                           </span>
                         </div>
                       </button>
                     ))
                   ) : (
-                    <div className="px-3 py-4 text-center text-sm" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                    <div
+                      className="px-3 py-4 text-center text-sm"
+                      style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                    >
                       No timezones found
                     </div>
                   )}
@@ -686,10 +701,16 @@ export default function TimeDateConverter() {
               >
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <div className="font-mono font-semibold text-sm mb-1" style={{ color: theme.colors.accent }}>
+                    <div
+                      className="font-mono font-semibold text-sm mb-1"
+                      style={{ color: theme.colors.accent }}
+                    >
                       {getTimezoneDisplayName(comp.timezone)}
                     </div>
-                    <div className="font-mono text-xs" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                    <div
+                      className="font-mono text-xs"
+                      style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                    >
                       {comp.timezone}
                     </div>
                   </div>
@@ -702,7 +723,10 @@ export default function TimeDateConverter() {
                 </div>
                 <div className="grid grid-cols-3 gap-3 mt-3">
                   <div>
-                    <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <div
+                      className="font-mono text-xs mb-1"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       DATE
                     </div>
                     <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
@@ -710,7 +734,10 @@ export default function TimeDateConverter() {
                     </div>
                   </div>
                   <div>
-                    <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <div
+                      className="font-mono text-xs mb-1"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       TIME
                     </div>
                     <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
@@ -718,7 +745,10 @@ export default function TimeDateConverter() {
                     </div>
                   </div>
                   <div>
-                    <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <div
+                      className="font-mono text-xs mb-1"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       DAY
                     </div>
                     <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
@@ -730,7 +760,10 @@ export default function TimeDateConverter() {
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 font-mono text-sm" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+          <div
+            className="text-center py-8 font-mono text-sm"
+            style={{ color: theme.colors.foreground, opacity: 0.5 }}
+          >
             Click "ADD TIMEZONE" to compare this time across multiple timezones
           </div>
         )}
@@ -753,7 +786,10 @@ export default function TimeDateConverter() {
                 borderColor: theme.colors.primary,
               }}
             >
-              <div className="font-mono text-xs mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <div
+                className="font-mono text-xs mb-2"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 DATE
               </div>
               <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
@@ -767,7 +803,10 @@ export default function TimeDateConverter() {
                 borderColor: theme.colors.primary,
               }}
             >
-              <div className="font-mono text-xs mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <div
+                className="font-mono text-xs mb-2"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 TIME
               </div>
               <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
@@ -781,7 +820,10 @@ export default function TimeDateConverter() {
                 borderColor: theme.colors.primary,
               }}
             >
-              <div className="font-mono text-xs mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <div
+                className="font-mono text-xs mb-2"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 DAY OF WEEK
               </div>
               <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
@@ -802,7 +844,10 @@ export default function TimeDateConverter() {
             </h3>
             <div className="space-y-3">
               <div>
-                <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-xs mb-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   SECONDS
                 </div>
                 <div className="flex items-center gap-2">
@@ -834,7 +879,10 @@ export default function TimeDateConverter() {
                 </div>
               </div>
               <div>
-                <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-xs mb-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   MILLISECONDS
                 </div>
                 <div className="flex items-center gap-2">
@@ -878,7 +926,10 @@ export default function TimeDateConverter() {
             </h3>
             <div className="space-y-3">
               <div>
-                <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-xs mb-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   ISO FORMAT
                 </div>
                 <div className="flex items-center gap-2">
@@ -920,7 +971,10 @@ export default function TimeDateConverter() {
             </h3>
             <div className="space-y-3">
               <div>
-                <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-xs mb-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   UTC FORMAT
                 </div>
                 <div className="flex items-center gap-2">
@@ -962,7 +1016,10 @@ export default function TimeDateConverter() {
             </h3>
             <div className="space-y-3">
               <div>
-                <div className="font-mono text-xs mb-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="font-mono text-xs mb-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   LOCAL FORMAT
                 </div>
                 <div className="flex items-center gap-2">

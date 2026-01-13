@@ -104,17 +104,22 @@ function JSONViewer({
                     const itemPath = `${arrayPath}[${index}]`;
                     return (
                       <div key={index} className="flex items-start mb-1">
-                        <span style={{ color: theme.colors.foreground, opacity: 0.5 }} className="mr-2">{index}:</span>
+                        <span
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          className="mr-2"
+                        >
+                          {index}:
+                        </span>
                         <div className="flex-1">
                           {typeof item === "object" && item !== null ? (
-                        <JSONViewer
-                          data={item}
-                          level={level + 1}
-                          collapsed={collapsed}
-                          onToggle={onToggle}
-                          path={itemPath}
-                          theme={theme}
-                        />
+                            <JSONViewer
+                              data={item}
+                              level={level + 1}
+                              collapsed={collapsed}
+                              onToggle={onToggle}
+                              path={itemPath}
+                              theme={theme}
+                            />
                           ) : (
                             renderValue(item)
                           )}
@@ -125,7 +130,9 @@ function JSONViewer({
                 </div>
               )}
               {isArrayCollapsed && (
-                <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>... {value.length} items</span>
+                <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                  ... {value.length} items
+                </span>
               )}
               <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>]</span>
             </span>
@@ -138,7 +145,9 @@ function JSONViewer({
           return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{"{...}"}</span>;
         }
       default:
-        return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{String(value)}</span>;
+        return (
+          <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{String(value)}</span>
+        );
     }
   };
 
@@ -175,7 +184,9 @@ function JSONViewer({
               return (
                 <div key={key} className="mb-1 flex items-start">
                   <span className="text-red-400 font-semibold font-mono flex-shrink-0">{key}</span>
-                  <span className="mx-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>:</span>
+                  <span className="mx-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    :
+                  </span>
                   {isValueObject ? (
                     <div className="flex-1">
                       {isValueCollapsed ? (
@@ -218,7 +229,11 @@ function JSONViewer({
                 </div>
               );
             })}
-          {isCollapsed && <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>... {keys.length} keys</span>}
+          {isCollapsed && (
+            <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+              ... {keys.length} keys
+            </span>
+          )}
         </div>
       </div>
     );
@@ -519,7 +534,10 @@ export default function JSONLinter() {
 
     return (
       <div className="relative">
-        <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+        <label
+          className="block text-sm font-medium font-mono mb-2"
+          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+        >
           {label}
         </label>
         <div
@@ -545,7 +563,8 @@ export default function JSONLinter() {
                 key={i}
                 className="h-5 leading-5 text-right pr-2"
                 style={{
-                  backgroundColor: highlightedLine === i + 1 ? "rgba(239, 68, 68, 0.3)" : "transparent",
+                  backgroundColor:
+                    highlightedLine === i + 1 ? "rgba(239, 68, 68, 0.3)" : "transparent",
                   color: highlightedLine === i + 1 ? "#f87171" : theme.colors.foreground,
                   fontWeight: highlightedLine === i + 1 ? "bold" : "normal",
                 }}
@@ -586,7 +605,10 @@ export default function JSONLinter() {
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
           <Code className="w-8 h-8" style={{ color: theme.colors.primary }} />
-          <h2 className="text-3xl font-bold smooch-sans font-effect-anaglyph" style={{ color: theme.colors.primary }}>
+          <h2
+            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            style={{ color: theme.colors.primary }}
+          >
             JSON Linter
           </h2>
         </div>
@@ -610,12 +632,20 @@ export default function JSONLinter() {
               Open JSON File
             </Button>
             {fileName && (
-              <div className="flex items-center gap-2 text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <div
+                className="flex items-center gap-2 text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 <File className="w-4 h-4" />
                 <span>{fileName}</span>
               </div>
             )}
-            <span className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>(Max 5MB)</span>
+            <span
+              className="text-xs font-mono"
+              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+            >
+              (Max 5MB)
+            </span>
           </div>
           {fileError && (
             <div className="p-2 bg-red-500/10 border border-red-500 rounded text-red-400 text-sm font-mono">
@@ -634,7 +664,12 @@ export default function JSONLinter() {
 
         <div className="flex flex-wrap items-center gap-4 mt-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Indent:</label>
+            <label
+              className="text-sm font-mono"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
+              Indent:
+            </label>
             <select
               value={indentSize}
               onChange={(e) => setIndentSize(Number(e.target.value))}
@@ -672,7 +707,12 @@ export default function JSONLinter() {
                 borderColor: theme.colors.primary,
               }}
             />
-            <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Auto-validate</span>
+            <span
+              className="text-sm font-mono"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
+              Auto-validate
+            </span>
           </label>
         </div>
 
@@ -741,7 +781,12 @@ export default function JSONLinter() {
               {validationResult.isValid ? (
                 <>
                   <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
-                  <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>Valid JSON</h3>
+                  <h3
+                    className="text-xl font-semibold font-mono"
+                    style={{ color: theme.colors.primary }}
+                  >
+                    Valid JSON
+                  </h3>
                 </>
               ) : (
                 <>
@@ -762,10 +807,18 @@ export default function JSONLinter() {
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
-                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                      <div
+                        className="text-2xl font-bold font-mono"
+                        style={{ color: theme.colors.primary }}
+                      >
                         {validationResult.stats.keys}
                       </div>
-                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Keys</div>
+                      <div
+                        className="text-xs font-mono"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
+                        Keys
+                      </div>
                     </div>
                     <div
                       className="text-center p-3 rounded border"
@@ -774,10 +827,18 @@ export default function JSONLinter() {
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
-                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                      <div
+                        className="text-2xl font-bold font-mono"
+                        style={{ color: theme.colors.primary }}
+                      >
                         {validationResult.stats.depth}
                       </div>
-                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Max Depth</div>
+                      <div
+                        className="text-xs font-mono"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
+                        Max Depth
+                      </div>
                     </div>
                     <div
                       className="text-center p-3 rounded border"
@@ -786,17 +847,28 @@ export default function JSONLinter() {
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
-                      <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                      <div
+                        className="text-2xl font-bold font-mono"
+                        style={{ color: theme.colors.primary }}
+                      >
                         {validationResult.stats.size}
                       </div>
-                      <div className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>Size (chars)</div>
+                      <div
+                        className="text-xs font-mono"
+                        style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                      >
+                        Size (chars)
+                      </div>
                     </div>
                   </div>
                 )}
 
                 <div>
                   <div className="flex items-center justify-between mb-2">
-                    <label className="block text-sm font-medium font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                    <label
+                      className="block text-sm font-medium font-mono"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       Formatted JSON Viewer
                     </label>
                     <div className="flex gap-2">

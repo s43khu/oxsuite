@@ -602,7 +602,10 @@ export default function CookieInspector() {
               )}
             </Button>
           </div>
-          <p className="text-xs font-mono mt-2" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+          <p
+            className="text-xs font-mono mt-2"
+            style={{ color: theme.colors.foreground, opacity: 0.5 }}
+          >
             Enter a URL to extract cookies using the backend API
           </p>
         </div>
@@ -626,12 +629,18 @@ export default function CookieInspector() {
               Upload Cookie File
             </Button>
             {fileName && (
-              <div className="flex items-center gap-2 text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <div
+                className="flex items-center gap-2 text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 <File className="w-4 h-4" />
                 <span>{fileName}</span>
               </div>
             )}
-            <span className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+            <span
+              className="text-xs font-mono"
+              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+            >
               (Max 5MB • Supports .txt, .json, .cookie)
             </span>
           </div>
@@ -643,7 +652,10 @@ export default function CookieInspector() {
         </div>
 
         <div>
-          <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+          <label
+            className="block text-sm font-medium font-mono mb-2"
+            style={{ color: theme.colors.foreground, opacity: 0.7 }}
+          >
             Cookie String(s) - One per line (Supports Header, JSON, Netscape formats)
           </label>
           <textarea
@@ -832,7 +844,10 @@ export default function CookieInspector() {
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <BarChart3 className="w-6 h-6" style={{ color: theme.colors.primary }} />
-              <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>
+              <h3
+                className="text-xl font-semibold font-mono"
+                style={{ color: theme.colors.primary }}
+              >
                 Cookie Data Analysis
               </h3>
             </div>
@@ -857,7 +872,10 @@ export default function CookieInspector() {
               >
                 <div className="flex items-center gap-2 mb-3">
                   <Info className="w-5 h-5" style={{ color: theme.colors.primary }} />
-                  <h4 className="text-lg font-semibold font-mono" style={{ color: theme.colors.primary }}>
+                  <h4
+                    className="text-lg font-semibold font-mono"
+                    style={{ color: theme.colors.primary }}
+                  >
                     Summary
                   </h4>
                 </div>
@@ -867,25 +885,41 @@ export default function CookieInspector() {
                     <span style={{ color: theme.colors.accent }}>{cookieSummary.domain}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>Total Cookies:</span>
+                    <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                      Total Cookies:
+                    </span>
                     <span style={{ color: theme.colors.accent }}>{cookieSummary.totalCookies}</span>
                   </div>
                   {cookieSummary.sessionInfo.firstSeen && (
                     <div className="flex items-center gap-2">
-                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>First Seen:</span>
-                      <span style={{ color: theme.colors.accent }}>{cookieSummary.sessionInfo.firstSeen}</span>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        First Seen:
+                      </span>
+                      <span style={{ color: theme.colors.accent }}>
+                        {cookieSummary.sessionInfo.firstSeen}
+                      </span>
                     </div>
                   )}
                   {cookieSummary.sessionInfo.lastAccess && (
                     <div className="flex items-center gap-2">
-                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>Last Access:</span>
-                      <span style={{ color: theme.colors.accent }}>{cookieSummary.sessionInfo.lastAccess}</span>
+                      <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                        Last Access:
+                      </span>
+                      <span style={{ color: theme.colors.accent }}>
+                        {cookieSummary.sessionInfo.lastAccess}
+                      </span>
                     </div>
                   )}
                 </div>
 
-                <div className="mt-4 pt-4 border-t" style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}>
-                  <div className="text-sm font-semibold font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <div
+                  className="mt-4 pt-4 border-t"
+                  style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                >
+                  <div
+                    className="text-sm font-semibold font-mono mb-2"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
                     Categories:
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -906,8 +940,14 @@ export default function CookieInspector() {
                 </div>
 
                 {cookieSummary.trackingServices.length > 0 && (
-                  <div className="mt-4 pt-4 border-t" style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}>
-                    <div className="text-sm font-semibold font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                  <div
+                    className="mt-4 pt-4 border-t"
+                    style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                  >
+                    <div
+                      className="text-sm font-semibold font-mono mb-2"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       Tracking Services:
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -924,8 +964,14 @@ export default function CookieInspector() {
                 )}
 
                 {cookieSummary.consentStatus.hasConsent && (
-                  <div className="mt-4 pt-4 border-t" style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}>
-                    <div className="text-sm font-semibold font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                  <div
+                    className="mt-4 pt-4 border-t"
+                    style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                  >
+                    <div
+                      className="text-sm font-semibold font-mono mb-2"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       Consent Status:
                     </div>
                     <div className="flex flex-wrap gap-2">
@@ -958,7 +1004,10 @@ export default function CookieInspector() {
               </div>
 
               <div className="space-y-3">
-                <h4 className="text-lg font-semibold font-mono mb-3" style={{ color: theme.colors.primary }}>
+                <h4
+                  className="text-lg font-semibold font-mono mb-3"
+                  style={{ color: theme.colors.primary }}
+                >
                   Detailed Cookie Analysis
                 </h4>
                 {cookieAnalyses.map((analysis, index) => (

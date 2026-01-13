@@ -23,7 +23,10 @@ export function PageHeader() {
             >
               OXsuite
             </h1>
-            <p className="text-sm font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+            <p
+              className="text-sm font-mono mt-1"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
               {">"} Professional tools for daily use
             </p>
           </div>

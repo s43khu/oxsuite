@@ -29,11 +29,7 @@ export default function FileViewerPage() {
 
       <div ref={containerRef} className="max-w-7xl mx-auto py-12 px-6">
         <Link href="/">
-          <Button
-            variant="outline"
-            size="sm"
-            className="mb-6 flex items-center gap-2"
-          >
+          <Button variant="outline" size="sm" className="mb-6 flex items-center gap-2">
             <ArrowLeft className="w-4 h-4" />
             Back to Tools
           </Button>

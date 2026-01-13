@@ -426,7 +426,10 @@ export default function TextCompare() {
 
     return (
       <div className="relative">
-        <label className="block text-sm font-medium font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+        <label
+          className="block text-sm font-medium font-mono mb-2"
+          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+        >
           {label}
         </label>
         <div
@@ -452,7 +455,8 @@ export default function TextCompare() {
                 key={i}
                 className="h-5 leading-5 text-right pr-2"
                 style={{
-                  backgroundColor: highlightedLine === i ? hexToRgba(theme.colors.primary, 0.3) : "transparent",
+                  backgroundColor:
+                    highlightedLine === i ? hexToRgba(theme.colors.primary, 0.3) : "transparent",
                   color: highlightedLine === i ? theme.colors.accent : theme.colors.foreground,
                   opacity: highlightedLine === i ? 1 : 0.5,
                   fontWeight: highlightedLine === i ? "bold" : "normal",
@@ -504,7 +508,10 @@ export default function TextCompare() {
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
           <FileText className="w-8 h-8" style={{ color: theme.colors.primary }} />
-          <h2 className="text-3xl font-bold smooch-sans font-effect-anaglyph" style={{ color: theme.colors.primary }}>
+          <h2
+            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            style={{ color: theme.colors.primary }}
+          >
             Text Compare
           </h2>
         </div>
@@ -552,7 +559,10 @@ export default function TextCompare() {
                   borderColor: theme.colors.primary,
                 }}
               />
-              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <span
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 To lowercase
               </span>
             </label>
@@ -568,7 +578,10 @@ export default function TextCompare() {
                   borderColor: theme.colors.primary,
                 }}
               />
-              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <span
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 Sort lines
               </span>
             </label>
@@ -584,7 +597,10 @@ export default function TextCompare() {
                   borderColor: theme.colors.primary,
                 }}
               />
-              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <span
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 Replace line breaks
               </span>
             </label>
@@ -602,7 +618,10 @@ export default function TextCompare() {
                   borderColor: theme.colors.primary,
                 }}
               />
-              <span className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <span
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 Remove excess whitespace
               </span>
             </label>

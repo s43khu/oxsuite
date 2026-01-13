@@ -103,7 +103,10 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
               >
                 Excel File Viewer
               </h3>
-              <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <p
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 {file.name}
               </p>
             </div>
@@ -171,7 +174,10 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
                 >
                   Sheet: {currentSheet.name}
                 </h2>
-                <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-sm font-mono"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   {maxRows} rows × {maxCols} columns
                 </p>
               </div>
@@ -209,7 +215,10 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
                             borderColor: hexToRgba(theme.colors.primary, 0.1),
                           }}
                           onMouseEnter={(e) => {
-                            e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.05);
+                            e.currentTarget.style.backgroundColor = hexToRgba(
+                              theme.colors.primary,
+                              0.05
+                            );
                           }}
                           onMouseLeave={(e) => {
                             e.currentTarget.style.backgroundColor = "transparent";

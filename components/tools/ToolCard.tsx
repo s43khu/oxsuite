@@ -38,7 +38,10 @@ export default function ToolCard({ title, description, icon, status, route }: To
             >
               {title}
             </h3>
-            <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+            <p
+              className="text-sm font-mono"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
               {description}
             </p>
           </div>

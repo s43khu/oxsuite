@@ -107,7 +107,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
               >
                 Text File Viewer
               </h3>
-              <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+              <p
+                className="text-sm font-mono"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
                 {file.name}
               </p>
             </div>
@@ -178,7 +181,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                   {stats.lines}
                 </p>
-                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-xs font-mono mt-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   Lines
                 </p>
               </div>
@@ -186,7 +192,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                   {stats.words}
                 </p>
-                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-xs font-mono mt-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   Words
                 </p>
               </div>
@@ -194,7 +203,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                   {stats.characters.toLocaleString()}
                 </p>
-                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-xs font-mono mt-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   Characters
                 </p>
               </div>
@@ -202,7 +214,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                   {stats.charactersNoSpaces.toLocaleString()}
                 </p>
-                <p className="text-xs font-mono mt-1" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                <p
+                  className="text-xs font-mono mt-1"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   No Spaces
                 </p>
               </div>
@@ -255,7 +270,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
-                      <div className="font-mono text-xs" style={{ color: theme.colors.primary, opacity: 0.5 }}>
+                      <div
+                        className="font-mono text-xs"
+                        style={{ color: theme.colors.primary, opacity: 0.5 }}
+                      >
                         {lines.map((_, index) => (
                           <div
                             key={index}

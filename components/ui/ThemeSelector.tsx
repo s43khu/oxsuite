@@ -67,8 +67,7 @@ export function ThemeSelector() {
                 className="w-full text-left px-4 py-3 transition-all duration-150 flex items-center gap-3"
                 style={{
                   color: t.id === themeId ? theme.colors.primary : theme.colors.foreground,
-                  backgroundColor:
-                    t.id === themeId ? `${theme.colors.primary}20` : "transparent",
+                  backgroundColor: t.id === themeId ? `${theme.colors.primary}20` : "transparent",
                 }}
                 onMouseEnter={(e) => {
                   if (t.id !== themeId) {

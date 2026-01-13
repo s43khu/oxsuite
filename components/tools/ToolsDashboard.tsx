@@ -72,7 +72,8 @@ const tools = [
   {
     id: "file-viewer",
     title: "File Viewer",
-    description: "View and analyze various file types (XLSX, CSV, JSON, TXT, PDF) with auto-detection",
+    description:
+      "View and analyze various file types (XLSX, CSV, JSON, TXT, PDF) with auto-detection",
     icon: <File className="w-10 h-10" />,
     status: "available" as const,
     route: "/tools/file-viewer",

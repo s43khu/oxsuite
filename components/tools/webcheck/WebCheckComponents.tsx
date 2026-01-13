@@ -31,14 +31,15 @@ interface StatusIndicatorProps {
   warning?: boolean;
 }
 
-export function StatusIndicator({ enabled, label, description, warning = false }: StatusIndicatorProps) {
+export function StatusIndicator({
+  enabled,
+  label,
+  description,
+  warning = false,
+}: StatusIndicatorProps) {
   const { theme } = useTheme();
   const Icon = enabled ? CheckCircle : XCircle;
-  const iconColor = enabled
-    ? theme.colors.primary
-    : warning
-      ? "#fbbf24"
-      : "#ef4444";
+  const iconColor = enabled ? theme.colors.primary : warning ? "#fbbf24" : "#ef4444";
 
   return (
     <div>
