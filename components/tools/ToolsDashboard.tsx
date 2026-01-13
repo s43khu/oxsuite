@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import {
   Globe,
@@ -9,21 +9,14 @@ import {
   FileEdit,
   BarChart,
   Code,
-  ArrowLeft,
   GitCompare,
   FileCode,
   Cookie,
   Key,
   Clock,
+  File,
 } from "lucide-react";
 import ToolCard from "./ToolCard";
-import WebCheck from "./WebCheck";
-import TextCompare from "./TextCompare";
-import JSONLinter from "./JSONLinter";
-import CookieInspector from "./CookieInspector";
-import JWTViewer from "./JWTViewer";
-import TimeDateConverter from "./TimeDateConverter";
-import { Button } from "@/components/ui/Button";
 
 const tools = [
   {
@@ -32,6 +25,7 @@ const tools = [
     description: "Analyze websites for security, performance, and technology stack",
     icon: <Globe className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/web-check",
   },
   {
     id: "text-compare",
@@ -39,6 +33,7 @@ const tools = [
     description: "Compare two texts and highlight differences with multiple options",
     icon: <GitCompare className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/text-compare",
   },
   {
     id: "json-linter",
@@ -46,6 +41,7 @@ const tools = [
     description: "Validate, format, and lint JSON with syntax error detection",
     icon: <FileCode className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/json-linter",
   },
   {
     id: "cookie-inspector",
@@ -53,6 +49,7 @@ const tools = [
     description: "Parse, inspect, and analyze browser cookies with detailed attributes",
     icon: <Cookie className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/cookie-inspector",
   },
   {
     id: "jwt-viewer",
@@ -60,6 +57,7 @@ const tools = [
     description: "Decode and view JWT tokens with header, payload, and signature details",
     icon: <Key className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/jwt-viewer",
   },
   {
     id: "time-date-converter",
@@ -68,6 +66,15 @@ const tools = [
       "Convert between Unix timestamp, ISO 8601, and local formats with timezone support",
     icon: <Clock className="w-10 h-10" />,
     status: "available" as const,
+    route: "/tools/time-date-converter",
+  },
+  {
+    id: "file-viewer",
+    title: "File Viewer",
+    description: "View and analyze various file types (XLSX, CSV, JSON, TXT, PDF) with auto-detection",
+    icon: <File className="w-10 h-10" />,
+    status: "available" as const,
+    route: "/tools/file-viewer",
   },
   {
     id: "image-editor",
@@ -75,6 +82,7 @@ const tools = [
     description: "Edit and enhance images with professional tools",
     icon: <Image className="w-10 h-10" />,
     status: "coming-soon" as const,
+    route: null,
   },
   {
     id: "text-formatter",
@@ -82,6 +90,7 @@ const tools = [
     description: "Format and clean text documents",
     icon: <FileEdit className="w-10 h-10" />,
     status: "coming-soon" as const,
+    route: null,
   },
   {
     id: "data-analyzer",
@@ -89,6 +98,7 @@ const tools = [
     description: "Analyze and visualize data from various sources",
     icon: <BarChart className="w-10 h-10" />,
     status: "coming-soon" as const,
+    route: null,
   },
   {
     id: "code-formatter",
@@ -96,15 +106,15 @@ const tools = [
     description: "Format and beautify code in multiple languages",
     icon: <Code className="w-10 h-10" />,
     status: "coming-soon" as const,
+    route: null,
   },
 ];
 
 export default function ToolsDashboard() {
-  const [selectedTool, setSelectedTool] = useState<string | null>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (cardsRef.current && !selectedTool) {
+    if (cardsRef.current) {
       const cards = cardsRef.current.children;
       gsap.fromTo(
         Array.from(cards),
@@ -112,126 +122,7 @@ export default function ToolsDashboard() {
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
       );
     }
-  }, [selectedTool]);
-
-  const handleToolClick = (toolId: string) => {
-    if (
-      toolId === "web-check" ||
-      toolId === "text-compare" ||
-      toolId === "json-linter" ||
-      toolId === "cookie-inspector" ||
-      toolId === "jwt-viewer" ||
-      toolId === "time-date-converter"
-    ) {
-      setSelectedTool(toolId);
-    }
-  };
-
-  const handleBack = () => {
-    setSelectedTool(null);
-  };
-
-  if (selectedTool === "web-check") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <WebCheck />
-      </div>
-    );
-  }
-
-  if (selectedTool === "text-compare") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <TextCompare />
-      </div>
-    );
-  }
-
-  if (selectedTool === "json-linter") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <JSONLinter />
-      </div>
-    );
-  }
-
-  if (selectedTool === "cookie-inspector") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <CookieInspector />
-      </div>
-    );
-  }
-
-  if (selectedTool === "jwt-viewer") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <JWTViewer />
-      </div>
-    );
-  }
-
-  if (selectedTool === "time-date-converter") {
-    return (
-      <div className="w-full">
-        <Button
-          onClick={handleBack}
-          variant="outline"
-          size="sm"
-          className="mb-6 flex items-center gap-2"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back to Tools
-        </Button>
-        <TimeDateConverter />
-      </div>
-    );
-  }
+  }, []);
 
   return (
     <div className="w-full max-w-7xl mx-auto p-6">
@@ -253,7 +144,7 @@ export default function ToolsDashboard() {
             description={tool.description}
             icon={tool.icon}
             status={tool.status}
-            onClick={() => handleToolClick(tool.id)}
+            route={tool.route}
           />
         ))}
       </div>

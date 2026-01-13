@@ -1,6 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
@@ -9,17 +10,16 @@ interface ToolCardProps {
   description: string;
   icon?: ReactNode;
   status: "available" | "coming-soon";
-  onClick?: () => void;
+  route?: string | null;
 }
 
-export default function ToolCard({ title, description, icon, status, onClick }: ToolCardProps) {
-  return (
+export default function ToolCard({ title, description, icon, status, route }: ToolCardProps) {
+  const cardContent = (
     <Card
       variant="hacker"
-      className={`p-6 cursor-pointer transition-all duration-300 hover:scale-105 ${
-        status === "coming-soon" ? "opacity-60" : ""
+      className={`p-6 transition-all duration-300 hover:scale-105 ${
+        status === "coming-soon" ? "opacity-60 cursor-not-allowed" : "cursor-pointer"
       }`}
-      onClick={status === "available" ? onClick : undefined}
     >
       <div className="flex flex-col h-full">
         <div className="flex items-start gap-4 mb-4">
@@ -48,4 +48,14 @@ export default function ToolCard({ title, description, icon, status, onClick }: 
       </div>
     </Card>
   );
+
+  if (status === "available" && route) {
+    return (
+      <Link href={route} className="block">
+        {cardContent}
+      </Link>
+    );
+  }
+
+  return cardContent;
 }
