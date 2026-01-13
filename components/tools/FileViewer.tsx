@@ -182,6 +182,21 @@ export default function FileViewer() {
             <p className="text-sm text-red-500 font-mono">{error}</p>
           </div>
         )}
+
+        <div
+          className="mt-4 p-3 border rounded"
+          style={{
+            backgroundColor: `${theme.colors.primary}0a`,
+            borderColor: `${theme.colors.border}`,
+          }}
+        >
+          <p className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
+            <span className="font-semibold" style={{ color: theme.colors.primary }}>
+              NOTE:
+            </span>{" "}
+            Currently supporting: <strong>XLSX, XLS, TXT</strong>. CSV, JSON, and PDF viewers coming soon.
+          </p>
+        </div>
       </Card>
 
       {selectedFile && (
@@ -199,8 +214,14 @@ export default function FileViewer() {
           <p className="font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             Upload a file to get started
           </p>
-          <p className="text-sm font-mono" style={{ color: theme.colors.foreground, opacity: 0.5 }}>
-            Supported: XLSX, XLS, CSV, JSON, TXT, PDF (Auto-detected)
+          <p className="text-sm font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
+            <span className="font-semibold" style={{ color: theme.colors.primary }}>
+              Currently supported:
+            </span>{" "}
+            XLSX, XLS, TXT
+          </p>
+          <p className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.6 }}>
+            CSV, JSON, and PDF viewers coming soon
           </p>
         </Card>
       )}

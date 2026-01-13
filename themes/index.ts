@@ -128,7 +128,7 @@ export const themes: Record<string, Theme> = {
   },
 };
 
-export const defaultTheme = "dark";
+export const defaultTheme = "light";
 
 export function getTheme(themeId: string): Theme {
   return themes[themeId] || themes[defaultTheme];
