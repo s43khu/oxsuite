@@ -39,7 +39,11 @@ export function StatusIndicator({
 }: StatusIndicatorProps) {
   const { theme } = useTheme();
   const Icon = enabled ? CheckCircle : XCircle;
-  const iconColor = enabled ? theme.colors.primary : warning ? "#fbbf24" : "#ef4444";
+  const iconColor = enabled
+    ? theme.colors.primary
+    : warning
+      ? theme.colors.secondary
+      : theme.colors.accent;
 
   return (
     <div>

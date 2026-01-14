@@ -325,16 +325,16 @@ export default function TextCompare() {
             onClick={() => handleDiffClick(diff, index)}
             className={baseClass}
             style={{
-              color: "#ef4444",
-              backgroundColor: "rgba(239, 68, 68, 0.1)",
-              borderLeft: "2px solid #ef4444",
+              color: theme.colors.accent,
+              backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+              borderLeft: `2px solid ${theme.colors.accent}`,
               boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.2)";
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.accent, 0.2);
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(239, 68, 68, 0.1)";
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.accent, 0.1);
             }}
           >
             <span className="line-through">- {diff.value || "\u00A0"}</span>
@@ -369,16 +369,16 @@ export default function TextCompare() {
             onClick={() => handleDiffClick(diff, index)}
             className={baseClass}
             style={{
-              color: "#eab308",
-              backgroundColor: "rgba(234, 179, 8, 0.1)",
-              borderLeft: "2px solid #eab308",
+              color: theme.colors.secondary,
+              backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+              borderLeft: `2px solid ${theme.colors.secondary}`,
               boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(234, 179, 8, 0.2)";
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.secondary, 0.2);
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "rgba(234, 179, 8, 0.1)";
+              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.secondary, 0.1);
             }}
           >
             ~ {diff.value || "\u00A0"}
@@ -665,30 +665,74 @@ export default function TextCompare() {
             <Card variant="hacker" className="p-4 mb-4">
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-500 font-mono">{stats.total}</div>
-                  <div className="text-xs text-green-500/70 font-mono">Total Lines</div>
+                  <div
+                    className="text-2xl font-bold font-mono"
+                    style={{ color: theme.colors.primary }}
+                  >
+                    {stats.total}
+                  </div>
+                  <div
+                    className="text-xs font-mono"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Total Lines
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-500/70 font-mono">
+                  <div
+                    className="text-2xl font-bold font-mono"
+                    style={{ color: theme.colors.primary, opacity: 0.7 }}
+                  >
                     {stats.equal}
                   </div>
-                  <div className="text-xs text-green-500/70 font-mono">Equal</div>
+                  <div
+                    className="text-xs font-mono"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Equal
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-green-400 font-mono">
+                  <div
+                    className="text-2xl font-bold font-mono"
+                    style={{ color: theme.colors.accent }}
+                  >
                     {stats.inserted}
                   </div>
-                  <div className="text-xs text-green-500/70 font-mono">Inserted</div>
+                  <div
+                    className="text-xs font-mono"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Inserted
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-red-500 font-mono">{stats.deleted}</div>
-                  <div className="text-xs text-green-500/70 font-mono">Deleted</div>
+                  <div
+                    className="text-2xl font-bold font-mono"
+                    style={{ color: theme.colors.accent }}
+                  >
+                    {stats.deleted}
+                  </div>
+                  <div
+                    className="text-xs font-mono"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Deleted
+                  </div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-yellow-500 font-mono">
+                  <div
+                    className="text-2xl font-bold font-mono"
+                    style={{ color: theme.colors.secondary }}
+                  >
                     {stats.replaced}
                   </div>
-                  <div className="text-xs text-green-500/70 font-mono">Replaced</div>
+                  <div
+                    className="text-xs font-mono"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Replaced
+                  </div>
                 </div>
               </div>
             </Card>
@@ -696,14 +740,25 @@ export default function TextCompare() {
 
           <Card variant="hacker" className="p-6">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="text-xl font-semibold text-green-500 font-mono">Differences</h3>
+              <h3
+                className="text-xl font-semibold font-mono"
+                style={{ color: theme.colors.primary }}
+              >
+                Differences
+              </h3>
               {selectedDiffIndex !== null && (
-                <div className="text-sm text-green-500/70 font-mono">
+                <div
+                  className="text-sm font-mono"
+                  style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                >
                   Click any line to navigate • Line {selectedDiffIndex + 1} selected
                 </div>
               )}
             </div>
-            <div className="max-h-[600px] overflow-y-auto border-2 border-green-500/30 rounded-lg">
+            <div
+              className="max-h-[600px] overflow-y-auto border-2 rounded-lg"
+              style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+            >
               {diffResult.differences.map((diff, index) => renderDiffLine(diff, index))}
             </div>
           </Card>

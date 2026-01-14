@@ -645,7 +645,14 @@ export default function CookieInspector() {
             </span>
           </div>
           {fileError && (
-            <div className="p-2 bg-red-500/10 border border-red-500 rounded text-red-400 text-sm font-mono">
+            <div
+              className="p-2 border rounded text-sm font-mono"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                borderColor: theme.colors.accent,
+                color: theme.colors.accent,
+              }}
+            >
               {fileError}
             </div>
           )}
@@ -770,24 +777,44 @@ export default function CookieInspector() {
       {error && (
         <Card variant="outlined" className="p-6">
           <div className="flex items-start gap-2">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <AlertCircle
+              className="w-5 h-5 flex-shrink-0 mt-0.5"
+              style={{ color: theme.colors.accent }}
+            />
             <div className="flex-1">
-              <p className="text-red-500 font-mono text-sm font-semibold mb-1">Error:</p>
-              <p className="text-red-400 font-mono text-sm">{error}</p>
+              <p
+                className="font-mono text-sm font-semibold mb-1"
+                style={{ color: theme.colors.accent }}
+              >
+                Error:
+              </p>
+              <p className="font-mono text-sm" style={{ color: theme.colors.accent, opacity: 0.8 }}>
+                {error}
+              </p>
             </div>
           </div>
         </Card>
       )}
 
       {invalidCookies.length > 0 && (
-        <Card variant="outlined" className="p-6 border-red-500/50">
+        <Card
+          variant="outlined"
+          className="p-6"
+          style={{ borderColor: hexToRgba(theme.colors.accent, 0.5) }}
+        >
           <div className="flex items-start gap-2 mb-4">
-            <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+            <AlertCircle
+              className="w-5 h-5 flex-shrink-0 mt-0.5"
+              style={{ color: theme.colors.accent }}
+            />
             <div className="flex-1">
-              <h3 className="text-red-500 font-mono text-lg font-semibold mb-1">
+              <h3
+                className="font-mono text-lg font-semibold mb-1"
+                style={{ color: theme.colors.accent }}
+              >
                 Invalid Cookies ({invalidCookies.length})
               </h3>
-              <p className="text-red-400/70 font-mono text-sm">
+              <p className="font-mono text-sm" style={{ color: theme.colors.accent, opacity: 0.7 }}>
                 The following cookies could not be parsed. Please check the format and try again.
               </p>
             </div>
@@ -795,17 +822,41 @@ export default function CookieInspector() {
 
           <div className="space-y-3">
             {invalidCookies.map((invalid, index) => (
-              <div key={index} className="p-4 bg-red-500/5 border border-red-500/30 rounded-lg">
+              <div
+                key={index}
+                className="p-4 border rounded-lg"
+                style={{
+                  backgroundColor: hexToRgba(theme.colors.accent, 0.05),
+                  borderColor: hexToRgba(theme.colors.accent, 0.3),
+                }}
+              >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="text-red-500 font-mono text-sm font-semibold">
+                    <span
+                      className="font-mono text-sm font-semibold"
+                      style={{ color: theme.colors.accent }}
+                    >
                       Line {invalid.line}:
                     </span>
-                    <span className="text-red-400 font-mono text-xs">{invalid.reason}</span>
+                    <span
+                      className="font-mono text-xs"
+                      style={{ color: theme.colors.accent, opacity: 0.8 }}
+                    >
+                      {invalid.reason}
+                    </span>
                   </div>
                 </div>
-                <div className="mt-2 p-2 bg-black/50 rounded border border-red-500/20">
-                  <code className="text-red-300 font-mono text-xs break-all">
+                <div
+                  className="mt-2 p-2 rounded border"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                    borderColor: hexToRgba(theme.colors.accent, 0.2),
+                  }}
+                >
+                  <code
+                    className="font-mono text-xs break-all"
+                    style={{ color: theme.colors.accent, opacity: 0.7 }}
+                  >
                     {invalid.content}
                   </code>
                 </div>
@@ -813,26 +864,40 @@ export default function CookieInspector() {
             ))}
           </div>
 
-          <div className="mt-4 p-3 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-            <p className="text-yellow-500 font-mono text-xs font-semibold mb-1">
+          <div
+            className="mt-4 p-3 border rounded-lg"
+            style={{
+              backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+              borderColor: hexToRgba(theme.colors.secondary, 0.3),
+            }}
+          >
+            <p
+              className="font-mono text-xs font-semibold mb-1"
+              style={{ color: theme.colors.secondary }}
+            >
               Expected Formats:
             </p>
-            <ul className="text-yellow-400/70 font-mono text-xs space-y-1 ml-4 list-disc">
+            <ul
+              className="font-mono text-xs space-y-1 ml-4 list-disc"
+              style={{ color: theme.colors.secondary, opacity: 0.7 }}
+            >
               <li>
                 Header:{" "}
-                <code className="text-yellow-300">
+                <code style={{ color: theme.colors.secondary, opacity: 0.9 }}>
                   name=value; Domain=.example.com; Path=/; Secure
                 </code>
               </li>
               <li>
                 JSON:{" "}
-                <code className="text-yellow-300">
+                <code style={{ color: theme.colors.secondary, opacity: 0.9 }}>
                   {"{"}"name":"session","value":"abc123"{"}"}
                 </code>
               </li>
               <li>
                 Netscape:{" "}
-                <code className="text-yellow-300">.example.com TRUE / FALSE 0 name value</code>
+                <code style={{ color: theme.colors.secondary, opacity: 0.9 }}>
+                  .example.com TRUE / FALSE 0 name value
+                </code>
               </li>
             </ul>
           </div>
@@ -954,7 +1019,12 @@ export default function CookieInspector() {
                       {cookieSummary.trackingServices.map((service: string) => (
                         <span
                           key={service}
-                          className="px-3 py-1 bg-yellow-500/10 border border-yellow-500 text-yellow-500 rounded text-xs font-mono"
+                          className="px-3 py-1 border rounded text-xs font-mono"
+                          style={{
+                            backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+                            borderColor: theme.colors.secondary,
+                            color: theme.colors.secondary,
+                          }}
                         >
                           {service}
                         </span>
@@ -978,7 +1048,12 @@ export default function CookieInspector() {
                       {Object.keys(cookieSummary.consentStatus.purposes || {}).map((purpose) => (
                         <span
                           key={purpose}
-                          className="px-3 py-1 bg-blue-500/10 border border-blue-500 text-blue-500 rounded text-xs font-mono"
+                          className="px-3 py-1 border rounded text-xs font-mono"
+                          style={{
+                            backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                            borderColor: theme.colors.primary,
+                            color: theme.colors.primary,
+                          }}
                         >
                           {purpose}
                         </span>
@@ -988,13 +1063,23 @@ export default function CookieInspector() {
                 )}
 
                 {cookieSummary.insights.length > 0 && (
-                  <div className="mt-4 pt-4 border-t border-green-500/30">
-                    <div className="text-sm font-semibold text-green-500/70 font-mono mb-2">
+                  <div
+                    className="mt-4 pt-4 border-t"
+                    style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                  >
+                    <div
+                      className="text-sm font-semibold font-mono mb-2"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       Insights:
                     </div>
                     <ul className="space-y-1">
                       {cookieSummary.insights.map((insight: string, index: number) => (
-                        <li key={index} className="text-sm text-green-400 font-mono">
+                        <li
+                          key={index}
+                          className="text-sm font-mono"
+                          style={{ color: theme.colors.accent }}
+                        >
                           • {insight}
                         </li>
                       ))}
@@ -1025,7 +1110,10 @@ export default function CookieInspector() {
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1 flex-wrap">
-                          <span className="text-lg font-bold text-red-400 font-mono">
+                          <span
+                            className="text-lg font-bold font-mono"
+                            style={{ color: theme.colors.primary }}
+                          >
                             {index + 1}. {analysis.name}
                           </span>
                           <span
@@ -1039,30 +1127,68 @@ export default function CookieInspector() {
                             {analysis.type}
                           </span>
                           <span
-                            className={`px-2 py-1 rounded text-xs font-mono ${
+                            className="px-2 py-1 rounded text-xs font-mono border"
+                            style={
                               analysis.category === "tracking"
-                                ? "bg-red-500/10 border border-red-500 text-red-500"
+                                ? {
+                                    backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                                    borderColor: theme.colors.accent,
+                                    color: theme.colors.accent,
+                                  }
                                 : analysis.category === "advertising"
-                                  ? "bg-orange-500/10 border border-orange-500 text-orange-500"
+                                  ? {
+                                      backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+                                      borderColor: theme.colors.secondary,
+                                      color: theme.colors.secondary,
+                                    }
                                   : analysis.category === "analytics"
-                                    ? "bg-yellow-500/10 border border-yellow-500 text-yellow-500"
+                                    ? {
+                                        backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+                                        borderColor: theme.colors.secondary,
+                                        color: theme.colors.secondary,
+                                      }
                                     : analysis.category === "security"
-                                      ? "bg-blue-500/10 border border-blue-500 text-blue-500"
-                                      : "bg-green-500/10 border border-green-500 text-green-500"
-                            }`}
+                                      ? {
+                                          backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                                          borderColor: theme.colors.primary,
+                                          color: theme.colors.primary,
+                                        }
+                                      : {
+                                          backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                                          borderColor: theme.colors.accent,
+                                          color: theme.colors.accent,
+                                        }
+                            }
                           >
                             {analysis.category}
                           </span>
                         </div>
-                        <p className="text-sm text-green-500/70 font-mono">
+                        <p
+                          className="text-sm font-mono"
+                          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                        >
                           {analysis.description}
                         </p>
                       </div>
                     </div>
 
-                    <div className="mb-3 p-3 bg-black/50 rounded border border-green-500/30">
-                      <div className="text-xs text-green-500/50 font-mono mb-1">Value:</div>
-                      <div className="text-sm text-green-300 font-mono break-all">
+                    <div
+                      className="mb-3 p-3 rounded border"
+                      style={{
+                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        borderColor: hexToRgba(theme.colors.primary, 0.3),
+                      }}
+                    >
+                      <div
+                        className="text-xs font-mono mb-1"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      >
+                        Value:
+                      </div>
+                      <div
+                        className="text-sm font-mono break-all"
+                        style={{ color: theme.colors.accent }}
+                      >
                         {typeof analysis.parsedValue === "object" && analysis.parsedValue !== null
                           ? JSON.stringify(analysis.parsedValue, null, 2)
                           : analysis.value}
@@ -1081,38 +1207,53 @@ export default function CookieInspector() {
                       analysis.metadata.expiration ||
                       analysis.metadata.privacy ||
                       analysis.metadata.purpose) && (
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3 pt-3 border-t border-green-500/30">
+                      <div
+                        className="grid grid-cols-2 md:grid-cols-3 gap-3 mt-3 pt-3 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
                         {analysis.metadata.vendor && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">Vendor</div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
+                              Vendor
+                            </div>
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.vendor}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.expiration && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
                               Expiration
                             </div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.expiration}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.privacy && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
                               Privacy Level
                             </div>
                             <div
-                              className={`text-sm font-mono ${
-                                analysis.metadata.privacy === "high"
-                                  ? "text-red-400"
-                                  : analysis.metadata.privacy === "medium"
-                                    ? "text-yellow-400"
-                                    : "text-green-400"
-                              }`}
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
                             >
                               {analysis.metadata.privacy.toUpperCase()}
                             </div>
@@ -1120,62 +1261,112 @@ export default function CookieInspector() {
                         )}
                         {analysis.metadata.purpose && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">Purpose</div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
+                              Purpose
+                            </div>
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.purpose}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.firstSeen && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
                               First Seen
                             </div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.firstSeen}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.lastAccess && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
                               Last Access
                             </div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.lastAccess}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.version && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">Version</div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
+                              Version
+                            </div>
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.version}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.userId && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">User ID</div>
-                            <div className="text-sm text-green-400 font-mono break-all">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
+                              User ID
+                            </div>
+                            <div
+                              className="text-sm font-mono break-all"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.userId}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.sessionId && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
                               Session ID
                             </div>
-                            <div className="text-sm text-green-400 font-mono break-all">
+                            <div
+                              className="text-sm font-mono break-all"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {analysis.metadata.sessionId}
                             </div>
                           </div>
                         )}
                         {analysis.metadata.duration && (
                           <div>
-                            <div className="text-xs text-green-500/50 font-mono mb-1">Duration</div>
-                            <div className="text-sm text-green-400 font-mono">
+                            <div
+                              className="text-xs font-mono mb-1"
+                              style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            >
+                              Duration
+                            </div>
+                            <div
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               {Math.floor(analysis.metadata.duration / (1000 * 60 * 60 * 24))} days
                             </div>
                           </div>
@@ -1184,19 +1375,35 @@ export default function CookieInspector() {
                     )}
 
                     {analysis.metadata.purposes && (
-                      <div className="mt-3 pt-3 border-t border-green-500/30">
-                        <div className="text-xs text-green-500/50 font-mono mb-2">
+                      <div
+                        className="mt-3 pt-3 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
+                        <div
+                          className="text-xs font-mono mb-2"
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                        >
                           Consent Purposes:
                         </div>
                         <div className="flex flex-wrap gap-2">
                           {Object.entries(analysis.metadata.purposes).map(([purpose, enabled]) => (
                             <span
                               key={purpose}
-                              className={`px-2 py-1 rounded text-xs font-mono ${
+                              className="px-2 py-1 rounded text-xs font-mono border"
+                              style={
                                 enabled
-                                  ? "bg-green-500/10 border border-green-500 text-green-500"
-                                  : "bg-gray-500/10 border border-gray-500 text-gray-500"
-                              }`}
+                                  ? {
+                                      backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                                      borderColor: theme.colors.primary,
+                                      color: theme.colors.primary,
+                                    }
+                                  : {
+                                      backgroundColor: hexToRgba(theme.colors.foreground, 0.1),
+                                      borderColor: hexToRgba(theme.colors.foreground, 0.3),
+                                      color: theme.colors.foreground,
+                                      opacity: 0.5,
+                                    }
+                              }
                             >
                               {purpose}: {enabled ? "Yes" : "No"}
                             </span>
@@ -1206,11 +1413,23 @@ export default function CookieInspector() {
                     )}
 
                     {analysis.insights.length > 0 && (
-                      <div className="mt-3 pt-3 border-t border-green-500/30">
-                        <div className="text-xs text-green-500/50 font-mono mb-2">Insights:</div>
+                      <div
+                        className="mt-3 pt-3 border-t"
+                        style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      >
+                        <div
+                          className="text-xs font-mono mb-2"
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                        >
+                          Insights:
+                        </div>
                         <ul className="space-y-1">
                           {analysis.insights.map((insight: string, i: number) => (
-                            <li key={i} className="text-sm text-green-400 font-mono">
+                            <li
+                              key={i}
+                              className="text-sm font-mono"
+                              style={{ color: theme.colors.accent }}
+                            >
                               • {insight}
                             </li>
                           ))}
@@ -1227,29 +1446,97 @@ export default function CookieInspector() {
 
       {stats && (
         <Card variant="hacker" className="p-6">
-          <h3 className="text-xl font-semibold text-green-500 font-mono mb-4">Cookie Statistics</h3>
+          <h3
+            className="text-xl font-semibold font-mono mb-4"
+            style={{ color: theme.colors.primary }}
+          >
+            Cookie Statistics
+          </h3>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            <div className="p-4 bg-green-500/5 border border-green-500/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-500 font-mono">{stats.total}</div>
-              <div className="text-xs text-green-500/70 font-mono mt-1">Total Cookies</div>
+            <div
+              className="p-4 border rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.05),
+                borderColor: hexToRgba(theme.colors.primary, 0.3),
+              }}
+            >
+              <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                {stats.total}
+              </div>
+              <div
+                className="text-xs font-mono mt-1"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
+                Total Cookies
+              </div>
             </div>
-            <div className="p-4 bg-green-500/5 border border-green-500/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-500 font-mono">{stats.secure}</div>
-              <div className="text-xs text-green-500/70 font-mono mt-1">Secure</div>
+            <div
+              className="p-4 border rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.05),
+                borderColor: hexToRgba(theme.colors.primary, 0.3),
+              }}
+            >
+              <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                {stats.secure}
+              </div>
+              <div
+                className="text-xs font-mono mt-1"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
+                Secure
+              </div>
             </div>
-            <div className="p-4 bg-green-500/5 border border-green-500/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-500 font-mono">{stats.httpOnly}</div>
-              <div className="text-xs text-green-500/70 font-mono mt-1">HttpOnly</div>
+            <div
+              className="p-4 border rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.05),
+                borderColor: hexToRgba(theme.colors.primary, 0.3),
+              }}
+            >
+              <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                {stats.httpOnly}
+              </div>
+              <div
+                className="text-xs font-mono mt-1"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
+                HttpOnly
+              </div>
             </div>
-            <div className="p-4 bg-green-500/5 border border-green-500/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-500 font-mono">{stats.thirdParty}</div>
-              <div className="text-xs text-green-500/70 font-mono mt-1">3rd Party</div>
+            <div
+              className="p-4 border rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.05),
+                borderColor: hexToRgba(theme.colors.primary, 0.3),
+              }}
+            >
+              <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                {stats.thirdParty}
+              </div>
+              <div
+                className="text-xs font-mono mt-1"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
+                3rd Party
+              </div>
             </div>
-            <div className="p-4 bg-green-500/5 border border-green-500/30 rounded-lg">
-              <div className="text-2xl font-bold text-green-500 font-mono">
+            <div
+              className="p-4 border rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.05),
+                borderColor: hexToRgba(theme.colors.primary, 0.3),
+              }}
+            >
+              <div className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
                 {(stats.totalSize / 1024).toFixed(2)} KB
               </div>
-              <div className="text-xs text-green-500/70 font-mono mt-1">Total Size</div>
+              <div
+                className="text-xs font-mono mt-1"
+                style={{ color: theme.colors.foreground, opacity: 0.7 }}
+              >
+                Total Size
+              </div>
             </div>
           </div>
         </Card>
@@ -1260,8 +1547,11 @@ export default function CookieInspector() {
           <Card variant="hacker" className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6 text-green-500" />
-                <h3 className="text-xl font-semibold text-green-500 font-mono">
+                <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
+                <h3
+                  className="text-xl font-semibold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   Parsed Cookies ({parsedCookies.length})
                 </h3>
               </div>
@@ -1272,16 +1562,31 @@ export default function CookieInspector() {
                 <Card
                   key={index}
                   variant="default"
-                  className="p-4 hover:border-green-500/70 transition-colors"
+                  className="p-4 transition-colors"
+                  style={{
+                    borderColor: hexToRgba(theme.colors.primary, 0.3),
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.7);
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.3);
+                  }}
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
-                        <span className="text-red-400 font-semibold font-mono text-lg">
+                        <span
+                          className="font-semibold font-mono text-lg"
+                          style={{ color: theme.colors.primary }}
+                        >
                           {cookie.name}
                         </span>
-                        <span className="text-green-500/70">=</span>
-                        <span className="text-green-300 font-mono break-all text-sm">
+                        <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>=</span>
+                        <span
+                          className="font-mono break-all text-sm"
+                          style={{ color: theme.colors.accent }}
+                        >
                           {cookie.value}
                         </span>
                       </div>
@@ -1300,7 +1605,20 @@ export default function CookieInspector() {
                         onClick={() => removeCookie(index)}
                         variant="outline"
                         size="sm"
-                        className="flex items-center gap-1 text-red-500 border-red-500/50 hover:bg-red-500/10"
+                        className="flex items-center gap-1"
+                        style={{
+                          color: theme.colors.accent,
+                          borderColor: hexToRgba(theme.colors.accent, 0.5),
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.backgroundColor = hexToRgba(
+                            theme.colors.accent,
+                            0.1
+                          );
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.backgroundColor = "transparent";
+                        }}
                         title="Remove cookie"
                       >
                         <Trash2 className="w-3 h-3" />
@@ -1308,48 +1626,109 @@ export default function CookieInspector() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 pt-3 border-t border-green-500/30">
+                  <div
+                    className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-3 pt-3 border-t"
+                    style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                  >
                     <div>
-                      <div className="text-xs text-green-500/50 font-mono mb-1">Domain</div>
-                      <div className="text-sm text-green-400 font-mono break-all">
+                      <div
+                        className="text-xs font-mono mb-1"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      >
+                        Domain
+                      </div>
+                      <div
+                        className="text-sm font-mono break-all"
+                        style={{ color: theme.colors.accent }}
+                      >
                         {cookie.domain || "N/A"}
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-green-500/50 font-mono mb-1">Path</div>
-                      <div className="text-sm text-green-400 font-mono">{cookie.path || "/"}</div>
+                      <div
+                        className="text-xs font-mono mb-1"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      >
+                        Path
+                      </div>
+                      <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+                        {cookie.path || "/"}
+                      </div>
                     </div>
                     <div>
-                      <div className="text-xs text-green-500/50 font-mono mb-1">Expires</div>
-                      <div className="text-sm text-green-400 font-mono">
+                      <div
+                        className="text-xs font-mono mb-1"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      >
+                        Expires
+                      </div>
+                      <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
                         {formatDate(cookie.expires)}
                       </div>
                     </div>
                     <div>
-                      <div className="text-xs text-green-500/50 font-mono mb-1">Size</div>
-                      <div className="text-sm text-green-400 font-mono">{cookie.size} bytes</div>
+                      <div
+                        className="text-xs font-mono mb-1"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      >
+                        Size
+                      </div>
+                      <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+                        {cookie.size} bytes
+                      </div>
                     </div>
                   </div>
 
-                  <div className="flex flex-wrap gap-2 mt-3 pt-3 border-t border-green-500/30">
+                  <div
+                    className="flex flex-wrap gap-2 mt-3 pt-3 border-t"
+                    style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                  >
                     {cookie.secure && (
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500 text-green-500 rounded text-xs font-mono flex items-center gap-1">
+                      <span
+                        className="px-2 py-1 border rounded text-xs font-mono flex items-center gap-1"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                          borderColor: theme.colors.primary,
+                          color: theme.colors.primary,
+                        }}
+                      >
                         <Lock className="w-3 h-3" />
                         Secure
                       </span>
                     )}
                     {cookie.httpOnly && (
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500 text-green-500 rounded text-xs font-mono">
+                      <span
+                        className="px-2 py-1 border rounded text-xs font-mono"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                          borderColor: theme.colors.primary,
+                          color: theme.colors.primary,
+                        }}
+                      >
                         HttpOnly
                       </span>
                     )}
                     {cookie.sameSite && (
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500 text-green-500 rounded text-xs font-mono">
+                      <span
+                        className="px-2 py-1 border rounded text-xs font-mono"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                          borderColor: theme.colors.primary,
+                          color: theme.colors.primary,
+                        }}
+                      >
                         SameSite: {cookie.sameSite}
                       </span>
                     )}
                     {cookie.maxAge && (
-                      <span className="px-2 py-1 bg-green-500/10 border border-green-500 text-green-500 rounded text-xs font-mono">
+                      <span
+                        className="px-2 py-1 border rounded text-xs font-mono"
+                        style={{
+                          backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                          borderColor: theme.colors.primary,
+                          color: theme.colors.primary,
+                        }}
+                      >
                         Max-Age: {cookie.maxAge}s
                       </span>
                     )}

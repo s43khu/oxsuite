@@ -573,10 +573,18 @@ export default function TimeDateConverter() {
           </div>
 
           {error && (
-            <div className="p-4 bg-red-500/10 border-2 border-red-500 rounded-lg">
+            <div
+              className="p-4 border-2 rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                borderColor: theme.colors.accent,
+              }}
+            >
               <div className="flex items-center gap-2">
-                <XCircle className="w-5 h-5 text-red-500" />
-                <p className="text-red-500 font-mono">{error}</p>
+                <XCircle className="w-5 h-5" style={{ color: theme.colors.accent }} />
+                <p className="font-mono" style={{ color: theme.colors.accent }}>
+                  {error}
+                </p>
               </div>
             </div>
           )}
@@ -716,7 +724,14 @@ export default function TimeDateConverter() {
                   </div>
                   <button
                     onClick={() => removeComparisonTimezone(comp.timezone)}
-                    className="text-red-500 hover:text-red-400 transition-colors"
+                    className="transition-colors"
+                    style={{ color: theme.colors.accent }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.opacity = "0.8";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.opacity = "1";
+                    }}
                   >
                     <X className="w-4 h-4" />
                   </button>

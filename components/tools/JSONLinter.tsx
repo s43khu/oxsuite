@@ -63,16 +63,16 @@ function JSONViewer({
 
   const renderValue = (value: any): React.ReactElement => {
     if (value === null) {
-      return <span className="text-purple-400">null</span>;
+      return <span style={{ color: theme.colors.accent, opacity: 0.8 }}>null</span>;
     }
 
     const valueType = typeof value;
 
     switch (valueType) {
       case "boolean":
-        return <span className="text-blue-400">{String(value)}</span>;
+        return <span style={{ color: theme.colors.primary }}>{String(value)}</span>;
       case "number":
-        return <span className="text-yellow-400">{String(value)}</span>;
+        return <span style={{ color: theme.colors.accent }}>{String(value)}</span>;
       case "string":
         return <span style={{ color: theme.colors.accent }}>"{value}"</span>;
       case "object":
@@ -183,7 +183,12 @@ function JSONViewer({
 
               return (
                 <div key={key} className="mb-1 flex items-start">
-                  <span className="text-red-400 font-semibold font-mono flex-shrink-0">{key}</span>
+                  <span
+                    className="font-semibold font-mono flex-shrink-0"
+                    style={{ color: theme.colors.primary }}
+                  >
+                    {key}
+                  </span>
                   <span className="mx-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
                     :
                   </span>
@@ -564,8 +569,8 @@ export default function JSONLinter() {
                 className="h-5 leading-5 text-right pr-2"
                 style={{
                   backgroundColor:
-                    highlightedLine === i + 1 ? "rgba(239, 68, 68, 0.3)" : "transparent",
-                  color: highlightedLine === i + 1 ? "#f87171" : theme.colors.foreground,
+                    highlightedLine === i + 1 ? hexToRgba(theme.colors.accent, 0.3) : "transparent",
+                  color: highlightedLine === i + 1 ? theme.colors.accent : theme.colors.foreground,
                   fontWeight: highlightedLine === i + 1 ? "bold" : "normal",
                 }}
               >
@@ -648,7 +653,14 @@ export default function JSONLinter() {
             </span>
           </div>
           {fileError && (
-            <div className="p-2 bg-red-500/10 border border-red-500 rounded text-red-400 text-sm font-mono">
+            <div
+              className="p-2 border rounded text-sm font-mono"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                borderColor: theme.colors.accent,
+                color: theme.colors.accent,
+              }}
+            >
               {fileError}
             </div>
           )}
@@ -790,8 +802,13 @@ export default function JSONLinter() {
                 </>
               ) : (
                 <>
-                  <XCircle className="w-6 h-6 text-red-500" />
-                  <h3 className="text-xl font-semibold text-red-500 font-mono">Invalid JSON</h3>
+                  <XCircle className="w-6 h-6" style={{ color: theme.colors.accent }} />
+                  <h3
+                    className="text-xl font-semibold font-mono"
+                    style={{ color: theme.colors.accent }}
+                  >
+                    Invalid JSON
+                  </h3>
                 </>
               )}
             </div>
@@ -955,29 +972,59 @@ export default function JSONLinter() {
                     </div>
                   </div>
                   <div className="mt-2">
-                    <label className="block text-sm font-medium text-green-500/70 font-mono mb-2">
+                    <label
+                      className="block text-sm font-medium font-mono mb-2"
+                      style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                    >
                       Raw JSON (for copying)
                     </label>
                     <textarea
                       ref={formattedRef}
                       value={validationResult.formatted}
                       readOnly
-                      className="w-full h-48 px-4 py-3 rounded-lg border-2 bg-black text-green-500 font-mono border-green-500/50"
-                      style={{ lineHeight: "1.25rem" }}
+                      className="w-full h-48 px-4 py-3 rounded-lg border-2 font-mono"
+                      style={{
+                        lineHeight: "1.25rem",
+                        backgroundColor: theme.colors.background,
+                        color: theme.colors.accent,
+                        borderColor: hexToRgba(theme.colors.primary, 0.5),
+                      }}
                     />
                   </div>
                 </div>
               </>
             ) : (
               <div className="space-y-3">
-                <div className="p-4 bg-red-500/10 border-2 border-red-500 rounded-lg">
+                <div
+                  className="p-4 border-2 rounded-lg"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                    borderColor: theme.colors.accent,
+                  }}
+                >
                   <div className="flex items-start gap-2">
-                    <AlertCircle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" />
+                    <AlertCircle
+                      className="w-5 h-5 flex-shrink-0 mt-0.5"
+                      style={{ color: theme.colors.accent }}
+                    />
                     <div className="flex-1">
-                      <p className="text-red-500 font-mono text-sm font-semibold mb-1">Error:</p>
-                      <p className="text-red-400 font-mono text-sm">{validationResult.error}</p>
+                      <p
+                        className="font-mono text-sm font-semibold mb-1"
+                        style={{ color: theme.colors.accent }}
+                      >
+                        Error:
+                      </p>
+                      <p
+                        className="font-mono text-sm"
+                        style={{ color: theme.colors.accent, opacity: 0.8 }}
+                      >
+                        {validationResult.error}
+                      </p>
                       {validationResult.errorLine && (
-                        <p className="text-red-400/70 font-mono text-xs mt-2">
+                        <p
+                          className="font-mono text-xs mt-2"
+                          style={{ color: theme.colors.accent, opacity: 0.7 }}
+                        >
                           Line {validationResult.errorLine}
                           {validationResult.errorColumn &&
                             `, Column ${validationResult.errorColumn}`}

@@ -6,6 +6,7 @@ import { File, Upload, X, FileQuestion } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useTheme } from "@/components/ui/ThemeProvider";
+import { hexToRgba } from "@/lib/color-utils";
 import { detectFileType, type FileType, isSupportedFileType } from "@/lib/file-type-detector";
 import XLSXViewer from "./viewers/XLSXViewer";
 import TextViewer from "./viewers/TextViewer";
@@ -178,8 +179,16 @@ export default function FileViewer() {
         )}
 
         {error && (
-          <div className="mt-4 p-3 bg-red-500/10 border border-red-500/30 rounded">
-            <p className="text-sm text-red-500 font-mono">{error}</p>
+          <div
+            className="mt-4 p-3 border rounded"
+            style={{
+              backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+              borderColor: hexToRgba(theme.colors.accent, 0.3),
+            }}
+          >
+            <p className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+              {error}
+            </p>
           </div>
         )}
 
@@ -194,7 +203,8 @@ export default function FileViewer() {
             <span className="font-semibold" style={{ color: theme.colors.primary }}>
               NOTE:
             </span>{" "}
-            Currently supporting: <strong>XLSX, XLS, TXT</strong>. CSV, JSON, and PDF viewers coming soon.
+            Currently supporting: <strong>XLSX, XLS, TXT</strong>. CSV, JSON, and PDF viewers coming
+            soon.
           </p>
         </div>
       </Card>
@@ -214,7 +224,10 @@ export default function FileViewer() {
           <p className="font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             Upload a file to get started
           </p>
-          <p className="text-sm font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
+          <p
+            className="text-sm font-mono mb-2"
+            style={{ color: theme.colors.foreground, opacity: 0.8 }}
+          >
             <span className="font-semibold" style={{ color: theme.colors.primary }}>
               Currently supported:
             </span>{" "}

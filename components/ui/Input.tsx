@@ -15,7 +15,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     const inputStyle = {
       backgroundColor: theme.colors.background,
-      borderColor: error ? "#ef4444" : hexToRgba(theme.colors.primary, 0.5),
+      borderColor: error ? theme.colors.accent : hexToRgba(theme.colors.primary, 0.5),
       color: theme.colors.primary,
       ...style,
     };
@@ -36,13 +36,16 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             w-full px-4 py-3 rounded-lg border-2 transition-all duration-200
             font-mono
             focus:outline-none focus:ring-2
-            ${error ? "focus:ring-red-500" : ""}
             ${className}
           `}
           style={inputStyle}
           {...props}
         />
-        {error && <p className="mt-1 text-sm text-red-500 font-mono">{error}</p>}
+        {error && (
+          <p className="mt-1 text-sm font-mono" style={{ color: theme.colors.accent }}>
+            {error}
+          </p>
+        )}
       </div>
     );
   }

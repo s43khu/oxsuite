@@ -138,8 +138,16 @@ export default function XLSXViewer({ file, onClear }: XLSXViewerProps) {
 
       {error && (
         <Card variant="hacker" className="p-4">
-          <div className="p-3 bg-red-500/10 border border-red-500/30 rounded">
-            <p className="text-sm text-red-500 font-mono">{error}</p>
+          <div
+            className="p-3 border rounded"
+            style={{
+              backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+              borderColor: hexToRgba(theme.colors.accent, 0.3),
+            }}
+          >
+            <p className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+              {error}
+            </p>
           </div>
         </Card>
       )}

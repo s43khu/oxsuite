@@ -401,8 +401,16 @@ export default function WebCheck() {
           </div>
 
           {error && (
-            <div className="p-4 bg-red-500/10 border-2 border-red-500 rounded-lg">
-              <p className="text-red-500 font-mono">{error}</p>
+            <div
+              className="p-4 border-2 rounded-lg"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                borderColor: theme.colors.accent,
+              }}
+            >
+              <p className="font-mono" style={{ color: theme.colors.accent }}>
+                {error}
+              </p>
             </div>
           )}
         </div>
@@ -470,31 +478,94 @@ export default function WebCheck() {
                   </p>
                 </div>
 
-                <div className="bg-red-500/10 border-2 border-red-500 p-4 rounded-lg">
+                <div
+                  className="border-2 p-4 rounded-lg"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                    borderColor: theme.colors.accent,
+                  }}
+                >
                   <div className="flex items-center gap-2 mb-2">
-                    <XCircle className="w-5 h-5 text-red-500" />
-                    <span className="text-sm font-medium text-red-500 font-mono">FAILED</span>
+                    <XCircle className="w-5 h-5" style={{ color: theme.colors.accent }} />
+                    <span
+                      className="text-sm font-medium font-mono"
+                      style={{ color: theme.colors.accent }}
+                    >
+                      FAILED
+                    </span>
                   </div>
-                  <p className="text-3xl font-bold text-red-400 font-mono">{progress.failed}</p>
-                  <p className="text-xs text-red-500/70 font-mono mt-1">Jobs with errors</p>
+                  <p
+                    className="text-3xl font-bold font-mono"
+                    style={{ color: theme.colors.accent, opacity: 0.8 }}
+                  >
+                    {progress.failed}
+                  </p>
+                  <p
+                    className="text-xs font-mono mt-1"
+                    style={{ color: theme.colors.accent, opacity: 0.7 }}
+                  >
+                    Jobs with errors
+                  </p>
                 </div>
 
-                <div className="bg-yellow-500/10 border-2 border-yellow-500 p-4 rounded-lg">
+                <div
+                  className="border-2 p-4 rounded-lg"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
+                    borderColor: theme.colors.secondary,
+                  }}
+                >
                   <div className="flex items-center gap-2 mb-2">
-                    <AlertCircle className="w-5 h-5 text-yellow-500" />
-                    <span className="text-sm font-medium text-yellow-500 font-mono">NO DATA</span>
+                    <AlertCircle className="w-5 h-5" style={{ color: theme.colors.secondary }} />
+                    <span
+                      className="text-sm font-medium font-mono"
+                      style={{ color: theme.colors.secondary }}
+                    >
+                      NO DATA
+                    </span>
                   </div>
-                  <p className="text-3xl font-bold text-yellow-400 font-mono">{progress.noData}</p>
-                  <p className="text-xs text-yellow-500/70 font-mono mt-1">Jobs without data</p>
+                  <p
+                    className="text-3xl font-bold font-mono"
+                    style={{ color: theme.colors.secondary, opacity: 0.8 }}
+                  >
+                    {progress.noData}
+                  </p>
+                  <p
+                    className="text-xs font-mono mt-1"
+                    style={{ color: theme.colors.secondary, opacity: 0.7 }}
+                  >
+                    Jobs without data
+                  </p>
                 </div>
 
-                <div className="bg-blue-500/10 border-2 border-blue-500 p-4 rounded-lg">
+                <div
+                  className="border-2 p-4 rounded-lg"
+                  style={{
+                    backgroundColor: hexToRgba(theme.colors.primary, 0.1),
+                    borderColor: theme.colors.primary,
+                  }}
+                >
                   <div className="flex items-center gap-2 mb-2">
-                    <Info className="w-5 h-5 text-blue-500" />
-                    <span className="text-sm font-medium text-blue-500 font-mono">TOTAL</span>
+                    <Info className="w-5 h-5" style={{ color: theme.colors.primary }} />
+                    <span
+                      className="text-sm font-medium font-mono"
+                      style={{ color: theme.colors.primary }}
+                    >
+                      TOTAL
+                    </span>
                   </div>
-                  <p className="text-3xl font-bold text-blue-400 font-mono">{progress.total}</p>
-                  <p className="text-xs text-blue-500/70 font-mono mt-1">Total jobs</p>
+                  <p
+                    className="text-3xl font-bold font-mono"
+                    style={{ color: theme.colors.accent }}
+                  >
+                    {progress.total}
+                  </p>
+                  <p
+                    className="text-xs font-mono mt-1"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
+                    Total jobs
+                  </p>
                 </div>
               </div>
             </div>
@@ -506,7 +577,10 @@ export default function WebCheck() {
                 className="flex items-center justify-between cursor-pointer mb-4"
                 onClick={() => setExpandedFailedJobs(!expandedFailedJobs)}
               >
-                <h3 className="text-xl font-bold text-red-500 smooch-sans flex items-center gap-2">
+                <h3
+                  className="text-xl font-bold smooch-sans flex items-center gap-2"
+                  style={{ color: theme.colors.accent }}
+                >
                   <XCircle className="w-6 h-6" />
                   FAILED JOBS ({failedJobs.length})
                 </h3>
@@ -521,10 +595,14 @@ export default function WebCheck() {
                   {failedJobs.map((job, idx) => (
                     <div
                       key={idx}
-                      className="border-2 border-red-500/50 rounded-lg p-4 bg-red-500/5"
+                      className="border-2 rounded-lg p-4"
+                      style={{
+                        borderColor: hexToRgba(theme.colors.accent, 0.5),
+                        backgroundColor: hexToRgba(theme.colors.accent, 0.05),
+                      }}
                     >
                       <div className="flex items-center gap-3 mb-2">
-                        <XCircle className="w-5 h-5 text-red-500" />
+                        <XCircle className="w-5 h-5" style={{ color: theme.colors.accent }} />
                         <span
                           className="font-mono font-semibold"
                           style={{ color: theme.colors.accent }}
@@ -538,7 +616,10 @@ export default function WebCheck() {
                           ({formatDuration(job.duration)})
                         </span>
                       </div>
-                      <p className="text-red-400 font-mono text-sm">
+                      <p
+                        className="font-mono text-sm"
+                        style={{ color: theme.colors.accent, opacity: 0.8 }}
+                      >
                         <span style={{ color: theme.colors.foreground, opacity: 0.7 }}>ERROR:</span>{" "}
                         {job.error || "Unknown error occurred"}
                       </p>
@@ -565,7 +646,7 @@ export default function WebCheck() {
                     {result.results.status?.isUp ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>IS UP?</span>
                   </div>
@@ -615,14 +696,15 @@ export default function WebCheck() {
                             tech.confidence === "high"
                               ? hexToRgba(theme.colors.primary, 0.2)
                               : tech.confidence === "medium"
-                                ? "rgba(234, 179, 8, 0.2)"
-                                : "rgba(107, 114, 128, 0.2)",
+                                ? hexToRgba(theme.colors.secondary, 0.2)
+                                : hexToRgba(theme.colors.foreground, 0.2),
                           color:
                             tech.confidence === "high"
                               ? theme.colors.accent
                               : tech.confidence === "medium"
-                                ? "#fbbf24"
-                                : "#9ca3af",
+                                ? theme.colors.secondary
+                                : theme.colors.foreground,
+                          opacity: tech.confidence === "low" ? 0.6 : 1,
                         }}
                       >
                         {tech.confidence?.toUpperCase() || "LOW"}
@@ -659,7 +741,7 @@ export default function WebCheck() {
                           style={{
                             color:
                               result.results.ssl.daysRemaining < 30
-                                ? "#ef4444"
+                                ? theme.colors.accent
                                 : theme.colors.accent,
                           }}
                         >
@@ -774,7 +856,7 @@ export default function WebCheck() {
                                 style={{ color: theme.colors.primary }}
                               />
                             ) : (
-                              <XCircle className="w-3 h-3 text-red-500" />
+                              <XCircle className="w-3 h-3" style={{ color: theme.colors.accent }} />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
@@ -787,7 +869,7 @@ export default function WebCheck() {
                                 style={{ color: theme.colors.primary }}
                               />
                             ) : (
-                              <XCircle className="w-3 h-3 text-red-500" />
+                              <XCircle className="w-3 h-3" style={{ color: theme.colors.accent }} />
                             )}
                           </div>
                           <div className="flex items-center gap-2">
@@ -800,7 +882,7 @@ export default function WebCheck() {
                                 style={{ color: theme.colors.primary }}
                               />
                             ) : (
-                              <XCircle className="w-3 h-3 text-red-500" />
+                              <XCircle className="w-3 h-3" style={{ color: theme.colors.accent }} />
                             )}
                           </div>
                           {cookie.issues && cookie.issues.length > 0 && (
@@ -808,7 +890,10 @@ export default function WebCheck() {
                               className="mt-2 pt-2 border-t"
                               style={{ borderColor: hexToRgba(theme.colors.primary, 0.2) }}
                             >
-                              <div className="text-red-400 text-xs">
+                              <div
+                                className="text-xs"
+                                style={{ color: theme.colors.accent, opacity: 0.8 }}
+                              >
                                 {cookie.issues.map((issue: string, i: number) => (
                                   <div key={i}>• {issue}</div>
                                 ))}
@@ -824,7 +909,7 @@ export default function WebCheck() {
                           className="mt-3 pt-3 border-t"
                           style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
                         >
-                          <div className="text-yellow-400 text-xs">
+                          <div className="text-xs" style={{ color: theme.colors.secondary }}>
                             <div className="font-semibold mb-1">Overall Issues:</div>
                             {result.results.cookies.overallIssues.map(
                               (issue: string, i: number) => (
@@ -1179,19 +1264,19 @@ export default function WebCheck() {
                     >
                       {result.results.quality?.performance?.issues?.map(
                         (issue: string, i: number) => (
-                          <div key={i} className="text-yellow-400">
+                          <div key={i} style={{ color: theme.colors.secondary }}>
                             • {issue}
                           </div>
                         )
                       )}
                       {result.results.quality?.seo?.issues?.map((issue: string, i: number) => (
-                        <div key={i} className="text-yellow-400">
+                        <div key={i} style={{ color: theme.colors.secondary }}>
                           • {issue}
                         </div>
                       ))}
                       {result.results.quality?.accessibility?.issues?.map(
                         (issue: string, i: number) => (
-                          <div key={i} className="text-yellow-400">
+                          <div key={i} style={{ color: theme.colors.secondary }}>
                             • {issue}
                           </div>
                         )
@@ -1250,7 +1335,7 @@ export default function WebCheck() {
                     {result.results.mailConfig?.spf?.exists ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>SPF Record</span>
                   </div>
@@ -1258,7 +1343,7 @@ export default function WebCheck() {
                     {result.results.mailConfig?.dkim?.exists ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>DKIM Record</span>
                   </div>
@@ -1266,7 +1351,7 @@ export default function WebCheck() {
                     {result.results.mailConfig?.dmarc?.exists ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>DMARC Record</span>
                     {result.results.mailConfig?.dmarc?.policy && (
@@ -1360,8 +1445,8 @@ export default function WebCheck() {
                   {result.results.tlsCipherSuites?.weak &&
                     result.results.tlsCipherSuites.weak.length > 0 && (
                       <div>
-                        <span className="text-red-500/70">WEAK:</span>
-                        <span className="text-red-400 ml-2">
+                        <span style={{ color: theme.colors.accent, opacity: 0.7 }}>WEAK:</span>
+                        <span className="ml-2" style={{ color: theme.colors.accent, opacity: 0.8 }}>
                           {result.results.tlsCipherSuites.weak.length}
                         </span>
                       </div>
@@ -1402,7 +1487,7 @@ export default function WebCheck() {
                     {result.results.tlsSecurityConfig?.certificate?.valid ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>Certificate Valid</span>
                   </div>
@@ -1410,7 +1495,7 @@ export default function WebCheck() {
                     {result.results.tlsSecurityConfig?.hsts ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>HSTS Enabled</span>
                   </div>
@@ -1421,7 +1506,11 @@ export default function WebCheck() {
                         style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
                       >
                         {result.results.tlsSecurityConfig.issues.map((issue: string, i: number) => (
-                          <div key={i} className="text-yellow-400 text-xs">
+                          <div
+                            key={i}
+                            className="text-xs"
+                            style={{ color: theme.colors.secondary }}
+                          >
                             • {issue}
                           </div>
                         ))}
@@ -1445,7 +1534,7 @@ export default function WebCheck() {
                     {result.results.tlsClientSupport?.tls13 ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>TLS 1.3</span>
                   </div>
@@ -1453,23 +1542,29 @@ export default function WebCheck() {
                     {result.results.tlsClientSupport?.tls12 ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-red-500" />
+                      <XCircle className="w-4 h-4" style={{ color: theme.colors.accent }} />
                     )}
                     <span style={{ color: theme.colors.accent }}>TLS 1.2</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls11 ? (
-                      <CheckCircle className="w-4 h-4 text-yellow-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.secondary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
+                      <XCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      />
                     )}
                     <span style={{ color: theme.colors.accent }}>TLS 1.1 (Deprecated)</span>
                   </div>
                   <div className="flex items-center gap-2">
                     {result.results.tlsClientSupport?.tls10 ? (
-                      <CheckCircle className="w-4 h-4 text-yellow-500" />
+                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.secondary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
+                      <XCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      />
                     )}
                     <span style={{ color: theme.colors.accent }}>TLS 1.0 (Deprecated)</span>
                   </div>
@@ -1487,7 +1582,11 @@ export default function WebCheck() {
                         </div>
                         {result.results.tlsClientSupport.recommended.map(
                           (rec: string, i: number) => (
-                            <div key={i} className="text-yellow-400 text-xs">
+                            <div
+                              key={i}
+                              className="text-xs"
+                              style={{ color: theme.colors.secondary }}
+                            >
                               • {rec}
                             </div>
                           )
@@ -1513,7 +1612,10 @@ export default function WebCheck() {
                       {result.results.features?.[key as keyof typeof result.results.features] ? (
                         <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                       ) : (
-                        <XCircle className="w-4 h-4 text-gray-500" />
+                        <XCircle
+                          className="w-4 h-4"
+                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                        />
                       )}
                       <span style={{ color: theme.colors.accent }}>{label}</span>
                     </div>
@@ -1556,7 +1658,10 @@ export default function WebCheck() {
                     {result.results.carbon?.greenHosting ? (
                       <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
                     ) : (
-                      <XCircle className="w-4 h-4 text-gray-500" />
+                      <XCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                      />
                     )}
                     <span style={{ color: theme.colors.accent }}>Green Hosting</span>
                   </div>
