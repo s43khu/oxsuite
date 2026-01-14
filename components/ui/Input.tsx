@@ -25,6 +25,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       className
     );
 
+    const focusBorderColor = error ? theme.colors.accent : theme.colors.primary;
+    const focusRingColor = hexToRgba(error ? theme.colors.accent : theme.colors.primary, 0.2);
+
     const inputStyle: React.CSSProperties = {
       backgroundColor: theme.colors.background,
       borderColor: error
@@ -33,8 +36,6 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ? hexToRgba(theme.colors.primary, 0.2)
           : hexToRgba(theme.colors.primary, 0.4),
       color: theme.colors.foreground,
-      "--focus-border": error ? theme.colors.accent : theme.colors.primary,
-      "--focus-ring": hexToRgba(error ? theme.colors.accent : theme.colors.primary, 0.2),
       ...style,
     };
 
@@ -61,8 +62,8 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           disabled={disabled}
           onFocus={(e) => {
             if (!disabled) {
-              e.currentTarget.style.borderColor = `var(--focus-border)`;
-              e.currentTarget.style.boxShadow = `0 0 0 3px var(--focus-ring)`;
+              e.currentTarget.style.borderColor = focusBorderColor;
+              e.currentTarget.style.boxShadow = `0 0 0 3px ${focusRingColor}`;
             }
           }}
           onBlur={(e) => {
