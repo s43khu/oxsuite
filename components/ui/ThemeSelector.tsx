@@ -2,7 +2,9 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
-import { Palette } from "lucide-react";
+import { Palette, Check } from "lucide-react";
+import { hexToRgba } from "@/lib/color-utils";
+import { cn } from "@/lib/utils";
 
 export function ThemeSelector() {
   const { theme, themeId, setTheme, availableThemes } = useTheme();
@@ -16,12 +18,20 @@ export function ThemeSelector() {
       }
     }
 
+    function handleEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsOpen(false);
+      }
+    }
+
     if (isOpen) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscape);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, [isOpen]);
 
@@ -34,67 +44,93 @@ export function ThemeSelector() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2"
+        className={cn(
+          "flex items-center gap-2.5 px-4 py-2.5",
+          "rounded-lg border-2",
+          "transition-all duration-200 ease-out",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          "hover:scale-[1.02] active:scale-[0.98]"
+        )}
         style={{
           borderColor: theme.colors.border,
           color: theme.colors.primary,
-          backgroundColor: "transparent",
+          backgroundColor: isOpen ? hexToRgba(theme.colors.primary, 0.1) : "transparent",
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.backgroundColor = `${theme.colors.primary}15`;
+          if (!isOpen) {
+            e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.08);
+          }
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.backgroundColor = "transparent";
+          if (!isOpen) {
+            e.currentTarget.style.backgroundColor = "transparent";
+          }
         }}
+        aria-label="Select theme"
+        aria-expanded={isOpen}
+        aria-haspopup="listbox"
       >
-        <Palette className="w-4 h-4" />
-        <span className="font-mono text-sm">{theme.name}</span>
+        <Palette className="w-4 h-4" aria-hidden="true" />
+        <span className="font-medium text-sm">{theme.name}</span>
       </button>
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-48 rounded-lg border-2 shadow-lg z-50 overflow-hidden"
+          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
           style={{
             borderColor: theme.colors.border,
             backgroundColor: theme.colors.background,
+            boxShadow: `0 20px 25px -5px ${hexToRgba(theme.colors.primary, 0.15)}, 0 10px 10px -5px ${hexToRgba(theme.colors.primary, 0.1)}`,
           }}
+          role="listbox"
         >
-          <div className="py-1">
-            {availableThemes.map((t) => (
-              <button
-                key={t.id}
-                onClick={() => handleThemeChange(t.id)}
-                className="w-full text-left px-4 py-3 transition-all duration-150 flex items-center gap-3"
-                style={{
-                  color: t.id === themeId ? theme.colors.primary : theme.colors.foreground,
-                  backgroundColor: t.id === themeId ? `${theme.colors.primary}20` : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (t.id !== themeId) {
-                    e.currentTarget.style.backgroundColor = `${theme.colors.primary}10`;
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  if (t.id !== themeId) {
-                    e.currentTarget.style.backgroundColor = "transparent";
-                  }
-                }}
-              >
-                <div
-                  className="w-4 h-4 rounded-full border-2"
+          <div className="py-1.5">
+            {availableThemes.map((t) => {
+              const isSelected = t.id === themeId;
+              return (
+                <button
+                  key={t.id}
+                  onClick={() => handleThemeChange(t.id)}
+                  className={cn(
+                    "w-full text-left px-4 py-3",
+                    "transition-all duration-150 ease-out",
+                    "flex items-center gap-3",
+                    "focus-visible:outline-none focus-visible:bg-opacity-20"
+                  )}
                   style={{
-                    backgroundColor: t.colors.primary,
-                    borderColor: t.colors.border,
+                    color: isSelected ? theme.colors.primary : theme.colors.foreground,
+                    backgroundColor: isSelected
+                      ? hexToRgba(theme.colors.primary, 0.15)
+                      : "transparent",
                   }}
-                />
-                <span className="font-mono text-sm">{t.name}</span>
-                {t.id === themeId && (
-                  <span className="ml-auto text-xs" style={{ color: theme.colors.primary }}>
-                    ✓
-                  </span>
-                )}
-              </button>
-            ))}
+                  onMouseEnter={(e) => {
+                    if (!isSelected) {
+                      e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.08);
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isSelected) {
+                      e.currentTarget.style.backgroundColor = "transparent";
+                    }
+                  }}
+                  role="option"
+                  aria-selected={isSelected}
+                >
+                  <div
+                    className="w-4 h-4 rounded-full border-2 flex-shrink-0"
+                    style={{
+                      backgroundColor: t.colors.primary,
+                      borderColor: t.colors.border,
+                    }}
+                    aria-hidden="true"
+                  />
+                  <span className="font-medium text-sm flex-1">{t.name}</span>
+                  {isSelected && (
+                    <Check className="w-4 h-4 flex-shrink-0" style={{ color: theme.colors.primary }} aria-hidden="true" />
+                  )}
+                </button>
+              );
+            })}
           </div>
         </div>
       )}

@@ -20,11 +20,22 @@
   --font-mono: var(--font-geist-mono);
 }
 
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body);
   min-height: 100vh;
+  line-height: 1.6;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
@@ -34,6 +45,7 @@ body {
   font-family: "Smooch Sans", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
+  font-weight: 400;
 }
 
 .font-effect-anaglyph {
@@ -41,6 +53,38 @@ body {
     -2px 0 0 rgba(255, 0, 0, 0.8),
     2px 0 0 rgba(0, 255, 255, 0.8);
   letter-spacing: 0.05em;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-from-top {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.fade-in {
+  animation: fade-in 0.2s ease-out;
+}
+
+.slide-in-from-top-2 {
+  animation: slide-in-from-top 0.2s ease-out;
 }
 
 /* Global scrollbar styling for all scrollable elements */

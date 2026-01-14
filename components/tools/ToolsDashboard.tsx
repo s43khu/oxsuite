@@ -128,24 +128,27 @@ export default function ToolsDashboard() {
   }, []);
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-6">
-      <div className="text-center mb-12">
+    <div className="w-full">
+      <div className="text-center mb-12 sm:mb-16">
         <h1
-          className="text-5xl font-bold smooch-sans font-effect-anaglyph tracking-wider mb-4"
+          className="text-4xl sm:text-5xl lg:text-6xl font-bold smooch-sans font-effect-anaglyph tracking-wider mb-4 sm:mb-6"
           style={{ color: theme.colors.primary }}
         >
           OXsuite Tools
         </h1>
         <p
-          className="text-lg font-mono max-w-2xl mx-auto"
-          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+          className="text-base sm:text-lg font-medium max-w-2xl mx-auto px-4"
+          style={{ color: theme.colors.foreground, opacity: 0.8 }}
         >
           {">"} Professional tools for daily use. Choose a tool to get started or explore what's
           coming soon.
         </p>
       </div>
 
-      <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        ref={cardsRef}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+      >
         {tools.map((tool) => (
           <ToolCard
             key={tool.id}

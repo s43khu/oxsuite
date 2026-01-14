@@ -20,7 +20,7 @@ export interface Theme {
 export const themes: Record<string, Theme> = {
   dark: {
     id: "dark",
-    name: "Dark Terminal",
+    name: "Terminal",
     colors: {
       background: "#000000",
       foreground: "#00ff00",
@@ -56,7 +56,7 @@ export const themes: Record<string, Theme> = {
   },
   blue: {
     id: "blue",
-    name: "Ocean Blue",
+    name: "Ocean",
     colors: {
       background: "#0a1929",
       foreground: "#90caf9",
@@ -74,7 +74,7 @@ export const themes: Record<string, Theme> = {
   },
   purple: {
     id: "purple",
-    name: "Purple Dream",
+    name: "Dream",
     colors: {
       background: "#1a0b2e",
       foreground: "#c77dff",
@@ -92,7 +92,7 @@ export const themes: Record<string, Theme> = {
   },
   orange: {
     id: "orange",
-    name: "Sunset Orange",
+    name: "Sunset",
     colors: {
       background: "#1a0f00",
       foreground: "#ff9800",
