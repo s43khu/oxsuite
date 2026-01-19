@@ -20,7 +20,7 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { useTheme } from "@/components/ui/ThemeProvider";
-import timezonesData from "@/lib/timezones.json";
+import timezonesData from "@/lib/data/timezones.json";
 import { hexToRgba } from "@/lib/color-utils";
 
 interface ConvertedDate {

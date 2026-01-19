@@ -1,123 +1,116 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import {
-  Globe,
-  FileText,
-  Image,
-  FileEdit,
-  BarChart,
-  Code,
-  GitCompare,
-  FileCode,
-  Cookie,
-  Key,
-  Clock,
-  File,
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  rectSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { useRouter } from "next/navigation";
+import {
+  Settings,
+  Library,
 } from "lucide-react";
 import ToolCard from "./ToolCard";
+import { type Tool } from "./ToolLibrary";
 import { useTheme } from "@/components/ui/ThemeProvider";
+import { Button } from "@/components/ui/Button";
+import { getLayoutConfig, saveLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
+import { allTools } from "@/lib/tools/config";
 
-const tools = [
-  {
-    id: "web-check",
-    title: "Web Check",
-    description: "Analyze websites for security, performance, and technology stack",
-    icon: <Globe className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/web-check",
-  },
-  {
-    id: "text-compare",
-    title: "Text Compare",
-    description: "Compare two texts and highlight differences with multiple options",
-    icon: <GitCompare className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/text-compare",
-  },
-  {
-    id: "json-linter",
-    title: "JSON Linter",
-    description: "Validate, format, and lint JSON with syntax error detection",
-    icon: <FileCode className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/json-linter",
-  },
-  {
-    id: "cookie-inspector",
-    title: "Cookie Inspector",
-    description: "Parse, inspect, and analyze browser cookies with detailed attributes",
-    icon: <Cookie className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/cookie-inspector",
-  },
-  {
-    id: "jwt-viewer",
-    title: "JWT Viewer",
-    description: "Decode and view JWT tokens with header, payload, and signature details",
-    icon: <Key className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/jwt-viewer",
-  },
-  {
-    id: "time-date-converter",
-    title: "Time & Date Converter",
-    description:
-      "Convert between Unix timestamp, ISO 8601, and local formats with timezone support",
-    icon: <Clock className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/time-date-converter",
-  },
-  {
-    id: "file-viewer",
-    title: "File Viewer",
-    description:
-      "View and analyze various file types (XLSX, CSV, JSON, TXT, PDF) with auto-detection",
-    icon: <File className="w-10 h-10" />,
-    status: "available" as const,
-    route: "/tools/file-viewer",
-  },
-  {
-    id: "image-editor",
-    title: "Image Editor",
-    description: "Edit and enhance images with professional tools",
-    icon: <Image className="w-10 h-10" />,
-    status: "coming-soon" as const,
-    route: null,
-  },
-  {
-    id: "text-formatter",
-    title: "Text Formatter",
-    description: "Format and clean text documents",
-    icon: <FileEdit className="w-10 h-10" />,
-    status: "coming-soon" as const,
-    route: null,
-  },
-  {
-    id: "data-analyzer",
-    title: "Data Analyzer",
-    description: "Analyze and visualize data from various sources",
-    icon: <BarChart className="w-10 h-10" />,
-    status: "coming-soon" as const,
-    route: null,
-  },
-  {
-    id: "code-formatter",
-    title: "Code Formatter",
-    description: "Format and beautify code in multiple languages",
-    icon: <Code className="w-10 h-10" />,
-    status: "coming-soon" as const,
-    route: null,
-  },
-];
+interface SortableToolCardProps {
+  tool: Tool;
+  isEditMode: boolean;
+  onRemove: (id: string) => void;
+}
+
+function SortableToolCard({ tool, isEditMode, onRemove }: SortableToolCardProps) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: tool.id,
+    disabled: !isEditMode,
+  });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      <ToolCard
+        id={tool.id}
+        title={tool.title}
+        description={tool.description}
+        icon={tool.icon}
+        status={tool.status}
+        route={tool.route}
+        isEditMode={isEditMode}
+        onRemove={onRemove}
+        isDragging={isDragging}
+        dragHandleProps={isEditMode ? { ...attributes, ...listeners } : undefined}
+      />
+    </div>
+  );
+}
 
 export default function ToolsDashboard() {
+  const router = useRouter();
   const cardsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [visibleToolIds, setVisibleToolIds] = useState<string[]>([]);
+  const [toolOrder, setToolOrder] = useState<string[]>([]);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  const loadLayoutConfig = () => {
+    const config = getLayoutConfig();
+    const defaultToolIds = ["web-check", "time-date-converter", "jwt-viewer"];
+
+    if (config.visibleToolIds.length === 0 && config.toolOrder.length === 0) {
+      setVisibleToolIds(defaultToolIds);
+      setToolOrder(defaultToolIds);
+    } else {
+      setVisibleToolIds(config.visibleToolIds);
+      setToolOrder(config.toolOrder.length > 0 ? config.toolOrder : config.visibleToolIds);
+    }
+  };
 
   useEffect(() => {
-    if (cardsRef.current) {
+    loadLayoutConfig();
+    
+    const handleFocus = () => {
+      loadLayoutConfig();
+    };
+    
+    window.addEventListener("focus", handleFocus);
+    return () => window.removeEventListener("focus", handleFocus);
+  }, []);
+
+  useEffect(() => {
+    if (cardsRef.current && !isEditMode) {
       const cards = cardsRef.current.children;
       gsap.fromTo(
         Array.from(cards),
@@ -125,7 +118,43 @@ export default function ToolsDashboard() {
         { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
       );
     }
-  }, []);
+  }, [visibleToolIds, isEditMode]);
+
+  const visibleTools = toolOrder
+    .filter((id) => visibleToolIds.includes(id))
+    .map((id) => allTools.find((t) => t.id === id))
+    .filter((t): t is Tool => t !== undefined);
+
+  const hiddenTools = allTools.filter((t) => !visibleToolIds.includes(t.id));
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      setToolOrder((items) => {
+        const oldIndex = items.indexOf(active.id as string);
+        const newIndex = items.indexOf(over.id as string);
+        const newOrder = arrayMove(items, oldIndex, newIndex);
+        saveConfig(newOrder, visibleToolIds);
+        return newOrder;
+      });
+    }
+  };
+
+  const handleRemoveTool = (toolId: string) => {
+    const newVisibleIds = visibleToolIds.filter((id) => id !== toolId);
+    setVisibleToolIds(newVisibleIds);
+    saveConfig(toolOrder, newVisibleIds);
+  };
+
+
+  const saveConfig = (order: string[], visible: string[]) => {
+    const config: ToolLayoutConfig = {
+      visibleToolIds: visible,
+      toolOrder: order,
+    };
+    saveLayoutConfig(config);
+  };
 
   return (
     <div className="w-full">
@@ -145,21 +174,47 @@ export default function ToolsDashboard() {
         </p>
       </div>
 
-      <div
-        ref={cardsRef}
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
-      >
-        {tools.map((tool) => (
-          <ToolCard
-            key={tool.id}
-            title={tool.title}
-            description={tool.description}
-            icon={tool.icon}
-            status={tool.status}
-            route={tool.route}
-          />
-        ))}
+      <div className="flex justify-center gap-4 mb-8">
+        <Button
+          variant={isEditMode ? "primary" : "outline"}
+          size="md"
+          onClick={() => setIsEditMode(!isEditMode)}
+        >
+          <Settings className="w-4 h-4 mr-2" />
+          {isEditMode ? "Done Editing" : "Edit Layout"}
+        </Button>
+        {isEditMode && (
+          <Button variant="secondary" size="md" onClick={() => router.push("/tools/library")}>
+            <Library className="w-4 h-4 mr-2" />
+            Tool Library ({hiddenTools.length})
+          </Button>
+        )}
       </div>
+
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={visibleTools.map((t) => t.id)}
+          strategy={rectSortingStrategy}
+        >
+          <div
+            ref={cardsRef}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+          >
+            {visibleTools.map((tool) => (
+              <SortableToolCard
+                key={tool.id}
+                tool={tool}
+                isEditMode={isEditMode}
+                onRemove={handleRemoveTool}
+              />
+            ))}
+          </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 }

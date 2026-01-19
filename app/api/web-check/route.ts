@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isValidApiKey } from "@/lib/api-keys";
-import { performWebCheckJobs } from "@/lib/web-check-jobs";
+import { performWebCheckJobs } from "@/lib/web-check";
 
 export async function POST(request: NextRequest) {
   try {

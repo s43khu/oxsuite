@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { performWebCheckJobs } from "@/lib/web-check-jobs";
+import { performWebCheckJobs } from "@/lib/web-check";
 
 export async function POST(request: NextRequest) {
   try {

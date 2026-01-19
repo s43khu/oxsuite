@@ -912,7 +912,7 @@ export function extractMetadata(html: string) {
 }
 
 export function analyzeSecurity(headers: Record<string, string>) {
-  const missingHeaders = [];
+  const missingHeaders: string[] = [];
 
   if (!headers["strict-transport-security"]) missingHeaders.push("Strict-Transport-Security");
   if (!headers["content-security-policy"]) missingHeaders.push("Content-Security-Policy");
@@ -921,7 +921,7 @@ export function analyzeSecurity(headers: Record<string, string>) {
   if (!headers["x-xss-protection"]) missingHeaders.push("X-XSS-Protection");
   if (!headers["referrer-policy"]) missingHeaders.push("Referrer-Policy");
 
-  const vulnerabilities = [];
+  const vulnerabilities: string[] = [];
 
   if (headers["server"]) {
     vulnerabilities.push("Server header exposes server information");

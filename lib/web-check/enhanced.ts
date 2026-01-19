@@ -1,4 +1,4 @@
-import { fetchWithTimeout } from "./web-check-utils";
+import { fetchWithTimeout } from "./utils";
 
 export interface EnhancedWebCheckResult {
   ip?: string;

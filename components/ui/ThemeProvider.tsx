@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { getTheme, themes, type Theme, defaultTheme } from "@/themes";
-import { getStoredThemeId, setStoredThemeId } from "@/lib/theme-storage";
+import { getStoredThemeId, setStoredThemeId } from "@/lib/storage";
 
 interface ThemeContextType {
   theme: Theme;

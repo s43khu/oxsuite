@@ -1,4 +1,4 @@
-import cookieData from "./cookies.json";
+import cookieData from "./data/cookies.json";
 
 interface CookieAnalysis {
   name: string;

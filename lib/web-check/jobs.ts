@@ -21,7 +21,7 @@ import {
   checkVulnerabilityIndicators,
   calculateSecurityScore,
   generateRecommendations,
-} from "./web-check-utils";
+} from "./utils";
 import {
   getIPAddress,
   getGeolocation,
@@ -41,7 +41,7 @@ import {
   checkTLSClientSupport,
   checkFeatures,
   checkCarbon,
-} from "./web-check-enhanced";
+} from "./enhanced";
 
 export interface JobResult {
   name: string;
