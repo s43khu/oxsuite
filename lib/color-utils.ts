@@ -69,3 +69,25 @@ export function createRgbaString(hex: string): string {
   const { r, g, b } = hexToRgb(hex);
   return `rgba(${r}, ${g}, ${b}, `;
 }
+
+/**
+ * Blends a foreground color with a background color to create an opaque result
+ * @param foregroundHex - Foreground hex color
+ * @param backgroundHex - Background hex color
+ * @param alpha - Alpha value between 0 and 1 for the foreground color
+ * @returns Hex color string representing the blended opaque color
+ */
+export function blendColors(
+  foregroundHex: string,
+  backgroundHex: string,
+  alpha: number
+): string {
+  const fg = hexToRgb(foregroundHex);
+  const bg = hexToRgb(backgroundHex);
+
+  const r = Math.round(fg.r * alpha + bg.r * (1 - alpha));
+  const g = Math.round(fg.g * alpha + bg.g * (1 - alpha));
+  const b = Math.round(fg.b * alpha + bg.b * (1 - alpha));
+
+  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+}
