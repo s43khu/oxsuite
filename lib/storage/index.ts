@@ -52,6 +52,19 @@ export function clearStoredTheme(): void {
   }
 }
 
+export function hasStoredLayoutConfig(): boolean {
+  if (typeof window === "undefined") {
+    return false;
+  }
+
+  try {
+    const stored = localStorage.getItem(LAYOUT_STORAGE_KEY);
+    return stored !== null;
+  } catch (error) {
+    return false;
+  }
+}
+
 export function getLayoutConfig(): ToolLayoutConfig {
   if (typeof window === "undefined") {
     return defaultLayoutConfig;

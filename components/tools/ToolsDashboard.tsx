@@ -28,7 +28,7 @@ import ToolCard from "./ToolCard";
 import { type Tool } from "./ToolLibrary";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { Button } from "@/components/ui/Button";
-import { getLayoutConfig, saveLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
+import { getLayoutConfig, saveLayoutConfig, hasStoredLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
 import { allTools } from "@/lib/tools/config";
 
 interface SortableToolCardProps {
@@ -86,12 +86,18 @@ export default function ToolsDashboard() {
   );
 
   const loadLayoutConfig = () => {
+    const hasStored = hasStoredLayoutConfig();
     const config = getLayoutConfig();
     const defaultToolIds = ["web-check", "time-date-converter", "jwt-viewer"];
 
-    if (config.visibleToolIds.length === 0 && config.toolOrder.length === 0) {
+    if (!hasStored) {
       setVisibleToolIds(defaultToolIds);
       setToolOrder(defaultToolIds);
+      const defaultConfig: ToolLayoutConfig = {
+        visibleToolIds: defaultToolIds,
+        toolOrder: defaultToolIds,
+      };
+      saveLayoutConfig(defaultConfig);
     } else {
       setVisibleToolIds(config.visibleToolIds);
       setToolOrder(config.toolOrder.length > 0 ? config.toolOrder : config.visibleToolIds);
