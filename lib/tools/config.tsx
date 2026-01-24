@@ -8,6 +8,7 @@ import {
   Key,
   Clock,
   File,
+  QrCode,
 } from "lucide-react";
 import { type Tool } from "@/components/tools/ToolLibrary";
 
@@ -69,5 +70,13 @@ export const allTools: Tool[] = [
     icon: <File className="w-10 h-10" />,
     status: "available",
     route: "/tools/file-viewer",
+  },
+  {
+    id: "qr-code-generator",
+    title: "QR Code Generator",
+    description: "Create QR codes from text or URLs with customizable size, colors, and error correction",
+    icon: <QrCode className="w-10 h-10" />,
+    status: "available",
+    route: "/tools/qr-code-generator",
   }
 ];
