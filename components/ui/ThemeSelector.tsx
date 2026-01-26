@@ -6,7 +6,11 @@ import { Palette, Check } from "lucide-react";
 import { hexToRgba } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
 
-export function ThemeSelector() {
+interface ThemeSelectorProps {
+  disabled?: boolean;
+}
+
+export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
   const { theme, themeId, setTheme, availableThemes } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -41,15 +45,16 @@ export function ThemeSelector() {
   };
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="relative z-[60]" ref={dropdownRef}>
       <button
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => !disabled && setIsOpen(!isOpen)}
+        disabled={disabled}
         className={cn(
           "flex items-center gap-2.5 px-4 py-2.5",
           "rounded-lg border-2",
           "transition-all duration-200 ease-out",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-          "hover:scale-[1.02] active:scale-[0.98]"
+          disabled ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] active:scale-[0.98]"
         )}
         style={{
           borderColor: theme.colors.border,
@@ -57,7 +62,7 @@ export function ThemeSelector() {
           backgroundColor: isOpen ? hexToRgba(theme.colors.primary, 0.1) : "transparent",
         }}
         onMouseEnter={(e) => {
-          if (!isOpen) {
+          if (!isOpen && !disabled) {
             e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.08);
           }
         }}
@@ -69,6 +74,7 @@ export function ThemeSelector() {
         aria-label="Select theme"
         aria-expanded={isOpen}
         aria-haspopup="listbox"
+        aria-disabled={disabled}
       >
         <Palette className="w-4 h-4" aria-hidden="true" />
         <span className="font-medium text-sm">{theme.name}</span>
@@ -76,7 +82,7 @@ export function ThemeSelector() {
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-[100] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
           style={{
             borderColor: theme.colors.border,
             backgroundColor: theme.colors.background,

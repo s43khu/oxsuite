@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { gsap } from "gsap";
-import { ArrowLeft, Plus, Check } from "lucide-react";
+import { ArrowLeft, Plus, Check, Minus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { PageHeader } from "@/components/ui/PageHeader";
@@ -11,6 +11,8 @@ import { useTheme } from "@/components/ui/ThemeProvider";
 import { allTools } from "@/lib/tools/config";
 import { getLayoutConfig, saveLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
 import { type Tool } from "@/components/tools/ToolLibrary";
+import { cn } from "@/lib/utils";
+import { hexToRgba } from "@/lib/color-utils";
 
 export default function ToolLibraryPage() {
   const router = useRouter();
@@ -65,8 +67,24 @@ export default function ToolLibraryPage() {
     }
   };
 
+  const handleRemoveTool = (toolId: string) => {
+    if (visibleToolIds.includes(toolId)) {
+      const newVisibleIds = visibleToolIds.filter((id) => id !== toolId);
+      const newOrder = toolOrder.filter((id) => id !== toolId);
+      
+      setVisibleToolIds(newVisibleIds);
+      setToolOrder(newOrder);
+      
+      const config: ToolLayoutConfig = {
+        visibleToolIds: newVisibleIds,
+        toolOrder: newOrder,
+      };
+      saveLayoutConfig(config);
+    }
+  };
+
   return (
-    <div className="min-h-screen" style={{ backgroundColor: theme.colors.background }}>
+    <div className="min-h-screen" style={{ backgroundColor: "transparent" }}>
       <PageHeader />
       
       <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
@@ -88,12 +106,6 @@ export default function ToolLibraryPage() {
             >
               Tool Library
             </h1>
-            <p
-              className="text-base sm:text-lg font-medium max-w-2xl mx-auto"
-              style={{ color: theme.colors.foreground, opacity: 0.8 }}
-            >
-              {">"} Browse and add tools to your dashboard
-            </p>
           </div>
         </div>
 
@@ -136,25 +148,34 @@ export default function ToolLibraryPage() {
                       </p>
                     </div>
                   </div>
-                  <Button
-                    variant={addedTools.has(tool.id) ? "secondary" : "primary"}
-                    size="md"
-                    className="w-full"
+                  <button
                     onClick={() => handleAddTool(tool.id)}
                     disabled={addedTools.has(tool.id)}
+                    className={cn(
+                      "w-full h-12 rounded-lg",
+                      "flex items-center justify-center",
+                      "transition-all duration-200",
+                      "border-2",
+                      addedTools.has(tool.id)
+                        ? "opacity-50 cursor-not-allowed"
+                        : "hover:scale-105 active:scale-95 cursor-pointer"
+                    )}
+                    style={{
+                      backgroundColor: addedTools.has(tool.id)
+                        ? hexToRgba(theme.colors.primary, 0.2)
+                        : hexToRgba(theme.colors.primary, 0.1),
+                      borderColor: theme.colors.primary,
+                      color: theme.colors.primary,
+                    }}
+                    aria-label={addedTools.has(tool.id) ? "Added to dashboard" : "Add to dashboard"}
+                    title={addedTools.has(tool.id) ? "Added to dashboard" : "Add to dashboard"}
                   >
                     {addedTools.has(tool.id) ? (
-                      <>
-                        <Check className="w-4 h-4 mr-2" />
-                        Added
-                      </>
+                      <Check className="w-5 h-5" />
                     ) : (
-                      <>
-                        <Plus className="w-4 h-4 mr-2" />
-                        Add to Dashboard
-                      </>
+                      <Plus className="w-5 h-5" />
                     )}
-                  </Button>
+                  </button>
                 </Card>
               ))}
             </div>
@@ -200,10 +221,25 @@ export default function ToolLibraryPage() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center gap-2 text-sm" style={{ color: theme.colors.foreground, opacity: 0.6 }}>
-                    <Check className="w-4 h-4" />
-                    <span>Already on dashboard</span>
-                  </div>
+                  <button
+                    onClick={() => handleRemoveTool(tool.id)}
+                    className={cn(
+                      "w-full h-12 rounded-lg",
+                      "flex items-center justify-center",
+                      "transition-all duration-200",
+                      "border-2",
+                      "hover:scale-105 active:scale-95 cursor-pointer"
+                    )}
+                    style={{
+                      backgroundColor: hexToRgba(theme.colors.accent, 0.1),
+                      borderColor: theme.colors.accent,
+                      color: theme.colors.accent,
+                    }}
+                    aria-label="Remove from dashboard"
+                    title="Remove from dashboard"
+                  >
+                    <Minus className="w-5 h-5" />
+                  </button>
                 </Card>
               ))}
             </div>

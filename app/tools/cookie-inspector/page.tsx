@@ -24,7 +24,7 @@ export default function CookieInspectorPage() {
   }, []);
 
   return (
-    <div className="min-h-screen" style={{ backgroundColor: theme.colors.background }}>
+    <div className="min-h-screen" style={{ backgroundColor: "transparent" }}>
       <PageHeader />
 
       <div ref={containerRef} className="max-w-7xl mx-auto py-12 px-6">

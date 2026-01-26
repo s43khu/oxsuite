@@ -29,29 +29,37 @@ function applyTheme(theme: Theme) {
   root.style.setProperty("--font-body", theme.fonts.body);
   root.style.setProperty("--font-mono", theme.fonts.mono);
 
-  document.body.style.background = theme.colors.background;
+  root.setAttribute("data-theme", theme.id);
+
+  document.body.style.background = "transparent";
   document.body.style.color = theme.colors.foreground;
   document.body.style.fontFamily = theme.fonts.body;
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [themeId, setThemeId] = useState<string>(() => {
+  const [themeId, setThemeId] = useState<string>(defaultTheme);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
     const stored = getStoredThemeId();
     if (stored && getTheme(stored)) {
       const theme = getTheme(stored);
       applyTheme(theme);
-      return stored;
+      setThemeId(stored);
+    } else {
+      const defaultThemeObj = getTheme(defaultTheme);
+      applyTheme(defaultThemeObj);
     }
-    const defaultThemeObj = getTheme(defaultTheme);
-    applyTheme(defaultThemeObj);
-    return defaultTheme;
-  });
+  }, []);
 
   useEffect(() => {
-    const theme = getTheme(themeId);
-    applyTheme(theme);
-    setStoredThemeId(themeId);
-  }, [themeId]);
+    if (isMounted) {
+      const theme = getTheme(themeId);
+      applyTheme(theme);
+      setStoredThemeId(themeId);
+    }
+  }, [themeId, isMounted]);
 
   const setTheme = (newThemeId: string) => {
     if (getTheme(newThemeId)) {

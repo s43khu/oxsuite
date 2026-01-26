@@ -3,6 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import ThemeBackground from "@/components/ui/ThemeBackground";
+import { GitHubCredit } from "@/components/ui/GitHubCredit";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,12 +39,20 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
-          href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Press+Start+2P&display=swap"
           rel="stylesheet"
         />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <div className="fixed top-0 left-0 right-0 bottom-0 w-screen h-screen z-[1]">
+            <ThemeBackground />
+          </div>
+          <div className="relative z-[2]">
+            {children}
+          </div>
+          <GitHubCredit />
+        </ThemeProvider>
         <Analytics />
         <SpeedInsights />
       </body>

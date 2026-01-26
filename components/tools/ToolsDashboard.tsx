@@ -19,15 +19,9 @@ import {
   rectSortingStrategy,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { useRouter } from "next/navigation";
-import {
-  Settings,
-  Library,
-} from "lucide-react";
 import ToolCard from "./ToolCard";
 import { type Tool } from "./ToolLibrary";
 import { useTheme } from "@/components/ui/ThemeProvider";
-import { Button } from "@/components/ui/Button";
 import { getLayoutConfig, saveLayoutConfig, hasStoredLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
 import { allTools } from "@/lib/tools/config";
 
@@ -66,13 +60,27 @@ function SortableToolCard({ tool, isEditMode, onRemove }: SortableToolCardProps)
   );
 }
 
-export default function ToolsDashboard() {
-  const router = useRouter();
+interface ToolsDashboardProps {
+  isEditMode?: boolean;
+  onEditModeChange?: (value: boolean) => void;
+}
+
+export default function ToolsDashboard({ isEditMode: externalEditMode, onEditModeChange }: ToolsDashboardProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [internalEditMode, setInternalEditMode] = useState(false);
   const [visibleToolIds, setVisibleToolIds] = useState<string[]>([]);
   const [toolOrder, setToolOrder] = useState<string[]>([]);
+  
+  const isEditMode = externalEditMode !== undefined ? externalEditMode : internalEditMode;
+  const handleEditModeToggle = () => {
+    const newValue = !isEditMode;
+    if (onEditModeChange) {
+      onEditModeChange(newValue);
+    } else {
+      setInternalEditMode(newValue);
+    }
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -164,7 +172,7 @@ export default function ToolsDashboard() {
 
   return (
     <div className="w-full">
-      <div className="text-center mb-12 sm:mb-16">
+      <div className="text-center mb-12 sm:mb-16 mt-8">
         <h1
           className="text-4xl sm:text-5xl lg:text-6xl font-bold smooch-sans font-effect-anaglyph tracking-wider mb-4 sm:mb-6"
           style={{ color: theme.colors.primary }}
@@ -178,23 +186,6 @@ export default function ToolsDashboard() {
           {">"} Professional tools for daily use. Choose a tool to get started or explore what's
           coming soon.
         </p>
-      </div>
-
-      <div className="flex justify-center gap-4 mb-8">
-        <Button
-          variant={isEditMode ? "primary" : "outline"}
-          size="md"
-          onClick={() => setIsEditMode(!isEditMode)}
-        >
-          <Settings className="w-4 h-4 mr-2" />
-          {isEditMode ? "Done Editing" : "Edit Layout"}
-        </Button>
-        {isEditMode && (
-          <Button variant="secondary" size="md" onClick={() => router.push("/tools/library")}>
-            <Library className="w-4 h-4 mr-2" />
-            Tool Library ({hiddenTools.length})
-          </Button>
-        )}
       </div>
 
       <DndContext
