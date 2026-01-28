@@ -434,8 +434,8 @@ export default function WebCheck() {
         <div ref={resultRef} className="space-y-6">
           <Card className="p-6" variant="hacker">
             <div className="mb-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4 min-w-0">
+                <div className="flex items-center gap-3 min-w-0">
                   {faviconUrl && (
                     <img
                       src={faviconUrl}
@@ -447,14 +447,14 @@ export default function WebCheck() {
                     />
                   )}
                   <h2
-                    className="text-2xl font-bold smooch-sans font-effect-anaglyph"
+                    className="text-2xl font-bold smooch-sans font-effect-anaglyph min-w-0 wrap-break-word"
                     style={{ color: theme.colors.primary }}
                   >
                     {getDomainName()}
                   </h2>
                 </div>
                 <div
-                  className="font-mono text-sm"
+                  className="font-mono text-sm sm:text-right"
                   style={{ color: theme.colors.foreground, opacity: 0.7 }}
                 >
                   {">"} Completed in{" "}
