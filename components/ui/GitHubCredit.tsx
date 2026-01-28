@@ -2,6 +2,7 @@
 
 import { Heart, Github } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
+import { useNavbar } from "./NavbarContext";
 import { hexToRgba } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
 
@@ -10,11 +11,12 @@ interface GitHubCreditProps {
   name?: string;
 }
 
-export function GitHubCredit({ 
-  githubUsername = "s43khu", 
-  name = "Shekhu☺️" 
+export function GitHubCredit({
+  githubUsername = "s43khu",
+  name = "Shekhu☺️",
 }: GitHubCreditProps) {
   const { theme } = useTheme();
+  const { dockVisible } = useNavbar();
 
   return (
     <a
@@ -22,14 +24,15 @@ export function GitHubCredit({
       target="_blank"
       rel="noopener noreferrer"
       className={cn(
-        "fixed bottom-6 right-6 z-[100]",
+        "fixed bottom-6 right-6 z-100",
         "flex items-center gap-2 px-4 py-2.5 rounded-xl border",
+        dockVisible && "hidden",
         "transition-all duration-300 ease-out",
         "hover:scale-105 active:scale-95",
-        "group"
+        "group",
       )}
       style={{
-        borderColor:theme.colors.border,
+        borderColor: theme.colors.border,
         // backgroundColor: hexToRgba(theme.colors.background, 0.25),
         backdropFilter: "blur(20px) saturate(180%)",
         WebkitBackdropFilter: "blur(20px) saturate(180%)",
@@ -47,21 +50,33 @@ export function GitHubCredit({
         }}
       />
       <div className="relative z-10 flex items-center gap-2">
-        <span className="text-xs font-medium" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
+        <span
+          className="text-xs font-medium"
+          style={{ color: theme.colors.foreground, opacity: 0.8 }}
+        >
           Made with
         </span>
-        <Heart 
-          className="w-4 h-4 transition-transform duration-300 group-hover:scale-125" 
+        <Heart
+          className="w-4 h-4 transition-transform duration-300 group-hover:scale-125"
           style={{ color: theme.colors.accent }}
           fill="currentColor"
         />
-        <span className="text-xs font-medium" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
+        <span
+          className="text-xs font-medium"
+          style={{ color: theme.colors.foreground, opacity: 0.8 }}
+        >
           by
         </span>
-        <span className="text-xs font-semibold" style={{ color: theme.colors.primary }}>
+        <span
+          className="text-xs font-semibold"
+          style={{ color: theme.colors.primary }}
+        >
           {name}
         </span>
-        <Github className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" style={{ color: theme.colors.primary, opacity: 0.8 }} />
+        <Github
+          className="w-4 h-4 transition-transform duration-300 group-hover:rotate-12"
+          style={{ color: theme.colors.primary, opacity: 0.8 }}
+        />
       </div>
     </a>
   );
