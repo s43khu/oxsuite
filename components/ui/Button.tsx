@@ -1,6 +1,6 @@
 "use client";
 
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { type ButtonHTMLAttributes, forwardRef } from "react";
 import { useTheme } from "./ThemeProvider";
 import { hexToRgba } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";

@@ -337,7 +337,7 @@ const TECH_PATTERNS = {
     {
       name: "Nuxt.js",
       patterns: [/__nuxt/, /_nuxt\//, /window\.__NUXT__/, /nuxt\.js/i],
-      versionPattern: /nuxt[\/\-](\d+\.\d+\.\d+)/i,
+      versionPattern: /nuxt[/-](\d+\.\d+\.\d+)/i,
       confidence: "high",
     },
     {
@@ -350,13 +350,13 @@ const TECH_PATTERNS = {
         /data-reactroot/,
         /data-react-/,
       ],
-      versionPattern: /react[\/\-@](\d+\.\d+\.\d+)/i,
+      versionPattern: /react[/\-@](\d+\.\d+\.\d+)/i,
       confidence: "medium",
     },
     {
       name: "Vue.js",
       patterns: [/\bvue\.js\b/i, /data-v-[a-f0-9]{8}/, /\bvue\b.*\.js/, /__vue/],
-      versionPattern: /vue[\/\-@](\d+\.\d+\.\d+)/i,
+      versionPattern: /vue[/\-@](\d+\.\d+\.\d+)/i,
       confidence: "medium",
     },
     {
@@ -639,14 +639,14 @@ function detectFromScripts(html: string): Technology[] {
   const scriptMatches = html.match(/<script[^>]*src=["']([^"']+)["']/gi) || [];
 
   const cdnPatterns = [
-    { pattern: /unpkg\.com\/([^@\/]+)@?([^\/]*)/i, name: "$1", version: "$2" },
-    { pattern: /cdn\.jsdelivr\.net\/npm\/([^@\/]+)@?([^\/]*)/i, name: "$1", version: "$2" },
+    { pattern: /unpkg\.com\/([^@/]+)@?([^/]*)/i, name: "$1", version: "$2" },
+    { pattern: /cdn\.jsdelivr\.net\/npm\/([^@/]+)@?([^/]*)/i, name: "$1", version: "$2" },
     {
-      pattern: /cdnjs\.cloudflare\.com\/ajax\/libs\/([^\/]+)\/([^\/]+)/i,
+      pattern: /cdnjs\.cloudflare\.com\/ajax\/libs\/([^/]+)\/([^/]+)/i,
       name: "$1",
       version: "$2",
     },
-    { pattern: /cdn\.skypack\.dev\/([^@\/]+)@?([^\/]*)/i, name: "$1", version: "$2" },
+    { pattern: /cdn\.skypack\.dev\/([^@/]+)@?([^/]*)/i, name: "$1", version: "$2" },
   ];
 
   for (const scriptTag of scriptMatches) {

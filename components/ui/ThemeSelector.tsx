@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "./ThemeProvider";
+import { useDock } from "./Dock";
 import { Palette, Check } from "lucide-react";
 import { hexToRgba } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
@@ -12,6 +13,7 @@ interface ThemeSelectorProps {
 
 export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
   const { theme, themeId, setTheme, availableThemes } = useTheme();
+  const { openUpward } = useDock();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -82,7 +84,10 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+          className={cn(
+            "absolute right-0 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in duration-200",
+            openUpward ? "bottom-full mb-2 slide-in-from-bottom-2" : "mt-2 slide-in-from-top-2"
+          )}
           style={{
             borderColor: theme.colors.border,
             backgroundColor: theme.colors.background,
@@ -132,7 +137,11 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                   />
                   <span className="font-medium text-sm flex-1">{t.name}</span>
                   {isSelected && (
-                    <Check className="w-4 h-4 shrink-0" style={{ color: theme.colors.primary }} aria-hidden="true" />
+                    <Check
+                      className="w-4 h-4 shrink-0"
+                      style={{ color: theme.colors.primary }}
+                      aria-hidden="true"
+                    />
                   )}
                 </button>
               );

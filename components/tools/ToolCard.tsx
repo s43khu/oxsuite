@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -68,10 +68,10 @@ export default function ToolCard({
                 onRemove(id);
               }}
               className="p-2 rounded-md transition-colors hover:bg-red-500/30 border-2"
-              style={{ 
+              style={{
                 color: theme.colors.accent,
                 borderColor: theme.colors.accent,
-                backgroundColor: `${theme.colors.accent}10`
+                backgroundColor: `${theme.colors.accent}10`,
               }}
               aria-label={`Remove ${title}`}
               title="Remove from dashboard"
@@ -93,18 +93,13 @@ export default function ToolCard({
           )}
           <div className="flex-1 min-w-0">
             <h3
-              className={cn(
-                "text-xl font-bold mb-2",
-                "smooch-sans font-effect-anaglyph"
-              )}
+              className={cn("text-xl font-bold mb-2", "smooch-sans font-effect-anaglyph")}
               style={{ color: theme.colors.primary }}
             >
               {title}
             </h3>
             <p
-              className={cn(
-                "text-sm font-medium leading-relaxed"
-              )}
+              className={cn("text-sm font-medium leading-relaxed")}
               style={{ color: theme.colors.foreground, opacity: 0.75 }}
             >
               {description}

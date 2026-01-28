@@ -1,7 +1,8 @@
 "use client";
 
 import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
-import React, { useEffect, useRef, useMemo, useCallback } from "react";
+import type React from "react";
+import { useEffect, useRef, useMemo, useCallback } from "react";
 
 type Vec2 = [number, number];
 
@@ -278,7 +279,10 @@ export default function FaultyTerminal({
 
   const tintVec = useMemo(() => hexToRgb(tint), [tint]);
 
-  const ditherValue = useMemo(() => (typeof dither === "boolean" ? (dither ? 1 : 0) : dither), [dither]);
+  const ditherValue = useMemo(
+    () => (typeof dither === "boolean" ? (dither ? 1 : 0) : dither),
+    [dither]
+  );
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const ctn = containerRef.current;

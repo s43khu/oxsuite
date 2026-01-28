@@ -1,6 +1,6 @@
 "use client";
 
-import { HTMLAttributes, forwardRef } from "react";
+import { type HTMLAttributes, forwardRef } from "react";
 import { useTheme } from "./ThemeProvider";
 import { hexToRgba, createRgbaString } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
@@ -14,11 +14,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(
     const { theme } = useTheme();
     const primaryRgba = createRgbaString(theme.colors.primary);
 
-    const baseStyles = cn(
-      "rounded-xl transition-all duration-300",
-      "backdrop-blur-sm",
-      className
-    );
+    const baseStyles = cn("rounded-xl transition-all duration-300", "backdrop-blur-sm", className);
 
     const getVariantStyles = (): React.CSSProperties => {
       const baseShadow = `0 4px 6px -1px ${hexToRgba(theme.colors.primary, 0.1)}, 0 2px 4px -1px ${hexToRgba(theme.colors.primary, 0.06)}`;

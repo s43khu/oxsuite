@@ -83,10 +83,7 @@ export default function XLSXViewer({ file }: XLSXViewerProps) {
 
   const currentSheet = sheets[activeSheetIndex];
 
-  const maxCols = currentSheet.data.reduce(
-    (max, row) => Math.max(max, row.length),
-    0
-  );
+  const maxCols = currentSheet.data.reduce((max, row) => Math.max(max, row.length), 0);
 
   const getColumnLetter = (index: number): string => {
     let result = "";
@@ -101,10 +98,7 @@ export default function XLSXViewer({ file }: XLSXViewerProps) {
   return (
     <div className="w-full">
       {sheets.length > 1 && (
-        <div
-          className="mb-2 p-2 border-b"
-          style={{ borderColor: theme.colors.border }}
-        >
+        <div className="mb-2 p-2 border-b" style={{ borderColor: theme.colors.border }}>
           <div className="flex flex-wrap gap-1">
             {sheets.map((sheet, index) => (
               <button
@@ -121,10 +115,7 @@ export default function XLSXViewer({ file }: XLSXViewerProps) {
                 }}
                 onMouseEnter={(e) => {
                   if (activeSheetIndex !== index) {
-                    e.currentTarget.style.backgroundColor = hexToRgba(
-                      theme.colors.primary,
-                      0.1
-                    );
+                    e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.1);
                   }
                 }}
                 onMouseLeave={(e) => {
@@ -159,11 +150,7 @@ export default function XLSXViewer({ file }: XLSXViewerProps) {
                   left: -1,
                   zIndex: 10,
                   borderColor: theme.colors.border,
-                  backgroundColor: blendColors(
-                    theme.colors.primary,
-                    theme.colors.background,
-                    0.15
-                  ),
+                  backgroundColor: blendColors(theme.colors.primary, theme.colors.background, 0.15),
                   color: theme.colors.foreground,
                 }}
               >

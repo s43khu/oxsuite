@@ -1,16 +1,7 @@
 "use client";
 
-import {
-  Globe,
-  GitCompare,
-  FileCode,
-  Cookie,
-  Key,
-  Clock,
-  File,
-  QrCode,
-} from "lucide-react";
-import { type Tool } from "@/components/tools/ToolLibrary";
+import { Globe, GitCompare, FileCode, Cookie, Key, Clock, File, QrCode } from "lucide-react";
+import type { Tool } from "@/components/tools/ToolLibrary";
 
 export const allTools: Tool[] = [
   {
@@ -74,9 +65,10 @@ export const allTools: Tool[] = [
   {
     id: "qr-code-generator",
     title: "QR Code Generator",
-    description: "Create QR codes from text or URLs with customizable size, colors, and error correction",
+    description:
+      "Create QR codes from text or URLs with customizable size, colors, and error correction",
     icon: <QrCode className="w-10 h-10" />,
     status: "available",
     route: "/tools/qr-code-generator",
-  }
+  },
 ];

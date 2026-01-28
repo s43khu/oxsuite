@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import type React from "react";
+import { useEffect, useRef } from "react";
 import * as THREE from "three";
 import { EffectComposer, EffectPass, RenderPass, Effect } from "postprocessing";
 
@@ -142,7 +143,10 @@ const createTouchTexture = (): TouchTexture => {
   };
 };
 
-const createLiquidEffect = (texture: THREE.Texture, opts?: { strength?: number; freq?: number }) => {
+const createLiquidEffect = (
+  texture: THREE.Texture,
+  opts?: { strength?: number; freq?: number }
+) => {
   const fragment = `
     uniform sampler2D uTexture;
     uniform float uStrength;
@@ -605,7 +609,9 @@ const PixelBlast: React.FC<PixelBlastProps> = ({
         if (composer) {
           if (touch) touch.update();
           composer.passes.forEach((p) => {
-            const pass = p as { effects?: Array<Effect & { uniforms: Map<string, THREE.Uniform> }> };
+            const pass = p as {
+              effects?: Array<Effect & { uniforms: Map<string, THREE.Uniform> }>;
+            };
             if (pass.effects) {
               pass.effects.forEach((eff) => {
                 const timeUniform = eff.uniforms?.get("uTime");

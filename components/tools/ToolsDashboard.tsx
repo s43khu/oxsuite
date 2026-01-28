@@ -9,7 +9,7 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
-  DragEndEvent,
+  type DragEndEvent,
 } from "@dnd-kit/core";
 import {
   arrayMove,
@@ -20,9 +20,14 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import ToolCard from "./ToolCard";
-import { type Tool } from "./ToolLibrary";
+import type { Tool } from "./ToolLibrary";
 import { useTheme } from "@/components/ui/ThemeProvider";
-import { getLayoutConfig, saveLayoutConfig, hasStoredLayoutConfig, type ToolLayoutConfig } from "@/lib/storage";
+import {
+  getLayoutConfig,
+  saveLayoutConfig,
+  hasStoredLayoutConfig,
+  type ToolLayoutConfig,
+} from "@/lib/storage";
 import { allTools } from "@/lib/tools/config";
 
 interface SortableToolCardProps {
@@ -65,13 +70,16 @@ interface ToolsDashboardProps {
   onEditModeChange?: (value: boolean) => void;
 }
 
-export default function ToolsDashboard({ isEditMode: externalEditMode, onEditModeChange }: ToolsDashboardProps) {
+export default function ToolsDashboard({
+  isEditMode: externalEditMode,
+  onEditModeChange,
+}: ToolsDashboardProps) {
   const cardsRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
   const [internalEditMode, setInternalEditMode] = useState(false);
   const [visibleToolIds, setVisibleToolIds] = useState<string[]>([]);
   const [toolOrder, setToolOrder] = useState<string[]>([]);
-  
+
   const isEditMode = externalEditMode !== undefined ? externalEditMode : internalEditMode;
   const handleEditModeToggle = () => {
     const newValue = !isEditMode;
@@ -114,11 +122,11 @@ export default function ToolsDashboard({ isEditMode: externalEditMode, onEditMod
 
   useEffect(() => {
     loadLayoutConfig();
-    
+
     const handleFocus = () => {
       loadLayoutConfig();
     };
-    
+
     window.addEventListener("focus", handleFocus);
     return () => window.removeEventListener("focus", handleFocus);
   }, []);
@@ -161,7 +169,6 @@ export default function ToolsDashboard({ isEditMode: externalEditMode, onEditMod
     saveConfig(toolOrder, newVisibleIds);
   };
 
-
   const saveConfig = (order: string[], visible: string[]) => {
     const config: ToolLayoutConfig = {
       visibleToolIds: visible,
@@ -188,15 +195,8 @@ export default function ToolsDashboard({ isEditMode: externalEditMode, onEditMod
         </p>
       </div>
 
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragEnd={handleDragEnd}
-      >
-        <SortableContext
-          items={visibleTools.map((t) => t.id)}
-          strategy={rectSortingStrategy}
-        >
+      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        <SortableContext items={visibleTools.map((t) => t.id)} strategy={rectSortingStrategy}>
           <div
             ref={cardsRef}
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"

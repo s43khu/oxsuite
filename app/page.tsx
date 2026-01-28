@@ -31,7 +31,7 @@ export default function Home() {
       const totalCount = allTools.length;
       setHiddenToolsCount(totalCount - visibleCount);
     };
-    
+
     updateHiddenCount();
     const interval = setInterval(updateHiddenCount, 500);
     return () => clearInterval(interval);

@@ -93,6 +93,22 @@ body {
   animation: slide-in-from-top 0.2s ease-out;
 }
 
+@keyframes slide-in-from-bottom {
+  from {
+    transform: translateY(8px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.slide-in-from-bottom-2 {
+  animation: slide-in-from-bottom 0.2s ease-out;
+}
+
 /* Global scrollbar styling for all scrollable elements */
 * {
   scrollbar-width: thin;

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { performWebCheckJobs } from "@/lib/web-check";
 
 export async function POST(request: NextRequest) {

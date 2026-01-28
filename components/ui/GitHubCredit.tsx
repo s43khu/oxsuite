@@ -11,10 +11,7 @@ interface GitHubCreditProps {
   name?: string;
 }
 
-export function GitHubCredit({
-  githubUsername = "s43khu",
-  name = "Shekhu☺️",
-}: GitHubCreditProps) {
+export function GitHubCredit({ githubUsername = "s43khu", name = "Shekhu☺️" }: GitHubCreditProps) {
   const { theme } = useTheme();
   const { dockVisible } = useNavbar();
 
@@ -29,7 +26,7 @@ export function GitHubCredit({
         dockVisible && "hidden",
         "transition-all duration-300 ease-out",
         "hover:scale-105 active:scale-95",
-        "group",
+        "group"
       )}
       style={{
         borderColor: theme.colors.border,
@@ -67,10 +64,7 @@ export function GitHubCredit({
         >
           by
         </span>
-        <span
-          className="text-xs font-semibold"
-          style={{ color: theme.colors.primary }}
-        >
+        <span className="text-xs font-semibold" style={{ color: theme.colors.primary }}>
           {name}
         </span>
         <Github

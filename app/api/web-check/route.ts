@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import { isValidApiKey } from "@/lib/api-keys";
 import { performWebCheckJobs } from "@/lib/web-check";
 

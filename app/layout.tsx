@@ -21,8 +21,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "OXsuite - Professional Tools",
-  description:
-    "Comprehensive office suite with web analysis and productivity tools",
+  description: "Comprehensive office suite with web analysis and productivity tools",
   icons: {
     icon: "/favicox.png",
     shortcut: "/favicox.png",
@@ -40,19 +39,13 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicox.png" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Press+Start+2P&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider>
           <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
             <ThemeBackground />

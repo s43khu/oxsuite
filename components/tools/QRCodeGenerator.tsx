@@ -164,7 +164,10 @@ export default function QRCodeGenerator() {
             <Card variant="outlined" className="p-4">
               <div className="flex items-center gap-2 mb-4">
                 <Settings className="w-5 h-5" style={{ color: theme.colors.primary }} />
-                <h3 className="text-lg font-semibold font-mono" style={{ color: theme.colors.primary }}>
+                <h3
+                  className="text-lg font-semibold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   Settings
                 </h3>
               </div>
@@ -309,10 +312,7 @@ export default function QRCodeGenerator() {
       {text && (
         <Card variant="hacker" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3
-              className="text-xl font-semibold font-mono"
-              style={{ color: theme.colors.primary }}
-            >
+            <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>
               Generated QR Code
             </h3>
             <div className="flex items-center gap-2">
@@ -374,7 +374,10 @@ export default function QRCodeGenerator() {
       {!text && (
         <Card variant="outlined" className="p-6">
           <div className="text-center">
-            <QrCode className="w-16 h-16 mx-auto mb-4" style={{ color: theme.colors.primary, opacity: 0.3 }} />
+            <QrCode
+              className="w-16 h-16 mx-auto mb-4"
+              style={{ color: theme.colors.primary, opacity: 0.3 }}
+            />
             <p
               className="text-sm font-mono"
               style={{ color: theme.colors.foreground, opacity: 0.7 }}

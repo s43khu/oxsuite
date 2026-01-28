@@ -77,11 +77,7 @@ export function createRgbaString(hex: string): string {
  * @param alpha - Alpha value between 0 and 1 for the foreground color
  * @returns Hex color string representing the blended opaque color
  */
-export function blendColors(
-  foregroundHex: string,
-  backgroundHex: string,
-  alpha: number
-): string {
+export function blendColors(foregroundHex: string, backgroundHex: string, alpha: number): string {
   const fg = hexToRgb(foregroundHex);
   const bg = hexToRgb(backgroundHex);
 

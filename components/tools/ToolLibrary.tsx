@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/components/ui/ThemeProvider";
@@ -24,12 +24,7 @@ interface ToolLibraryProps {
   onClose: () => void;
 }
 
-export default function ToolLibrary({
-  hiddenTools,
-  onAddTool,
-  isOpen,
-  onClose,
-}: ToolLibraryProps) {
+export default function ToolLibrary({ hiddenTools, onAddTool, isOpen, onClose }: ToolLibraryProps) {
   const { theme } = useTheme();
 
   if (!isOpen) return null;
@@ -51,10 +46,7 @@ export default function ToolLibrary({
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div
-          className="p-6 border-b-2"
-          style={{ borderColor: theme.colors.primary }}
-        >
+        <div className="p-6 border-b-2" style={{ borderColor: theme.colors.primary }}>
           <div className="flex items-center justify-between">
             <h2
               className="text-2xl font-bold smooch-sans font-effect-anaglyph"
@@ -66,10 +58,7 @@ export default function ToolLibrary({
               Close
             </Button>
           </div>
-          <p
-            className="text-sm mt-2"
-            style={{ color: theme.colors.foreground, opacity: 0.7 }}
-          >
+          <p className="text-sm mt-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
             Add tools back to your dashboard
           </p>
         </div>
@@ -92,10 +81,7 @@ export default function ToolLibrary({
                 >
                   <div className="flex items-start gap-3 mb-3">
                     {tool.icon && (
-                      <div
-                        className="flex-shrink-0"
-                        style={{ color: theme.colors.primary }}
-                      >
+                      <div className="flex-shrink-0" style={{ color: theme.colors.primary }}>
                         {tool.icon}
                       </div>
                     )}

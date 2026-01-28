@@ -1,7 +1,7 @@
 "use client";
 
-import { ReactNode } from "react";
-import { CheckCircle, XCircle, LucideIcon } from "lucide-react";
+import type { ReactNode } from "react";
+import { CheckCircle, XCircle, type LucideIcon } from "lucide-react";
 import { Card } from "@/components/ui/Card";
 import { useTheme } from "@/components/ui/ThemeProvider";
 

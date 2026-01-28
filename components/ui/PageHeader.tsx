@@ -33,9 +33,7 @@ export function PageHeader({
 
   useEffect(() => {
     const checkMobile = () =>
-      setIsMobile(
-        typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT,
-      );
+      setIsMobile(typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -44,13 +42,9 @@ export function PageHeader({
   useEffect(() => {
     let rafId: number | null = null;
     const updateDock = () => {
-      if (typeof window === "undefined" || typeof document === "undefined")
-        return;
+      if (typeof window === "undefined" || typeof document === "undefined") return;
       const scrollY =
-        window.scrollY ??
-        document.documentElement.scrollTop ??
-        document.body.scrollTop ??
-        0;
+        window.scrollY ?? document.documentElement.scrollTop ?? document.body.scrollTop ?? 0;
       const isMobileWidth = window.innerWidth < MOBILE_BREAKPOINT;
       setShowDock(scrollY > SCROLL_THRESHOLD && isMobileWidth);
     };
@@ -94,9 +88,7 @@ export function PageHeader({
       >
         <Library className="w-4 h-4" />
         <span className="hidden sm:inline">Library</span>
-        {hiddenToolsCount > 0 && (
-          <span className="sm:hidden">({hiddenToolsCount})</span>
-        )}
+        {hiddenToolsCount > 0 && <span className="sm:hidden">({hiddenToolsCount})</span>}
       </Button>
       <ThemeSelector disabled={isEditMode} />
     </>
@@ -110,7 +102,7 @@ export function PageHeader({
           "transition-transform duration-300 ease-out",
           "pt-4 pb-4",
           "bg-(--background)/80 sm:bg-transparent",
-          isMobile && showDock && "-translate-y-full",
+          isMobile && showDock && "-translate-y-full"
         )}
         style={{
           backdropFilter: "blur(8px) saturate(180%)",
@@ -124,7 +116,7 @@ export function PageHeader({
               "px-4 sm:px-6 py-4 rounded-2xl",
               "border",
               "transition-all duration-300",
-              "relative overflow-visible",
+              "relative overflow-visible"
             )}
             style={{
               borderColor: theme.colors.border,
@@ -149,7 +141,7 @@ export function PageHeader({
                   className={cn(
                     "text-2xl sm:text-3xl font-bold",
                     "smooch-sans font-effect-anaglyph",
-                    "tracking-wider",
+                    "tracking-wider"
                   )}
                   style={{ color: theme.colors.primary }}
                 >
@@ -158,7 +150,7 @@ export function PageHeader({
                 <p
                   className={cn(
                     "text-xs sm:text-sm font-medium mt-1",
-                    "transition-opacity duration-200",
+                    "transition-opacity duration-200"
                   )}
                   style={{ color: theme.colors.foreground, opacity: 0.75 }}
                 >

@@ -592,7 +592,7 @@ export async function performWebCheckJobs(url: string): Promise<WebCheckJobsResu
       name: "redirects",
       fn: async () => {
         let redirectCount = 0;
-        let currentUrl = url;
+        const currentUrl = url;
         const chain: string[] = [url];
 
         try {

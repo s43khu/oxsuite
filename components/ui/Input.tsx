@@ -1,6 +1,6 @@
 "use client";
 
-import { InputHTMLAttributes, forwardRef } from "react";
+import { type InputHTMLAttributes, forwardRef } from "react";
 import { useTheme } from "./ThemeProvider";
 import { hexToRgba } from "@/lib/color-utils";
 import { cn } from "@/lib/utils";
@@ -43,10 +43,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       <div className="w-full">
         {label && (
           <label
-            className={cn(
-              "block text-sm font-semibold mb-2",
-              "transition-colors duration-200"
-            )}
+            className={cn("block text-sm font-semibold mb-2", "transition-colors duration-200")}
             style={{
               color: error ? theme.colors.accent : theme.colors.foreground,
               opacity: disabled ? 0.5 : 0.9,
@@ -76,10 +73,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
         />
         {(error || helperText) && (
           <p
-            className={cn(
-              "mt-1.5 text-xs font-medium",
-              "transition-colors duration-200"
-            )}
+            className={cn("mt-1.5 text-xs font-medium", "transition-colors duration-200")}
             style={{
               color: error ? theme.colors.accent : theme.colors.foreground,
               opacity: error ? 1 : 0.7,
