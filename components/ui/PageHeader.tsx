@@ -29,8 +29,8 @@ export function PageHeader({ isEditMode = false, onEditModeToggle, hiddenToolsCo
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           className={cn(
-            "flex items-center justify-between gap-4",
-            "px-6 py-4 rounded-2xl",
+            "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
+            "px-4 sm:px-6 py-4 rounded-2xl",
             "border",
             "transition-all duration-300",
             "relative overflow-visible"
@@ -53,8 +53,8 @@ export function PageHeader({ isEditMode = false, onEditModeToggle, hiddenToolsCo
               pointerEvents: "none",
             }}
           />
-          <div className="relative z-10 flex items-center justify-between gap-4 w-full">
-            <div className="flex flex-col">
+          <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
+            <div className="flex flex-col min-w-0">
               <h1
                 className={cn(
                   "text-2xl sm:text-3xl font-bold",
@@ -75,7 +75,7 @@ export function PageHeader({ isEditMode = false, onEditModeToggle, hiddenToolsCo
                 {">"} Professional tools for daily use
               </p>
             </div>
-            <div className="flex items-center gap-3 flex-shrink-0">
+            <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap justify-end">
             {onEditModeToggle && (
               <Button
                 variant={isEditMode ? "primary" : "outline"}

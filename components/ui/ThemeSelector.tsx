@@ -45,7 +45,7 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
   };
 
   return (
-    <div className="relative z-[60]" ref={dropdownRef}>
+    <div className="relative z-50" ref={dropdownRef}>
       <button
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
@@ -77,12 +77,12 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
         aria-disabled={disabled}
       >
         <Palette className="w-4 h-4" aria-hidden="true" />
-        <span className="font-medium text-sm">{theme.name}</span>
+        <span className="font-medium text-sm hidden sm:inline">{theme.name}</span>
       </button>
 
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-[100] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
+          className="absolute right-0 mt-2 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200"
           style={{
             borderColor: theme.colors.border,
             backgroundColor: theme.colors.background,
@@ -123,7 +123,7 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                   aria-selected={isSelected}
                 >
                   <div
-                    className="w-4 h-4 rounded-full border-2 flex-shrink-0"
+                    className="w-4 h-4 rounded-full border-2 shrink-0"
                     style={{
                       backgroundColor: t.colors.primary,
                       borderColor: t.colors.border,
@@ -132,7 +132,7 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                   />
                   <span className="font-medium text-sm flex-1">{t.name}</span>
                   {isSelected && (
-                    <Check className="w-4 h-4 flex-shrink-0" style={{ color: theme.colors.primary }} aria-hidden="true" />
+                    <Check className="w-4 h-4 shrink-0" style={{ color: theme.colors.primary }} aria-hidden="true" />
                   )}
                 </button>
               );

@@ -31,7 +31,7 @@ function applyTheme(theme: Theme) {
 
   root.setAttribute("data-theme", theme.id);
 
-  document.body.style.background = "transparent";
+  document.body.style.backgroundColor = theme.colors.background;
   document.body.style.color = theme.colors.foreground;
   document.body.style.fontFamily = theme.fonts.body;
 }
