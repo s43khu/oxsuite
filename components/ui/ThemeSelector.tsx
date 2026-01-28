@@ -19,7 +19,10 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     }
@@ -47,7 +50,7 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
   };
 
   return (
-    <div className="relative z-50" ref={dropdownRef}>
+    <div className="relative z-1000" ref={dropdownRef}>
       <button
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
@@ -56,16 +59,23 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
           "rounded-lg border-2",
           "transition-all duration-200 ease-out",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
-          disabled ? "opacity-50 cursor-not-allowed" : "hover:scale-[1.02] active:scale-[0.98]"
+          disabled
+            ? "opacity-50 cursor-not-allowed"
+            : "hover:scale-[1.02] active:scale-[0.98]",
         )}
         style={{
           borderColor: theme.colors.border,
           color: theme.colors.primary,
-          backgroundColor: isOpen ? hexToRgba(theme.colors.primary, 0.1) : "transparent",
+          backgroundColor: isOpen
+            ? hexToRgba(theme.colors.primary, 0.1)
+            : "transparent",
         }}
         onMouseEnter={(e) => {
           if (!isOpen && !disabled) {
-            e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.08);
+            e.currentTarget.style.backgroundColor = hexToRgba(
+              theme.colors.primary,
+              0.08,
+            );
           }
         }}
         onMouseLeave={(e) => {
@@ -79,14 +89,18 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
         aria-disabled={disabled}
       >
         <Palette className="w-4 h-4" aria-hidden="true" />
-        <span className="font-medium text-sm hidden sm:inline">{theme.name}</span>
+        <span className="font-medium text-sm hidden sm:inline">
+          {theme.name}
+        </span>
       </button>
 
       {isOpen && (
         <div
           className={cn(
-            "absolute right-0 w-56 rounded-xl border-2 shadow-2xl z-50 overflow-hidden animate-in fade-in duration-200",
-            openUpward ? "bottom-full mb-2 slide-in-from-bottom-2" : "mt-2 slide-in-from-top-2"
+            "absolute right-0 w-56 rounded-xl border-2 shadow-2xl z-1000 overflow-hidden animate-in fade-in duration-200",
+            openUpward
+              ? "bottom-full mb-2 slide-in-from-bottom-2"
+              : "mt-2 slide-in-from-top-2",
           )}
           style={{
             borderColor: theme.colors.border,
@@ -106,17 +120,22 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                     "w-full text-left px-4 py-3",
                     "transition-all duration-150 ease-out",
                     "flex items-center gap-3",
-                    "focus-visible:outline-none focus-visible:bg-opacity-20"
+                    "focus-visible:outline-none focus-visible:bg-opacity-20",
                   )}
                   style={{
-                    color: isSelected ? theme.colors.primary : theme.colors.foreground,
+                    color: isSelected
+                      ? theme.colors.primary
+                      : theme.colors.foreground,
                     backgroundColor: isSelected
                       ? hexToRgba(theme.colors.primary, 0.15)
                       : "transparent",
                   }}
                   onMouseEnter={(e) => {
                     if (!isSelected) {
-                      e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.08);
+                      e.currentTarget.style.backgroundColor = hexToRgba(
+                        theme.colors.primary,
+                        0.08,
+                      );
                     }
                   }}
                   onMouseLeave={(e) => {

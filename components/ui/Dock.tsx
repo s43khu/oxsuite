@@ -1,6 +1,12 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
 import { createPortal } from "react-dom";
 import { useTheme } from "./ThemeProvider";
 import { hexToRgba } from "@/lib/color-utils";
@@ -29,7 +35,9 @@ export function Dock({ visible, children }: DockProps) {
 
   useEffect(() => {
     const checkMobile = () =>
-      setIsMobile(typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT);
+      setIsMobile(
+        typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT,
+      );
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -58,8 +66,8 @@ export function Dock({ visible, children }: DockProps) {
             "flex items-center justify-center gap-4",
             "px-4 py-3 border border-b-0 rounded-t-2xl",
             "transition-transform duration-300 ease-out",
-            "relative overflow-hidden min-h-[56px]",
-            visible ? "translate-y-0" : "translate-y-full"
+            "relative overflow-visible min-h-[56px]",
+            visible ? "translate-y-0" : "translate-y-full",
           )}
           style={{
             borderColor: theme.colors.border,
@@ -78,10 +86,12 @@ export function Dock({ visible, children }: DockProps) {
               pointerEvents: "none",
             }}
           />
-          <div className="relative z-10 flex items-center justify-center gap-4">{children}</div>
+          <div className="relative z-10 flex items-center justify-center gap-4">
+            {children}
+          </div>
         </div>
       </div>
     </DockContext.Provider>,
-    document.body
+    document.body,
   );
 }
