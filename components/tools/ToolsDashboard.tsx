@@ -225,47 +225,51 @@ export default function ToolsDashboard({
           items={visibleTools.map((t) => t.id)}
           strategy={rectSortingStrategy}
         >
-          <div
-            className="rounded-2xl border p-4 sm:p-6 min-h-112 max-w-5xl mx-auto transition-all duration-200 overflow-hidden relative"
-            style={{
-              backgroundColor: hexToRgba(theme.colors.primary, 0.06),
-              borderColor: hexToRgba(theme.colors.primary, 0.15),
-              backdropFilter: "blur(5px) saturate(180%)",
-              WebkitBackdropFilter: "blur(5px) saturate(180%)",
-              boxShadow: `0 8px 32px ${hexToRgba(theme.colors.primary, 0.08)}, inset 0 1px 0 ${hexToRgba(theme.colors.foreground, 0.1)}`,
-            }}
-          >
+          <div className="max-w-5xl mx-auto">
             {isEditMode && (
-              <button
-                type="button"
-                onClick={handleEditModeToggle}
-                className="absolute top-3 right-3 z-10 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all hover:scale-105"
-                style={{
-                  color: theme.colors.primary,
-                  borderColor: theme.colors.primary,
-                  backgroundColor: hexToRgba(theme.colors.primary, 0.12),
-                }}
-                aria-label="Done"
-                title="Done"
-              >
-                Done
-              </button>
+              <div className="flex justify-end mb-2">
+                <button
+                  type="button"
+                  onClick={handleEditModeToggle}
+                  className="px-3 py-1.5 rounded-lg text-xs font-medium border transition-all hover:scale-105"
+                  style={{
+                    color: theme.colors.primary,
+                    borderColor: theme.colors.primary,
+                    backgroundColor: hexToRgba(theme.colors.primary, 0.12),
+                  }}
+                  aria-label="Done"
+                  title="Done"
+                >
+                  Done
+                </button>
+              </div>
             )}
             <div
-              ref={cardsRef}
-              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6 content-start"
+              className="rounded-2xl border p-4 sm:p-6 min-h-112 transition-all duration-200 overflow-hidden relative"
+              style={{
+                backgroundColor: hexToRgba(theme.colors.primary, 0.06),
+                borderColor: hexToRgba(theme.colors.primary, 0.15),
+                backdropFilter: "blur(5px) saturate(180%)",
+                WebkitBackdropFilter: "blur(5px) saturate(180%)",
+                boxShadow: `0 8px 32px ${hexToRgba(theme.colors.primary, 0.08)}, inset 0 1px 0 ${hexToRgba(theme.colors.foreground, 0.1)}`,
+              }}
             >
-              {visibleTools.map((tool) => (
-                <SortableToolCard
-                  key={tool.id}
-                  tool={tool}
-                  isEditMode={isEditMode}
-                  onRemove={handleRemoveTool}
-                  onEnterEditMode={
-                    !isEditMode ? () => handleEditModeToggle() : undefined
-                  }
-                />
-              ))}
+              <div
+                ref={cardsRef}
+                className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6 content-start"
+              >
+                {visibleTools.map((tool) => (
+                  <SortableToolCard
+                    key={tool.id}
+                    tool={tool}
+                    isEditMode={isEditMode}
+                    onRemove={handleRemoveTool}
+                    onEnterEditMode={
+                      !isEditMode ? () => handleEditModeToggle() : undefined
+                    }
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </SortableContext>
