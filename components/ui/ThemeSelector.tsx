@@ -55,13 +55,13 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
         onClick={() => !disabled && setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          "flex items-center gap-2.5 px-4 py-2.5",
-          "rounded-lg border-2",
+          "flex items-center gap-2 px-3 py-2",
+          "rounded-lg border",
           "transition-all duration-200 ease-out",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1",
           disabled
             ? "opacity-50 cursor-not-allowed"
-            : "hover:scale-[1.02] active:scale-[0.98]",
+            : "hover:scale-[1.01] active:scale-[0.98]",
         )}
         style={{
           borderColor: theme.colors.border,
@@ -88,8 +88,8 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
         aria-haspopup="listbox"
         aria-disabled={disabled}
       >
-        <Palette className="w-4 h-4" aria-hidden="true" />
-        <span className="font-medium text-sm hidden sm:inline">
+        <Palette className="w-3.5 h-3.5 shrink-0" aria-hidden="true" />
+        <span className="font-medium text-xs hidden sm:inline">
           {theme.name}
         </span>
       </button>
@@ -97,10 +97,10 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
       {isOpen && (
         <div
           className={cn(
-            "absolute right-0 w-56 rounded-xl border-2 shadow-2xl z-1000 overflow-hidden animate-in fade-in duration-200",
+            "absolute right-0 w-48 rounded-xl border shadow-xl z-1000 overflow-hidden animate-in fade-in duration-200",
             openUpward
-              ? "bottom-full mb-2 slide-in-from-bottom-2"
-              : "mt-2 slide-in-from-top-2",
+              ? "bottom-full mb-1.5 slide-in-from-bottom-2"
+              : "mt-1.5 slide-in-from-top-2",
           )}
           style={{
             borderColor: theme.colors.border,
@@ -109,7 +109,7 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
           }}
           role="listbox"
         >
-          <div className="py-1.5">
+          <div className="py-1">
             {availableThemes.map((t) => {
               const isSelected = t.id === themeId;
               return (
@@ -117,9 +117,9 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                   key={t.id}
                   onClick={() => handleThemeChange(t.id)}
                   className={cn(
-                    "w-full text-left px-4 py-3",
+                    "w-full text-left px-3 py-2",
                     "transition-all duration-150 ease-out",
-                    "flex items-center gap-3",
+                    "flex items-center gap-2",
                     "focus-visible:outline-none focus-visible:bg-opacity-20",
                   )}
                   style={{
@@ -147,17 +147,17 @@ export function ThemeSelector({ disabled = false }: ThemeSelectorProps = {}) {
                   aria-selected={isSelected}
                 >
                   <div
-                    className="w-4 h-4 rounded-full border-2 shrink-0"
+                    className="w-3 h-3 rounded-full border shrink-0"
                     style={{
                       backgroundColor: t.colors.primary,
                       borderColor: t.colors.border,
                     }}
                     aria-hidden="true"
                   />
-                  <span className="font-medium text-sm flex-1">{t.name}</span>
+                  <span className="font-medium text-xs flex-1">{t.name}</span>
                   {isSelected && (
                     <Check
-                      className="w-4 h-4 shrink-0"
+                      className="w-3.5 h-3.5 shrink-0"
                       style={{ color: theme.colors.primary }}
                       aria-hidden="true"
                     />

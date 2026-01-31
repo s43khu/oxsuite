@@ -26,7 +26,7 @@ export default function QRCodeGenerator() {
       gsap.fromTo(
         qrRef.current,
         { opacity: 0, scale: 0.9 },
-        { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" }
+        { opacity: 1, scale: 1, duration: 0.5, ease: "power3.out" },
       );
     }
   }, [text, size, errorLevel, fgColor, bgColor, includeMargin]);
@@ -67,7 +67,9 @@ export default function QRCodeGenerator() {
       }
     };
 
-    img.src = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(svgData)));
+    img.src =
+      "data:image/svg+xml;base64," +
+      btoa(unescape(encodeURIComponent(svgData)));
   };
 
   const handleCopy = async () => {
@@ -98,7 +100,7 @@ export default function QRCodeGenerator() {
         <div className="flex items-center gap-3 mb-6">
           <QrCode className="w-8 h-8" style={{ color: theme.colors.primary }} />
           <h2
-            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            className="text-3xl font-bold font-semibold"
             style={{ color: theme.colors.primary }}
           >
             QR Code Generator
@@ -130,7 +132,10 @@ export default function QRCodeGenerator() {
                   e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
                 }}
                 onBlur={(e) => {
-                  e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+                  e.currentTarget.style.borderColor = hexToRgba(
+                    theme.colors.primary,
+                    0.5,
+                  );
                   e.currentTarget.style.boxShadow = "none";
                 }}
               />
@@ -163,7 +168,10 @@ export default function QRCodeGenerator() {
           <div className="space-y-4">
             <Card variant="outlined" className="p-4">
               <div className="flex items-center gap-2 mb-4">
-                <Settings className="w-5 h-5" style={{ color: theme.colors.primary }} />
+                <Settings
+                  className="w-5 h-5"
+                  style={{ color: theme.colors.primary }}
+                />
                 <h3
                   className="text-lg font-semibold font-mono"
                   style={{ color: theme.colors.primary }}
@@ -203,7 +211,9 @@ export default function QRCodeGenerator() {
                   </label>
                   <select
                     value={errorLevel}
-                    onChange={(e) => setErrorLevel(e.target.value as "L" | "M" | "Q" | "H")}
+                    onChange={(e) =>
+                      setErrorLevel(e.target.value as "L" | "M" | "Q" | "H")
+                    }
                     className="w-full px-4 py-2 font-mono rounded-lg border-2 focus:outline-none focus:ring-2"
                     style={{
                       backgroundColor: theme.colors.background,
@@ -312,7 +322,10 @@ export default function QRCodeGenerator() {
       {text && (
         <Card variant="hacker" className="p-6">
           <div className="flex items-center justify-between mb-4">
-            <h3 className="text-xl font-semibold font-mono" style={{ color: theme.colors.primary }}>
+            <h3
+              className="text-xl font-semibold font-mono"
+              style={{ color: theme.colors.primary }}
+            >
               Generated QR Code
             </h3>
             <div className="flex items-center gap-2">

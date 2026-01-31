@@ -1,12 +1,13 @@
 "use client";
 
+import { useRef, useCallback } from "react";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { Card } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { GripVertical, X } from "lucide-react";
+import { X } from "lucide-react";
+
+const LONG_PRESS_MS = 100;
 
 interface ToolCardProps {
   id: string;
@@ -17,11 +18,14 @@ interface ToolCardProps {
   route?: string | null;
   isEditMode?: boolean;
   onRemove?: (id: string) => void;
+  onEnterEditMode?: () => void;
   isDragging?: boolean;
   dragHandleProps?: {
     [key: string]: unknown;
   };
 }
+
+const ICON_SIZE = 56;
 
 export default function ToolCard({
   id,
@@ -32,116 +36,147 @@ export default function ToolCard({
   route,
   isEditMode = false,
   onRemove,
+  onEnterEditMode,
   isDragging = false,
   dragHandleProps,
 }: ToolCardProps) {
   const { theme } = useTheme();
   const isAvailable = status === "available";
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const longPressFiredRef = useRef(false);
 
-  const cardContent = (
-    <Card
-      variant="hacker"
+  const clearLongPressTimer = useCallback(() => {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current);
+      longPressTimerRef.current = null;
+    }
+  }, []);
+
+  const handlePointerDown = useCallback(
+    (e: React.PointerEvent) => {
+      if (isEditMode || !onEnterEditMode || !isAvailable) return;
+      longPressFiredRef.current = false;
+      longPressTimerRef.current = setTimeout(() => {
+        longPressTimerRef.current = null;
+        longPressFiredRef.current = true;
+        onEnterEditMode();
+      }, LONG_PRESS_MS);
+    },
+    [isEditMode, onEnterEditMode, isAvailable],
+  );
+
+  const handlePointerUp = useCallback(() => {
+    clearLongPressTimer();
+  }, [clearLongPressTimer]);
+
+  const handlePointerLeave = useCallback(() => {
+    clearLongPressTimer();
+  }, [clearLongPressTimer]);
+
+  const handleLinkClick = useCallback((e: React.MouseEvent) => {
+    if (longPressFiredRef.current) {
+      e.preventDefault();
+      longPressFiredRef.current = false;
+    }
+  }, []);
+
+  const iconBlock = (
+    <div
+      {...(isEditMode && dragHandleProps ? dragHandleProps : {})}
+      {...(!isEditMode && {
+        onPointerDown: handlePointerDown,
+        onPointerUp: handlePointerUp,
+        onPointerLeave: handlePointerLeave,
+        onPointerCancel: handlePointerLeave,
+      })}
       className={cn(
-        "p-6 h-full relative",
-        "transition-all duration-300 ease-out",
-        isAvailable && !isEditMode && "hover:scale-[1.02] cursor-pointer",
+        "relative rounded-2xl flex items-center justify-center shrink-0 transition-all duration-200 ease-out select-none",
+        isAvailable && !isEditMode && "hover:scale-105 cursor-pointer",
         !isAvailable && "opacity-60 cursor-not-allowed",
-        isDragging && "opacity-50 scale-95",
-        isEditMode && "cursor-move"
+        isDragging && "opacity-50 scale-95 cursor-grabbing",
+        isEditMode && "cursor-grab active:cursor-grabbing",
       )}
+      style={{
+        width: ICON_SIZE,
+        height: ICON_SIZE,
+        backgroundColor: `${theme.colors.primary}18`,
+        color: theme.colors.primary,
+      }}
+      title={isEditMode ? "Drag to reorder" : "Long press to edit"}
     >
-      {isEditMode && (
-        <div className="absolute top-3 right-3 flex gap-2 z-10">
-          <div
-            {...dragHandleProps}
-            className="p-2 rounded-md cursor-grab active:cursor-grabbing transition-colors hover:bg-primary/20"
-            style={{ color: theme.colors.primary }}
-            title="Drag to reorder"
-          >
-            <GripVertical className="w-5 h-5" />
-          </div>
-          {onRemove && (
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                onRemove(id);
-              }}
-              className="p-2 rounded-md transition-colors hover:bg-red-500/30 border-2"
-              style={{
-                color: theme.colors.accent,
-                borderColor: theme.colors.accent,
-                backgroundColor: `${theme.colors.accent}10`,
-              }}
-              aria-label={`Remove ${title}`}
-              title="Remove from dashboard"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
+      {icon && (
+        <div className="[&>svg]:w-7 [&>svg]:h-7 pointer-events-none">
+          {icon}
         </div>
       )}
-      <div className="flex flex-col h-full">
-        <div className="flex items-start gap-4 mb-5">
-          {icon && (
-            <div
-              className="flex-shrink-0 transition-transform duration-300"
-              style={{ color: theme.colors.primary }}
-            >
-              {icon}
-            </div>
-          )}
-          <div className="flex-1 min-w-0">
-            <h3
-              className={cn("text-xl font-bold mb-2", "smooch-sans font-effect-anaglyph")}
-              style={{ color: theme.colors.primary }}
-            >
-              {title}
-            </h3>
-            <p
-              className={cn("text-sm font-medium leading-relaxed")}
-              style={{ color: theme.colors.foreground, opacity: 0.75 }}
-            >
-              {description}
-            </p>
-          </div>
-        </div>
+      {!isAvailable && (
+        <span
+          className="absolute bottom-0 right-0 rounded-full px-1.5 py-0.5 text-[9px] font-semibold uppercase pointer-events-none"
+          style={{
+            backgroundColor: theme.colors.accent,
+            color: theme.colors.background,
+          }}
+        >
+          Soon
+        </span>
+      )}
+      {isEditMode && onRemove && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onRemove(id);
+          }}
+          onPointerDown={(e) => e.stopPropagation()}
+          className="absolute -top-1 -right-1 w-5 h-5 rounded-full flex items-center justify-center shadow-md z-10 cursor-pointer hover:scale-110 transition-transform"
+          style={{
+            color: theme.colors.background,
+            backgroundColor: theme.colors.accent,
+          }}
+          aria-label={`Remove ${title}`}
+          title="Remove from dashboard"
+        >
+          <X className="w-3 h-3" />
+        </button>
+      )}
+    </div>
+  );
 
-        <div className="mt-auto pt-4">
-          {!isAvailable ? (
-            <div className="flex items-center justify-center">
-              <span
-                className={cn(
-                  "px-4 py-1.5 rounded-full",
-                  "text-xs font-semibold uppercase tracking-wider",
-                  "border-2"
-                )}
-                style={{
-                  backgroundColor: `${theme.colors.accent}15`,
-                  borderColor: theme.colors.accent,
-                  color: theme.colors.accent,
-                }}
-              >
-                Coming Soon
-              </span>
-            </div>
-          ) : (
-            <Button variant="primary" size="sm" className="w-full">
-              Use Tool
-            </Button>
-          )}
-        </div>
-      </div>
-    </Card>
+  const label = (
+    <span
+      className={cn(
+        "block text-center text-xs font-medium mt-2 line-clamp-2 px-0.5",
+        !isAvailable && "opacity-70",
+      )}
+      style={{ color: theme.colors.foreground }}
+    >
+      {title}
+    </span>
+  );
+
+  const tile = (
+    <div
+      className="group relative flex flex-col items-center w-full min-w-0"
+      title={description}
+    >
+      {iconBlock}
+      {label}
+    </div>
   );
 
   if (isAvailable && route && !isEditMode) {
     return (
-      <Link href={route} className="block h-full" aria-label={`Open ${title} tool`}>
-        {cardContent}
+      <Link
+        href={route}
+        className="block w-full min-w-0"
+        aria-label={`Open ${title} tool`}
+        onClick={handleLinkClick}
+      >
+        {tile}
       </Link>
     );
   }
 
-  return cardContent;
+  return tile;
 }

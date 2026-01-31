@@ -63,10 +63,10 @@ export function Dock({ visible, children }: DockProps) {
         <div
           className={cn(
             "pointer-events-auto shrink-0",
-            "flex items-center justify-center gap-4",
-            "px-4 py-3 border border-b-0 rounded-t-2xl",
-            "transition-transform duration-300 ease-out",
-            "relative overflow-visible min-h-[56px]",
+            "flex items-center justify-center gap-2",
+            "px-3 py-2.5 border border-b-0 rounded-t-xl",
+            "transition-transform duration-200 ease-out",
+            "relative overflow-visible min-h-[48px]",
             visible ? "translate-y-0" : "translate-y-full",
           )}
           style={{
@@ -80,13 +80,13 @@ export function Dock({ visible, children }: DockProps) {
           }}
         >
           <div
-            className="absolute inset-0 opacity-30 rounded-t-2xl"
+            className="absolute inset-0 opacity-30 rounded-t-xl"
             style={{
               background: `linear-gradient(135deg, ${hexToRgba(theme.colors.primary, 0.1)} 0%, ${hexToRgba(theme.colors.accent, 0.05)} 100%)`,
               pointerEvents: "none",
             }}
           />
-          <div className="relative z-10 flex items-center justify-center gap-4">
+          <div className="relative z-10 flex items-center justify-center gap-2">
             {children}
           </div>
         </div>

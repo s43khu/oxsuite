@@ -52,12 +52,6 @@ body {
   font-weight: 400;
 }
 
-.font-effect-anaglyph {
-  text-shadow:
-    -2px 0 0 rgba(255, 0, 0, 0.8),
-    2px 0 0 rgba(0, 255, 255, 0.8);
-  letter-spacing: 0.05em;
-}
 
 @keyframes fade-in {
   from {
@@ -211,19 +205,12 @@ textarea::-webkit-scrollbar-thumb:hover {
 }
 
 [data-theme="purple"] .smooch-sans,
-[data-theme="purple"] .font-effect-anaglyph,
 [data-theme="purple"] h1.smooch-sans,
-[data-theme="purple"] h1.font-effect-anaglyph,
 [data-theme="purple"] h2.smooch-sans,
-[data-theme="purple"] h2.font-effect-anaglyph,
 [data-theme="purple"] h3.smooch-sans,
-[data-theme="purple"] h3.font-effect-anaglyph,
 [data-theme="purple"] h4.smooch-sans,
-[data-theme="purple"] h4.font-effect-anaglyph,
 [data-theme="purple"] h5.smooch-sans,
-[data-theme="purple"] h5.font-effect-anaglyph,
-[data-theme="purple"] h6.smooch-sans,
-[data-theme="purple"] h6.font-effect-anaglyph {
+[data-theme="purple"] h6.smooch-sans {
   font-size: revert !important;
 }
 

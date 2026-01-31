@@ -33,7 +33,9 @@ export function PageHeader({
 
   useEffect(() => {
     const checkMobile = () =>
-      setIsMobile(typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT);
+      setIsMobile(
+        typeof window !== "undefined" && window.innerWidth < MOBILE_BREAKPOINT,
+      );
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
@@ -42,9 +44,13 @@ export function PageHeader({
   useEffect(() => {
     let rafId: number | null = null;
     const updateDock = () => {
-      if (typeof window === "undefined" || typeof document === "undefined") return;
+      if (typeof window === "undefined" || typeof document === "undefined")
+        return;
       const scrollY =
-        window.scrollY ?? document.documentElement.scrollTop ?? document.body.scrollTop ?? 0;
+        window.scrollY ??
+        document.documentElement.scrollTop ??
+        document.body.scrollTop ??
+        0;
       const isMobileWidth = window.innerWidth < MOBILE_BREAKPOINT;
       setShowDock(scrollY > SCROLL_THRESHOLD && isMobileWidth);
     };
@@ -66,17 +72,43 @@ export function PageHeader({
     setDockVisible(showDock);
   }, [showDock, setDockVisible]);
 
-  const actionButtons = (
+  const headerActionButtons = (
+    <>
+      <Button
+        variant="secondary"
+        size="sm"
+        onClick={() => router.push("/tools/library")}
+        disabled={isEditMode}
+        className="flex items-center justify-center p-2 min-w-8 min-h-8"
+        aria-label={
+          hiddenToolsCount > 0
+            ? `Library (${hiddenToolsCount} hidden)`
+            : "Library"
+        }
+        title={
+          hiddenToolsCount > 0
+            ? `Library (${hiddenToolsCount} hidden)`
+            : "Library"
+        }
+      >
+        <Library className="w-3.5 h-3.5" />
+      </Button>
+      <ThemeSelector disabled={isEditMode} />
+    </>
+  );
+
+  const dockActionButtons = (
     <>
       {onEditModeToggle && (
         <Button
           variant={isEditMode ? "primary" : "outline"}
           size="sm"
           onClick={onEditModeToggle}
-          className="flex items-center gap-2"
+          className="flex items-center justify-center p-2 min-w-8 min-h-8"
+          aria-label={isEditMode ? "Done" : "Edit layout"}
+          title={isEditMode ? "Done" : "Edit layout"}
         >
-          <Settings className="w-4 h-4" />
-          {isEditMode ? "Done" : "Edit"}
+          <Settings className="w-3.5 h-3.5" />
         </Button>
       )}
       <Button
@@ -84,11 +116,19 @@ export function PageHeader({
         size="sm"
         onClick={() => router.push("/tools/library")}
         disabled={isEditMode}
-        className="flex items-center gap-2"
+        className="flex items-center justify-center p-2 min-w-8 min-h-8"
+        aria-label={
+          hiddenToolsCount > 0
+            ? `Library (${hiddenToolsCount} hidden)`
+            : "Library"
+        }
+        title={
+          hiddenToolsCount > 0
+            ? `Library (${hiddenToolsCount} hidden)`
+            : "Library"
+        }
       >
-        <Library className="w-4 h-4" />
-        <span className="hidden sm:inline">Library</span>
-        {hiddenToolsCount > 0 && <span className="sm:hidden">({hiddenToolsCount})</span>}
+        <Library className="w-3.5 h-3.5" />
       </Button>
       <ThemeSelector disabled={isEditMode} />
     </>
@@ -99,24 +139,19 @@ export function PageHeader({
       <header
         className={cn(
           "sticky top-0 z-50",
-          "transition-transform duration-300 ease-out",
-          "pt-4 pb-4",
-          "bg-(--background)/80 sm:bg-transparent",
-          isMobile && showDock && "-translate-y-full"
+          "transition-transform duration-200 ease-out",
+          "pt-3 pb-3",
+          isMobile && showDock && "-translate-y-full",
         )}
-        style={{
-          backdropFilter: "blur(8px) saturate(180%)",
-          WebkitBackdropFilter: "blur(8px) saturate(180%)",
-        }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div
             className={cn(
-              "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4",
-              "px-4 sm:px-6 py-4 rounded-2xl",
+              "flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3",
+              "px-3 sm:px-4 py-3 rounded-xl",
               "border",
-              "transition-all duration-300",
-              "relative overflow-visible"
+              "transition-all duration-200",
+              "relative overflow-visible",
             )}
             style={{
               borderColor: theme.colors.border,
@@ -129,19 +164,19 @@ export function PageHeader({
             }}
           >
             <div
-              className="absolute inset-0 opacity-30 rounded-2xl"
+              className="absolute inset-0 opacity-30 rounded-xl"
               style={{
                 background: `linear-gradient(135deg, ${hexToRgba(theme.colors.primary, 0.1)} 0%, ${hexToRgba(theme.colors.accent, 0.05)} 100%)`,
                 pointerEvents: "none",
               }}
             />
-            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 w-full">
+            <div className="relative z-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 w-full">
               <div className="flex flex-col min-w-0">
                 <h1
                   className={cn(
-                    "text-2xl sm:text-3xl font-bold",
-                    "smooch-sans font-effect-anaglyph",
-                    "tracking-wider"
+                    "text-xl sm:text-2xl font-bold",
+                    "font-semibold",
+                    "tracking-wider",
                   )}
                   style={{ color: theme.colors.primary }}
                 >
@@ -149,23 +184,23 @@ export function PageHeader({
                 </h1>
                 <p
                   className={cn(
-                    "text-xs sm:text-sm font-medium mt-1",
-                    "transition-opacity duration-200"
+                    "text-[10px] sm:text-xs font-medium mt-0.5",
+                    "transition-opacity duration-200",
                   )}
                   style={{ color: theme.colors.foreground, opacity: 0.75 }}
                 >
                   {">"} Professional tools for daily use
                 </p>
               </div>
-              <div className="flex items-center gap-3 flex-wrap sm:flex-nowrap justify-end">
-                {actionButtons}
+              <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap justify-end">
+                {headerActionButtons}
               </div>
             </div>
           </div>
         </div>
       </header>
 
-      <Dock visible={isMobile && showDock}>{actionButtons}</Dock>
+      <Dock visible={isMobile && showDock}>{dockActionButtons}</Dock>
     </>
   );
 }

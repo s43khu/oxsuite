@@ -79,7 +79,10 @@ const getTimezoneEntry = (timezone: string): TimezoneEntry | undefined => {
   return timezones.find((e) => e.utc && e.utc.includes(timezone));
 };
 
-const searchTimezones = (searchTerm: string, allTimezones: string[]): string[] => {
+const searchTimezones = (
+  searchTerm: string,
+  allTimezones: string[],
+): string[] => {
   if (!searchTerm.trim()) {
     return allTimezones;
   }
@@ -173,15 +176,15 @@ export default function TimeDateConverter() {
 
   const filteredTimezones = useMemo(
     () => searchTimezones(timezoneSearch, allTimezones),
-    [allTimezones, timezoneSearch]
+    [allTimezones, timezoneSearch],
   );
 
   const filteredComparisonTimezones = useMemo(
     () =>
       searchTimezones(comparisonSearch, allTimezones).filter(
-        (tz) => tz !== targetTimezone && !comparisonTimezones.includes(tz)
+        (tz) => tz !== targetTimezone && !comparisonTimezones.includes(tz),
       ),
-    [allTimezones, comparisonSearch, targetTimezone, comparisonTimezones]
+    [allTimezones, comparisonSearch, targetTimezone, comparisonTimezones],
   );
 
   const addComparisonTimezone = useCallback(
@@ -192,21 +195,28 @@ export default function TimeDateConverter() {
         setComparisonSearch("");
       }
     },
-    [comparisonTimezones, targetTimezone]
+    [comparisonTimezones, targetTimezone],
   );
 
   const removeComparisonTimezone = useCallback((tz: string) => {
     setComparisonTimezones((prev) => prev.filter((t) => t !== tz));
   }, []);
 
-  const parseInput = (value: string, type: "unix" | "iso" | "local"): Date | null => {
+  const parseInput = (
+    value: string,
+    type: "unix" | "iso" | "local",
+  ): Date | null => {
     if (!value.trim()) return null;
 
     try {
       if (type === "unix") {
-        const timestamp = value.includes(".") ? parseFloat(value) : parseInt(value, 10);
+        const timestamp = value.includes(".")
+          ? parseFloat(value)
+          : parseInt(value, 10);
         if (isNaN(timestamp)) return null;
-        return timestamp > 1e12 ? new Date(timestamp) : new Date(timestamp * 1000);
+        return timestamp > 1e12
+          ? new Date(timestamp)
+          : new Date(timestamp * 1000);
       }
 
       if (type === "iso") {
@@ -223,7 +233,10 @@ export default function TimeDateConverter() {
     }
   };
 
-  const formatDateInTimezone = (date: Date, timezone: string): { date: string; time: string } => {
+  const formatDateInTimezone = (
+    date: Date,
+    timezone: string,
+  ): { date: string; time: string } => {
     try {
       const dateFormatter = new Intl.DateTimeFormat("en-US", {
         timeZone: timezone,
@@ -309,7 +322,11 @@ export default function TimeDateConverter() {
   }, [parsedDate, targetTimezone]);
 
   const comparisonTimes = useMemo(() => {
-    if (!parsedDate || isNaN(parsedDate.getTime()) || comparisonTimezones.length === 0) {
+    if (
+      !parsedDate ||
+      isNaN(parsedDate.getTime()) ||
+      comparisonTimezones.length === 0
+    ) {
       return [];
     }
 
@@ -361,16 +378,23 @@ export default function TimeDateConverter() {
     >
       <div className="text-center mb-8">
         <div className="flex items-center justify-center gap-3 mb-2">
-          <Clock className="w-12 h-12 animate-pulse" style={{ color: theme.colors.primary }} />
+          <Clock
+            className="w-12 h-12 animate-pulse"
+            style={{ color: theme.colors.primary }}
+          />
           <h1
-            className="text-5xl font-bold smooch-sans font-effect-anaglyph tracking-wider"
+            className="text-5xl font-bold font-semibold tracking-wider"
             style={{ color: theme.colors.primary }}
           >
             TIME & DATE CONVERTER
           </h1>
         </div>
-        <p className="font-mono text-sm" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
-          {">"} Convert between Unix timestamp, ISO 8601, and local formats with timezone support
+        <p
+          className="font-mono text-sm"
+          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+        >
+          {">"} Convert between Unix timestamp, ISO 8601, and local formats with
+          timezone support
         </p>
       </div>
 
@@ -378,7 +402,10 @@ export default function TimeDateConverter() {
         <div className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <label className="font-mono text-sm" style={{ color: theme.colors.primary }}>
+              <label
+                className="font-mono text-sm"
+                style={{ color: theme.colors.primary }}
+              >
                 INPUT TYPE
               </label>
               <div className="flex gap-2">
@@ -410,7 +437,10 @@ export default function TimeDateConverter() {
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-sm" style={{ color: theme.colors.primary }}>
+              <label
+                className="font-mono text-sm"
+                style={{ color: theme.colors.primary }}
+              >
                 TARGET TIMEZONE
               </label>
               <div ref={timezoneDropdownRef} className="relative w-full">
@@ -432,10 +462,15 @@ export default function TimeDateConverter() {
                     e.currentTarget.style.borderColor = theme.colors.primary;
                   }}
                   onMouseLeave={(e) => {
-                    e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+                    e.currentTarget.style.borderColor = hexToRgba(
+                      theme.colors.primary,
+                      0.5,
+                    );
                   }}
                 >
-                  <span className="truncate">{getTimezoneDisplayName(targetTimezone)}</span>
+                  <span className="truncate">
+                    {getTimezoneDisplayName(targetTimezone)}
+                  </span>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform flex-shrink-0 ml-2 ${
                       isTimezoneOpen ? "rotate-180" : ""
@@ -452,7 +487,9 @@ export default function TimeDateConverter() {
                   >
                     <div
                       className="p-2 border-b"
-                      style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
+                      style={{
+                        borderColor: hexToRgba(theme.colors.primary, 0.3),
+                      }}
                     >
                       <div className="relative">
                         <Search
@@ -487,27 +524,33 @@ export default function TimeDateConverter() {
                                   ? hexToRgba(theme.colors.primary, 0.3)
                                   : "transparent",
                               color:
-                                targetTimezone === tz ? theme.colors.accent : theme.colors.primary,
+                                targetTimezone === tz
+                                  ? theme.colors.accent
+                                  : theme.colors.primary,
                             }}
                             onMouseEnter={(e) => {
                               if (targetTimezone !== tz) {
-                                e.currentTarget.style.backgroundColor = hexToRgba(
-                                  theme.colors.primary,
-                                  0.2
-                                );
+                                e.currentTarget.style.backgroundColor =
+                                  hexToRgba(theme.colors.primary, 0.2);
                               }
                             }}
                             onMouseLeave={(e) => {
                               if (targetTimezone !== tz) {
-                                e.currentTarget.style.backgroundColor = "transparent";
+                                e.currentTarget.style.backgroundColor =
+                                  "transparent";
                               }
                             }}
                           >
                             <div className="flex flex-col">
-                              <span className="text-sm">{getTimezoneDisplayName(tz)}</span>
+                              <span className="text-sm">
+                                {getTimezoneDisplayName(tz)}
+                              </span>
                               <span
                                 className="text-xs"
-                                style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                                style={{
+                                  color: theme.colors.foreground,
+                                  opacity: 0.5,
+                                }}
                               >
                                 {tz}
                               </span>
@@ -517,7 +560,10 @@ export default function TimeDateConverter() {
                       ) : (
                         <div
                           className="px-3 py-4 text-center text-sm"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           No timezones found
                         </div>
@@ -529,7 +575,10 @@ export default function TimeDateConverter() {
             </div>
 
             <div className="space-y-2">
-              <label className="font-mono text-sm" style={{ color: theme.colors.primary }}>
+              <label
+                className="font-mono text-sm"
+                style={{ color: theme.colors.primary }}
+              >
                 ACTIONS
               </label>
               <div className="flex gap-2">
@@ -554,7 +603,10 @@ export default function TimeDateConverter() {
           </div>
 
           <div className="space-y-2">
-            <label className="font-mono text-sm" style={{ color: theme.colors.primary }}>
+            <label
+              className="font-mono text-sm"
+              style={{ color: theme.colors.primary }}
+            >
               {inputType.toUpperCase()} INPUT
             </label>
             <Input
@@ -581,7 +633,10 @@ export default function TimeDateConverter() {
               }}
             >
               <div className="flex items-center gap-2">
-                <XCircle className="w-5 h-5" style={{ color: theme.colors.accent }} />
+                <XCircle
+                  className="w-5 h-5"
+                  style={{ color: theme.colors.accent }}
+                />
                 <p className="font-mono" style={{ color: theme.colors.accent }}>
                   {error}
                 </p>
@@ -594,7 +649,7 @@ export default function TimeDateConverter() {
       <Card className="p-6" variant="hacker">
         <div className="flex items-center justify-between mb-4">
           <h2
-            className="text-xl font-bold smooch-sans font-effect-anaglyph flex items-center gap-2"
+            className="text-xl font-bold font-semibold flex items-center gap-2"
             style={{ color: theme.colors.primary }}
           >
             <GitCompare className="w-5 h-5" />
@@ -619,7 +674,10 @@ export default function TimeDateConverter() {
                 e.currentTarget.style.borderColor = theme.colors.primary;
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+                e.currentTarget.style.borderColor = hexToRgba(
+                  theme.colors.primary,
+                  0.5,
+                );
               }}
             >
               <Plus className="w-4 h-4" />
@@ -664,7 +722,7 @@ export default function TimeDateConverter() {
                         onMouseEnter={(e) => {
                           e.currentTarget.style.backgroundColor = hexToRgba(
                             theme.colors.primary,
-                            0.2
+                            0.2,
                           );
                         }}
                         onMouseLeave={(e) => {
@@ -672,10 +730,15 @@ export default function TimeDateConverter() {
                         }}
                       >
                         <div className="flex flex-col">
-                          <span className="text-sm">{getTimezoneDisplayName(tz)}</span>
+                          <span className="text-sm">
+                            {getTimezoneDisplayName(tz)}
+                          </span>
                           <span
                             className="text-xs"
-                            style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                            style={{
+                              color: theme.colors.foreground,
+                              opacity: 0.5,
+                            }}
                           >
                             {tz}
                           </span>
@@ -696,7 +759,9 @@ export default function TimeDateConverter() {
           </div>
         </div>
 
-        {comparisonTimezones.length > 0 && comparisonTimes.length > 0 && convertedDate ? (
+        {comparisonTimezones.length > 0 &&
+        comparisonTimes.length > 0 &&
+        convertedDate ? (
           <div className="space-y-3">
             {comparisonTimes.map((comp) => (
               <div
@@ -744,7 +809,10 @@ export default function TimeDateConverter() {
                     >
                       DATE
                     </div>
-                    <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
+                    <div
+                      className="font-mono text-sm"
+                      style={{ color: theme.colors.accent }}
+                    >
                       {comp.date}
                     </div>
                   </div>
@@ -755,7 +823,10 @@ export default function TimeDateConverter() {
                     >
                       TIME
                     </div>
-                    <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
+                    <div
+                      className="font-mono text-sm"
+                      style={{ color: theme.colors.accent }}
+                    >
                       {comp.time}
                     </div>
                   </div>
@@ -766,7 +837,10 @@ export default function TimeDateConverter() {
                     >
                       DAY
                     </div>
-                    <div className="font-mono text-sm" style={{ color: theme.colors.accent }}>
+                    <div
+                      className="font-mono text-sm"
+                      style={{ color: theme.colors.accent }}
+                    >
                       {comp.dayOfWeek}
                     </div>
                   </div>
@@ -787,7 +861,7 @@ export default function TimeDateConverter() {
       <div ref={resultRef} className="space-y-6">
         <Card className="p-6" variant="hacker">
           <h2
-            className="text-2xl font-bold smooch-sans font-effect-anaglyph mb-6 flex items-center gap-2"
+            className="text-2xl font-bold font-semibold mb-6 flex items-center gap-2"
             style={{ color: theme.colors.primary }}
           >
             <Globe className="w-6 h-6" />
@@ -807,7 +881,10 @@ export default function TimeDateConverter() {
               >
                 DATE
               </div>
-              <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
+              <div
+                className="font-mono text-lg"
+                style={{ color: theme.colors.accent }}
+              >
                 {convertedDate?.formatted.date || "—"}
               </div>
             </div>
@@ -824,7 +901,10 @@ export default function TimeDateConverter() {
               >
                 TIME
               </div>
-              <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
+              <div
+                className="font-mono text-lg"
+                style={{ color: theme.colors.accent }}
+              >
                 {convertedDate?.formatted.time || "—"}
               </div>
             </div>
@@ -841,7 +921,10 @@ export default function TimeDateConverter() {
               >
                 DAY OF WEEK
               </div>
-              <div className="font-mono text-lg" style={{ color: theme.colors.accent }}>
+              <div
+                className="font-mono text-lg"
+                style={{ color: theme.colors.accent }}
+              >
                 {convertedDate?.formatted.dayOfWeek || "—"}
               </div>
             </div>
@@ -878,7 +961,8 @@ export default function TimeDateConverter() {
                   </div>
                   <Button
                     onClick={() =>
-                      convertedDate && handleCopy(convertedDate.unix.toString(), "unix-seconds")
+                      convertedDate &&
+                      handleCopy(convertedDate.unix.toString(), "unix-seconds")
                     }
                     variant="outline"
                     size="sm"
@@ -886,7 +970,10 @@ export default function TimeDateConverter() {
                     disabled={!convertedDate}
                   >
                     {copiedField === "unix-seconds" ? (
-                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      <CheckCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.primary }}
+                      />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -913,7 +1000,8 @@ export default function TimeDateConverter() {
                   </div>
                   <Button
                     onClick={() =>
-                      convertedDate && handleCopy(convertedDate.unixMs.toString(), "unix-ms")
+                      convertedDate &&
+                      handleCopy(convertedDate.unixMs.toString(), "unix-ms")
                     }
                     variant="outline"
                     size="sm"
@@ -921,7 +1009,10 @@ export default function TimeDateConverter() {
                     disabled={!convertedDate}
                   >
                     {copiedField === "unix-ms" ? (
-                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      <CheckCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.primary }}
+                      />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -959,14 +1050,19 @@ export default function TimeDateConverter() {
                     {convertedDate?.iso ?? "—"}
                   </div>
                   <Button
-                    onClick={() => convertedDate && handleCopy(convertedDate.iso, "iso")}
+                    onClick={() =>
+                      convertedDate && handleCopy(convertedDate.iso, "iso")
+                    }
                     variant="outline"
                     size="sm"
                     className="font-mono"
                     disabled={!convertedDate}
                   >
                     {copiedField === "iso" ? (
-                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      <CheckCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.primary }}
+                      />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -1004,14 +1100,19 @@ export default function TimeDateConverter() {
                     {convertedDate?.utc ?? "—"}
                   </div>
                   <Button
-                    onClick={() => convertedDate && handleCopy(convertedDate.utc, "utc")}
+                    onClick={() =>
+                      convertedDate && handleCopy(convertedDate.utc, "utc")
+                    }
                     variant="outline"
                     size="sm"
                     className="font-mono"
                     disabled={!convertedDate}
                   >
                     {copiedField === "utc" ? (
-                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      <CheckCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.primary }}
+                      />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}
@@ -1049,14 +1150,19 @@ export default function TimeDateConverter() {
                     {convertedDate?.local ?? "—"}
                   </div>
                   <Button
-                    onClick={() => convertedDate && handleCopy(convertedDate.local, "local")}
+                    onClick={() =>
+                      convertedDate && handleCopy(convertedDate.local, "local")
+                    }
                     variant="outline"
                     size="sm"
                     className="font-mono"
                     disabled={!convertedDate}
                   >
                     {copiedField === "local" ? (
-                      <CheckCircle className="w-4 h-4" style={{ color: theme.colors.primary }} />
+                      <CheckCircle
+                        className="w-4 h-4"
+                        style={{ color: theme.colors.primary }}
+                      />
                     ) : (
                       <Copy className="w-4 h-4" />
                     )}

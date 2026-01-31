@@ -19,7 +19,7 @@ export default function Home() {
       gsap.fromTo(
         containerRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.8, delay: 0.1, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.8, delay: 0.1, ease: "power3.out" },
       );
     }
   }, []);
@@ -38,15 +38,24 @@ export default function Home() {
   }, [isEditMode]);
 
   return (
-    <div className="min-h-screen relative" style={{ backgroundColor: "transparent" }}>
+    <div
+      className="min-h-screen relative"
+      style={{ backgroundColor: "transparent" }}
+    >
       <div className="relative z-10">
         <PageHeader
           isEditMode={isEditMode}
           onEditModeToggle={() => setIsEditMode(!isEditMode)}
           hiddenToolsCount={hiddenToolsCount}
         />
-        <main ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          <ToolsDashboard isEditMode={isEditMode} onEditModeChange={setIsEditMode} />
+        <main
+          ref={containerRef}
+          className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8"
+        >
+          <ToolsDashboard
+            isEditMode={isEditMode}
+            onEditModeChange={setIsEditMode}
+          />
         </main>
       </div>
     </div>

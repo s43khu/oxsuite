@@ -63,22 +63,32 @@ function JSONViewer({
 
   const renderValue = (value: any): React.ReactElement => {
     if (value === null) {
-      return <span style={{ color: theme.colors.accent, opacity: 0.8 }}>null</span>;
+      return (
+        <span style={{ color: theme.colors.accent, opacity: 0.8 }}>null</span>
+      );
     }
 
     const valueType = typeof value;
 
     switch (valueType) {
       case "boolean":
-        return <span style={{ color: theme.colors.primary }}>{String(value)}</span>;
+        return (
+          <span style={{ color: theme.colors.primary }}>{String(value)}</span>
+        );
       case "number":
-        return <span style={{ color: theme.colors.accent }}>{String(value)}</span>;
+        return (
+          <span style={{ color: theme.colors.accent }}>{String(value)}</span>
+        );
       case "string":
         return <span style={{ color: theme.colors.accent }}>"{value}"</span>;
       case "object":
         if (Array.isArray(value)) {
           if (value.length === 0) {
-            return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>[]</span>;
+            return (
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                []
+              </span>
+            );
           }
           const arrayPath = path ? `${path}[]` : "[]";
           const isArrayCollapsed = collapsed.has(arrayPath);
@@ -95,9 +105,15 @@ function JSONViewer({
                   e.currentTarget.style.color = theme.colors.primary;
                 }}
               >
-                {isArrayCollapsed ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
+                {isArrayCollapsed ? (
+                  <Plus className="w-3 h-3" />
+                ) : (
+                  <Minus className="w-3 h-3" />
+                )}
               </button>
-              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>[</span>
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                [
+              </span>
               {!isArrayCollapsed && (
                 <div className="ml-2 inline-block">
                   {value.map((item, index) => {
@@ -105,7 +121,10 @@ function JSONViewer({
                     return (
                       <div key={index} className="flex items-start mb-1">
                         <span
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                           className="mr-2"
                         >
                           {index}:
@@ -134,19 +153,31 @@ function JSONViewer({
                   ... {value.length} items
                 </span>
               )}
-              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>]</span>
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                ]
+              </span>
             </span>
           );
         } else {
           const keys = Object.keys(value);
           if (keys.length === 0) {
-            return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{"{}"}</span>;
+            return (
+              <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+                {"{}"}
+              </span>
+            );
           }
-          return <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{"{...}"}</span>;
+          return (
+            <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+              {"{...}"}
+            </span>
+          );
         }
       default:
         return (
-          <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>{String(value)}</span>
+          <span style={{ color: theme.colors.foreground, opacity: 0.5 }}>
+            {String(value)}
+          </span>
         );
     }
   };
@@ -169,7 +200,11 @@ function JSONViewer({
               e.currentTarget.style.color = theme.colors.primary;
             }}
           >
-            {isCollapsed ? <Plus className="w-3 h-3" /> : <Minus className="w-3 h-3" />}
+            {isCollapsed ? (
+              <Plus className="w-3 h-3" />
+            ) : (
+              <Minus className="w-3 h-3" />
+            )}
           </button>
         )}
         {!hasChildren && <span className="w-4 mr-1" />}
@@ -189,7 +224,10 @@ function JSONViewer({
                   >
                     {key}
                   </span>
-                  <span className="mx-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+                  <span
+                    className="mx-2"
+                    style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                  >
                     :
                   </span>
                   {isValueObject ? (
@@ -198,13 +236,17 @@ function JSONViewer({
                         <button
                           onClick={() => onToggle?.(valuePath)}
                           className="flex items-center gap-1 transition-colors"
-                          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.7,
+                          }}
                           onMouseEnter={(e) => {
                             e.currentTarget.style.color = theme.colors.accent;
                             e.currentTarget.style.opacity = "1";
                           }}
                           onMouseLeave={(e) => {
-                            e.currentTarget.style.color = theme.colors.foreground;
+                            e.currentTarget.style.color =
+                              theme.colors.foreground;
                             e.currentTarget.style.opacity = "0.7";
                           }}
                         >
@@ -254,7 +296,8 @@ function JSONViewer({
 export default function JSONLinter() {
   const { theme } = useTheme();
   const [jsonInput, setJsonInput] = useState("");
-  const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
+  const [validationResult, setValidationResult] =
+    useState<ValidationResult | null>(null);
   const [indentSize, setIndentSize] = useState(2);
   const [autoValidate, setAutoValidate] = useState(true);
   const [errorLine, setErrorLine] = useState<number | null>(null);
@@ -274,7 +317,7 @@ export default function JSONLinter() {
       gsap.fromTo(
         resultRef.current.children,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
       );
     }
   }, [validationResult]);
@@ -288,7 +331,10 @@ export default function JSONLinter() {
     }
   }, [jsonInput, autoValidate]);
 
-  const calculateStats = (obj: any, depth = 0): { keys: number; depth: number; size: number } => {
+  const calculateStats = (
+    obj: any,
+    depth = 0,
+  ): { keys: number; depth: number; size: number } => {
     if (typeof obj !== "object" || obj === null) {
       return { keys: 0, depth, size: JSON.stringify(obj).length };
     }
@@ -341,7 +387,8 @@ export default function JSONLinter() {
       });
       setErrorLine(null);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Unknown error";
+      const errorMessage =
+        error instanceof Error ? error.message : "Unknown error";
       let errorLineNum: number | undefined;
       let errorCol: number | undefined;
 
@@ -425,7 +472,7 @@ export default function JSONLinter() {
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       setFileError(
-        `File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`
+        `File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`,
       );
       return;
     }
@@ -497,7 +544,8 @@ export default function JSONLinter() {
       textarea.setSelectionRange(position, position);
 
       const lineHeight = 20;
-      const scrollTop = (errorLine - 1) * lineHeight - textarea.clientHeight / 2;
+      const scrollTop =
+        (errorLine - 1) * lineHeight - textarea.clientHeight / 2;
       textarea.scrollTop = Math.max(0, scrollTop);
 
       if (lineNumbersRef.current) {
@@ -523,7 +571,7 @@ export default function JSONLinter() {
     onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void,
     placeholder: string,
     label: string,
-    highlightedLine: number | null
+    highlightedLine: number | null,
   ) => {
     const lines = value.split("\n");
     const lineNumbers = getLineNumbers(value);
@@ -569,15 +617,22 @@ export default function JSONLinter() {
                 className="h-5 leading-5 text-right pr-2"
                 style={{
                   backgroundColor:
-                    highlightedLine === i + 1 ? hexToRgba(theme.colors.accent, 0.3) : "transparent",
-                  color: highlightedLine === i + 1 ? theme.colors.accent : theme.colors.foreground,
+                    highlightedLine === i + 1
+                      ? hexToRgba(theme.colors.accent, 0.3)
+                      : "transparent",
+                  color:
+                    highlightedLine === i + 1
+                      ? theme.colors.accent
+                      : theme.colors.foreground,
                   fontWeight: highlightedLine === i + 1 ? "bold" : "normal",
                 }}
               >
                 {num}
               </div>
             ))}
-            {lines.length === 0 && <div className="h-5 leading-5 text-right pr-2">1</div>}
+            {lines.length === 0 && (
+              <div className="h-5 leading-5 text-right pr-2">1</div>
+            )}
           </div>
           <textarea
             ref={textareaRef}
@@ -595,7 +650,10 @@ export default function JSONLinter() {
               e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.borderColor = hexToRgba(
+                theme.colors.primary,
+                0.5,
+              );
               e.currentTarget.style.boxShadow = "none";
             }}
             onScroll={handleScroll}
@@ -611,7 +669,7 @@ export default function JSONLinter() {
         <div className="flex items-center gap-3 mb-6">
           <Code className="w-8 h-8" style={{ color: theme.colors.primary }} />
           <h2
-            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            className="text-3xl font-bold font-semibold"
             style={{ color: theme.colors.primary }}
           >
             JSON Linter
@@ -671,7 +729,7 @@ export default function JSONLinter() {
           (e) => setJsonInput(e.target.value),
           "Paste your JSON here or upload a file...",
           "JSON Input",
-          errorLine
+          errorLine,
         )}
 
         <div className="flex flex-wrap items-center gap-4 mt-4">
@@ -696,7 +754,10 @@ export default function JSONLinter() {
                 e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
               }}
               onBlur={(e) => {
-                e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+                e.currentTarget.style.borderColor = hexToRgba(
+                  theme.colors.primary,
+                  0.5,
+                );
                 e.currentTarget.style.boxShadow = "none";
               }}
             >
@@ -788,11 +849,17 @@ export default function JSONLinter() {
 
       {validationResult && (
         <div ref={resultRef}>
-          <Card variant={validationResult.isValid ? "hacker" : "outlined"} className="p-6">
+          <Card
+            variant={validationResult.isValid ? "hacker" : "outlined"}
+            className="p-6"
+          >
             <div className="flex items-center gap-3 mb-4">
               {validationResult.isValid ? (
                 <>
-                  <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
+                  <CheckCircle
+                    className="w-6 h-6"
+                    style={{ color: theme.colors.primary }}
+                  />
                   <h3
                     className="text-xl font-semibold font-mono"
                     style={{ color: theme.colors.primary }}
@@ -802,7 +869,10 @@ export default function JSONLinter() {
                 </>
               ) : (
                 <>
-                  <XCircle className="w-6 h-6" style={{ color: theme.colors.accent }} />
+                  <XCircle
+                    className="w-6 h-6"
+                    style={{ color: theme.colors.accent }}
+                  />
                   <h3
                     className="text-xl font-semibold font-mono"
                     style={{ color: theme.colors.accent }}
@@ -820,7 +890,10 @@ export default function JSONLinter() {
                     <div
                       className="text-center p-3 rounded border"
                       style={{
-                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        backgroundColor: hexToRgba(
+                          theme.colors.background,
+                          0.5,
+                        ),
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
@@ -840,7 +913,10 @@ export default function JSONLinter() {
                     <div
                       className="text-center p-3 rounded border"
                       style={{
-                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        backgroundColor: hexToRgba(
+                          theme.colors.background,
+                          0.5,
+                        ),
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
@@ -860,7 +936,10 @@ export default function JSONLinter() {
                     <div
                       className="text-center p-3 rounded border"
                       style={{
-                        backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                        backgroundColor: hexToRgba(
+                          theme.colors.background,
+                          0.5,
+                        ),
                         borderColor: hexToRgba(theme.colors.primary, 0.3),
                       }}
                     >
@@ -902,15 +981,23 @@ export default function JSONLinter() {
                       <Button
                         onClick={() => {
                           const allPaths = new Set<string>();
-                          const collectPaths = (obj: any, currentPath: string = "") => {
+                          const collectPaths = (
+                            obj: any,
+                            currentPath: string = "",
+                          ) => {
                             if (typeof obj === "object" && obj !== null) {
                               if (Array.isArray(obj)) {
                                 if (obj.length > 0) {
-                                  const arrayPath = currentPath ? `${currentPath}[]` : "[]";
+                                  const arrayPath = currentPath
+                                    ? `${currentPath}[]`
+                                    : "[]";
                                   allPaths.add(arrayPath);
                                   obj.forEach((item, index) => {
                                     const itemPath = `${arrayPath}[${index}]`;
-                                    if (typeof item === "object" && item !== null) {
+                                    if (
+                                      typeof item === "object" &&
+                                      item !== null
+                                    ) {
                                       collectPaths(item, itemPath);
                                     }
                                   });
@@ -919,16 +1006,24 @@ export default function JSONLinter() {
                                 const keys = Object.keys(obj);
                                 if (keys.length > 0) {
                                   keys.forEach((key) => {
-                                    const newPath = currentPath ? `${currentPath}.${key}` : key;
+                                    const newPath = currentPath
+                                      ? `${currentPath}.${key}`
+                                      : key;
                                     const value = obj[key];
-                                    if (typeof value === "object" && value !== null) {
+                                    if (
+                                      typeof value === "object" &&
+                                      value !== null
+                                    ) {
                                       if (Array.isArray(value)) {
                                         allPaths.add(newPath);
                                         const arrayPath = `${newPath}[]`;
                                         allPaths.add(arrayPath);
                                         value.forEach((item, index) => {
                                           const itemPath = `${arrayPath}[${index}]`;
-                                          if (typeof item === "object" && item !== null) {
+                                          if (
+                                            typeof item === "object" &&
+                                            item !== null
+                                          ) {
                                             collectPaths(item, itemPath);
                                           }
                                         });

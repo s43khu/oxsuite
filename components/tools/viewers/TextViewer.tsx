@@ -36,7 +36,7 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
           gsap.fromTo(
             containerRef.current,
             { opacity: 0, y: 20 },
-            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+            { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
           );
         }
       } catch (err) {
@@ -99,10 +99,13 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
       <Card variant="hacker" className="p-4">
         <div className="flex items-center justify-between flex-wrap gap-4">
           <div className="flex items-center gap-3">
-            <FileText className="w-6 h-6" style={{ color: theme.colors.primary }} />
+            <FileText
+              className="w-6 h-6"
+              style={{ color: theme.colors.primary }}
+            />
             <div>
               <h3
-                className="text-lg font-semibold smooch-sans font-effect-anaglyph"
+                className="text-lg font-semibold font-semibold"
                 style={{ color: theme.colors.primary }}
               >
                 Text File Viewer
@@ -174,7 +177,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
               borderColor: hexToRgba(theme.colors.accent, 0.3),
             }}
           >
-            <p className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+            <p
+              className="text-sm font-mono"
+              style={{ color: theme.colors.accent }}
+            >
               {error}
             </p>
           </div>
@@ -186,7 +192,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
           <Card variant="hacker" className="p-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
               <div>
-                <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                <p
+                  className="text-2xl font-bold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   {stats.lines}
                 </p>
                 <p
@@ -197,7 +206,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                <p
+                  className="text-2xl font-bold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   {stats.words}
                 </p>
                 <p
@@ -208,7 +220,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                <p
+                  className="text-2xl font-bold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   {stats.characters.toLocaleString()}
                 </p>
                 <p
@@ -219,7 +234,10 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 </p>
               </div>
               <div>
-                <p className="text-2xl font-bold font-mono" style={{ color: theme.colors.primary }}>
+                <p
+                  className="text-2xl font-bold font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
                   {stats.charactersNoSpaces.toLocaleString()}
                 </p>
                 <p
@@ -235,7 +253,7 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
           <Card variant="hacker" className="p-6">
             <div className="mb-4 flex items-center justify-between">
               <h2
-                className="text-xl font-semibold smooch-sans font-effect-anaglyph"
+                className="text-xl font-semibold font-semibold"
                 style={{ color: theme.colors.primary }}
               >
                 Content
@@ -296,7 +314,9 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                     <div className="flex-1 min-w-0">
                       <pre
                         className={`p-4 font-mono text-sm ${
-                          wordWrap ? "whitespace-pre-wrap break-words" : "whitespace-pre"
+                          wordWrap
+                            ? "whitespace-pre-wrap break-words"
+                            : "whitespace-pre"
                         }`}
                         style={{
                           backgroundColor: theme.colors.background,
@@ -314,7 +334,9 @@ export default function TextViewer({ file, onClear }: TextViewerProps) {
                 ) : (
                   <pre
                     className={`p-4 font-mono text-sm ${
-                      wordWrap ? "whitespace-pre-wrap break-words" : "whitespace-pre"
+                      wordWrap
+                        ? "whitespace-pre-wrap break-words"
+                        : "whitespace-pre"
                     }`}
                     style={{
                       backgroundColor: theme.colors.background,

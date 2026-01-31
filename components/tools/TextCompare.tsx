@@ -2,7 +2,13 @@
 
 import { useState, useRef, useEffect } from "react";
 import { gsap } from "gsap";
-import { FileText, RotateCcw, ArrowLeftRight, CheckCircle, Settings } from "lucide-react";
+import {
+  FileText,
+  RotateCcw,
+  ArrowLeftRight,
+  CheckCircle,
+  Settings,
+} from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useTheme } from "@/components/ui/ThemeProvider";
@@ -24,7 +30,9 @@ export default function TextCompare() {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
   const [diffResult, setDiffResult] = useState<DiffResult | null>(null);
-  const [selectedDiffIndex, setSelectedDiffIndex] = useState<number | null>(null);
+  const [selectedDiffIndex, setSelectedDiffIndex] = useState<number | null>(
+    null,
+  );
   const [highlightedLine1, setHighlightedLine1] = useState<number | null>(null);
   const [highlightedLine2, setHighlightedLine2] = useState<number | null>(null);
   const [options, setOptions] = useState({
@@ -45,7 +53,7 @@ export default function TextCompare() {
       gsap.fromTo(
         resultRef.current.children,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
       );
     }
   }, [diffResult]);
@@ -116,14 +124,22 @@ export default function TextCompare() {
         i++;
         j++;
         lcsIndex++;
-      } else if (lcsIndex < lcs.length && j < lines2.length && lines2[j] === lcs[lcsIndex]) {
+      } else if (
+        lcsIndex < lcs.length &&
+        j < lines2.length &&
+        lines2[j] === lcs[lcsIndex]
+      ) {
         differences.push({
           type: "delete",
           value: lines1[i],
           originalIndex: i,
         });
         i++;
-      } else if (lcsIndex < lcs.length && i < lines1.length && lines1[i] === lcs[lcsIndex]) {
+      } else if (
+        lcsIndex < lcs.length &&
+        i < lines1.length &&
+        lines1[i] === lcs[lcsIndex]
+      ) {
         differences.push({
           type: "insert",
           value: lines2[j],
@@ -247,7 +263,7 @@ export default function TextCompare() {
   const scrollToLine = (
     textareaRef: React.RefObject<HTMLTextAreaElement | null>,
     lineNumbersRef: React.RefObject<HTMLDivElement | null>,
-    lineNumber: number
+    lineNumber: number,
   ) => {
     if (!textareaRef.current) return;
 
@@ -273,7 +289,10 @@ export default function TextCompare() {
     }
   };
 
-  const handleDiffClick = (diff: DiffResult["differences"][0], index: number) => {
+  const handleDiffClick = (
+    diff: DiffResult["differences"][0],
+    index: number,
+  ) => {
     setSelectedDiffIndex(index);
 
     if (diff.originalIndex !== undefined) {
@@ -291,9 +310,13 @@ export default function TextCompare() {
     }
   };
 
-  const renderDiffLine = (diff: DiffResult["differences"][0], index: number) => {
+  const renderDiffLine = (
+    diff: DiffResult["differences"][0],
+    index: number,
+  ) => {
     const isSelected = selectedDiffIndex === index;
-    const baseClass = "px-3 py-1 font-mono text-sm cursor-pointer transition-all duration-200";
+    const baseClass =
+      "px-3 py-1 font-mono text-sm cursor-pointer transition-all duration-200";
 
     switch (diff.type) {
       case "equal":
@@ -306,10 +329,15 @@ export default function TextCompare() {
               color: theme.colors.foreground,
               opacity: 0.7,
               backgroundColor: theme.colors.background,
-              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+              boxShadow: isSelected
+                ? `0 0 0 2px ${theme.colors.primary}`
+                : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.05);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.primary,
+                0.05,
+              );
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.backgroundColor = theme.colors.background;
@@ -328,13 +356,21 @@ export default function TextCompare() {
               color: theme.colors.accent,
               backgroundColor: hexToRgba(theme.colors.accent, 0.1),
               borderLeft: `2px solid ${theme.colors.accent}`,
-              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+              boxShadow: isSelected
+                ? `0 0 0 2px ${theme.colors.primary}`
+                : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.accent, 0.2);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.accent,
+                0.2,
+              );
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.accent, 0.1);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.accent,
+                0.1,
+              );
             }}
           >
             <span className="line-through">- {diff.value || "\u00A0"}</span>
@@ -350,13 +386,21 @@ export default function TextCompare() {
               color: theme.colors.accent,
               backgroundColor: hexToRgba(theme.colors.primary, 0.1),
               borderLeft: `2px solid ${theme.colors.primary}`,
-              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+              boxShadow: isSelected
+                ? `0 0 0 2px ${theme.colors.primary}`
+                : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.2);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.primary,
+                0.2,
+              );
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.primary, 0.1);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.primary,
+                0.1,
+              );
             }}
           >
             + {diff.value || "\u00A0"}
@@ -372,13 +416,21 @@ export default function TextCompare() {
               color: theme.colors.secondary,
               backgroundColor: hexToRgba(theme.colors.secondary, 0.1),
               borderLeft: `2px solid ${theme.colors.secondary}`,
-              boxShadow: isSelected ? `0 0 0 2px ${theme.colors.primary}` : "none",
+              boxShadow: isSelected
+                ? `0 0 0 2px ${theme.colors.primary}`
+                : "none",
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.secondary, 0.2);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.secondary,
+                0.2,
+              );
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = hexToRgba(theme.colors.secondary, 0.1);
+              e.currentTarget.style.backgroundColor = hexToRgba(
+                theme.colors.secondary,
+                0.1,
+              );
             }}
           >
             ~ {diff.value || "\u00A0"}
@@ -402,7 +454,7 @@ export default function TextCompare() {
     textareaRef: React.RefObject<HTMLTextAreaElement | null>,
     lineNumbersRef: React.RefObject<HTMLDivElement | null>,
     highlightedLine: number | null,
-    isTextarea1: boolean
+    isTextarea1: boolean,
   ) => {
     const lines = value.split("\n");
     const lineNumbers = getLineNumbers(value);
@@ -418,7 +470,10 @@ export default function TextCompare() {
       const lineHeight = 20;
       const scrollTop = target.scrollTop;
       const currentLine = Math.floor(scrollTop / lineHeight);
-      if (highlightedLine !== null && Math.abs(currentLine - highlightedLine) > 5) {
+      if (
+        highlightedLine !== null &&
+        Math.abs(currentLine - highlightedLine) > 5
+      ) {
         if (isTextarea1) setHighlightedLine1(null);
         else setHighlightedLine2(null);
       }
@@ -456,8 +511,13 @@ export default function TextCompare() {
                 className="h-5 leading-5 text-right pr-2"
                 style={{
                   backgroundColor:
-                    highlightedLine === i ? hexToRgba(theme.colors.primary, 0.3) : "transparent",
-                  color: highlightedLine === i ? theme.colors.accent : theme.colors.foreground,
+                    highlightedLine === i
+                      ? hexToRgba(theme.colors.primary, 0.3)
+                      : "transparent",
+                  color:
+                    highlightedLine === i
+                      ? theme.colors.accent
+                      : theme.colors.foreground,
                   opacity: highlightedLine === i ? 1 : 0.5,
                   fontWeight: highlightedLine === i ? "bold" : "normal",
                 }}
@@ -465,7 +525,9 @@ export default function TextCompare() {
                 {num}
               </div>
             ))}
-            {lines.length === 0 && <div className="h-5 leading-5 text-right pr-2">1</div>}
+            {lines.length === 0 && (
+              <div className="h-5 leading-5 text-right pr-2">1</div>
+            )}
           </div>
           <textarea
             ref={textareaRef}
@@ -483,7 +545,10 @@ export default function TextCompare() {
               e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.borderColor = hexToRgba(
+                theme.colors.primary,
+                0.5,
+              );
               e.currentTarget.style.boxShadow = "none";
             }}
             onScroll={handleScroll}
@@ -497,9 +562,12 @@ export default function TextCompare() {
     ? {
         total: diffResult.differences.length,
         equal: diffResult.differences.filter((d) => d.type === "equal").length,
-        inserted: diffResult.differences.filter((d) => d.type === "insert").length,
-        deleted: diffResult.differences.filter((d) => d.type === "delete").length,
-        replaced: diffResult.differences.filter((d) => d.type === "replace").length,
+        inserted: diffResult.differences.filter((d) => d.type === "insert")
+          .length,
+        deleted: diffResult.differences.filter((d) => d.type === "delete")
+          .length,
+        replaced: diffResult.differences.filter((d) => d.type === "replace")
+          .length,
       }
     : null;
 
@@ -507,9 +575,12 @@ export default function TextCompare() {
     <div className="w-full max-w-7xl mx-auto space-y-6">
       <Card variant="hacker" className="p-6">
         <div className="flex items-center gap-3 mb-6">
-          <FileText className="w-8 h-8" style={{ color: theme.colors.primary }} />
+          <FileText
+            className="w-8 h-8"
+            style={{ color: theme.colors.primary }}
+          />
           <h2
-            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            className="text-3xl font-bold font-semibold"
             style={{ color: theme.colors.primary }}
           >
             Text Compare
@@ -525,7 +596,7 @@ export default function TextCompare() {
             textarea1Ref,
             lineNumbers1Ref,
             highlightedLine1,
-            true
+            true,
           )}
           {renderTextareaWithLineNumbers(
             text2,
@@ -535,14 +606,20 @@ export default function TextCompare() {
             textarea2Ref,
             lineNumbers2Ref,
             highlightedLine2,
-            false
+            false,
           )}
         </div>
 
         <Card variant="outlined" className="p-4 mb-4">
           <div className="flex items-center gap-2 mb-3">
-            <Settings className="w-5 h-5" style={{ color: theme.colors.primary }} />
-            <h3 className="text-lg font-semibold font-mono" style={{ color: theme.colors.primary }}>
+            <Settings
+              className="w-5 h-5"
+              style={{ color: theme.colors.primary }}
+            />
+            <h3
+              className="text-lg font-semibold font-mono"
+              style={{ color: theme.colors.primary }}
+            >
               Compare Options
             </h3>
           </div>
@@ -551,7 +628,9 @@ export default function TextCompare() {
               <input
                 type="checkbox"
                 checked={options.toLowerCase}
-                onChange={(e) => setOptions({ ...options, toLowerCase: e.target.checked })}
+                onChange={(e) =>
+                  setOptions({ ...options, toLowerCase: e.target.checked })
+                }
                 className="w-4 h-4 rounded"
                 style={{
                   accentColor: theme.colors.primary,
@@ -570,7 +649,9 @@ export default function TextCompare() {
               <input
                 type="checkbox"
                 checked={options.sortLines}
-                onChange={(e) => setOptions({ ...options, sortLines: e.target.checked })}
+                onChange={(e) =>
+                  setOptions({ ...options, sortLines: e.target.checked })
+                }
                 className="w-4 h-4 rounded"
                 style={{
                   accentColor: theme.colors.primary,
@@ -589,7 +670,12 @@ export default function TextCompare() {
               <input
                 type="checkbox"
                 checked={options.replaceLineBreaks}
-                onChange={(e) => setOptions({ ...options, replaceLineBreaks: e.target.checked })}
+                onChange={(e) =>
+                  setOptions({
+                    ...options,
+                    replaceLineBreaks: e.target.checked,
+                  })
+                }
                 className="w-4 h-4 rounded"
                 style={{
                   accentColor: theme.colors.primary,
@@ -609,7 +695,10 @@ export default function TextCompare() {
                 type="checkbox"
                 checked={options.removeExcessWhitespace}
                 onChange={(e) =>
-                  setOptions({ ...options, removeExcessWhitespace: e.target.checked })
+                  setOptions({
+                    ...options,
+                    removeExcessWhitespace: e.target.checked,
+                  })
                 }
                 className="w-4 h-4 rounded"
                 style={{
@@ -751,7 +840,8 @@ export default function TextCompare() {
                   className="text-sm font-mono"
                   style={{ color: theme.colors.foreground, opacity: 0.7 }}
                 >
-                  Click any line to navigate • Line {selectedDiffIndex + 1} selected
+                  Click any line to navigate • Line {selectedDiffIndex + 1}{" "}
+                  selected
                 </div>
               )}
             </div>
@@ -759,7 +849,9 @@ export default function TextCompare() {
               className="max-h-[600px] overflow-y-auto border-2 rounded-lg"
               style={{ borderColor: hexToRgba(theme.colors.primary, 0.3) }}
             >
-              {diffResult.differences.map((diff, index) => renderDiffLine(diff, index))}
+              {diffResult.differences.map((diff, index) =>
+                renderDiffLine(diff, index),
+              )}
             </div>
           </Card>
         </div>

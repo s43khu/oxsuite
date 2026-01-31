@@ -7,7 +7,11 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { hexToRgba } from "@/lib/color-utils";
-import { detectFileType, type FileType, isSupportedFileType } from "@/lib/file-type-detector";
+import {
+  detectFileType,
+  type FileType,
+  isSupportedFileType,
+} from "@/lib/file-type-detector";
 import XLSXViewer from "./viewers/XLSXViewer";
 import TextViewer from "./viewers/TextViewer";
 
@@ -29,7 +33,7 @@ export default function FileViewer() {
 
     if (!isSupportedFileType(detected.type)) {
       setError(
-        `File type "${detected.description}" is not yet supported. Supported types: XLSX, XLS, CSV, JSON, TXT, PDF`
+        `File type "${detected.description}" is not yet supported. Supported types: XLSX, XLS, CSV, JSON, TXT, PDF`,
       );
       return;
     }
@@ -40,7 +44,7 @@ export default function FileViewer() {
       gsap.fromTo(
         containerRef.current,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.6, ease: "power3.out" },
       );
     }
   };
@@ -107,13 +111,16 @@ export default function FileViewer() {
         <div className="flex items-center justify-center gap-3 mb-4">
           <File className="w-12 h-12" style={{ color: theme.colors.primary }} />
           <h1
-            className="text-4xl font-bold smooch-sans font-effect-anaglyph tracking-wider"
+            className="text-4xl font-bold font-semibold tracking-wider"
             style={{ color: theme.colors.primary }}
           >
             File Viewer
           </h1>
         </div>
-        <p className="text-lg font-mono" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+        <p
+          className="text-lg font-mono"
+          style={{ color: theme.colors.foreground, opacity: 0.7 }}
+        >
           {">"} Upload and view various file types with auto-detection
         </p>
       </div>
@@ -142,7 +149,11 @@ export default function FileViewer() {
           </div>
 
           {selectedFile && (
-            <Button variant="outline" onClick={handleClear} className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={handleClear}
+              className="flex items-center gap-2"
+            >
               <X className="w-4 h-4" />
               Clear
             </Button>
@@ -159,8 +170,12 @@ export default function FileViewer() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-mono" style={{ color: theme.colors.primary }}>
-                  <span className="font-semibold">File:</span> {selectedFile.name}
+                <p
+                  className="text-sm font-mono"
+                  style={{ color: theme.colors.primary }}
+                >
+                  <span className="font-semibold">File:</span>{" "}
+                  {selectedFile.name}
                 </p>
                 <p
                   className="text-xs font-mono mt-1"
@@ -186,7 +201,10 @@ export default function FileViewer() {
               borderColor: hexToRgba(theme.colors.accent, 0.3),
             }}
           >
-            <p className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+            <p
+              className="text-sm font-mono"
+              style={{ color: theme.colors.accent }}
+            >
               {error}
             </p>
           </div>
@@ -199,12 +217,18 @@ export default function FileViewer() {
             borderColor: `${theme.colors.border}`,
           }}
         >
-          <p className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.8 }}>
-            <span className="font-semibold" style={{ color: theme.colors.primary }}>
+          <p
+            className="text-xs font-mono"
+            style={{ color: theme.colors.foreground, opacity: 0.8 }}
+          >
+            <span
+              className="font-semibold"
+              style={{ color: theme.colors.primary }}
+            >
               NOTE:
             </span>{" "}
-            Currently supporting: <strong>XLSX, XLS, TXT</strong>. CSV, JSON, and PDF viewers coming
-            soon.
+            Currently supporting: <strong>XLSX, XLS, TXT</strong>. CSV, JSON,
+            and PDF viewers coming soon.
           </p>
         </div>
       </Card>
@@ -221,19 +245,28 @@ export default function FileViewer() {
             className="w-16 h-16 mx-auto mb-4"
             style={{ color: theme.colors.primary, opacity: 0.3 }}
           />
-          <p className="font-mono mb-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
+          <p
+            className="font-mono mb-2"
+            style={{ color: theme.colors.foreground, opacity: 0.7 }}
+          >
             Upload a file to get started
           </p>
           <p
             className="text-sm font-mono mb-2"
             style={{ color: theme.colors.foreground, opacity: 0.8 }}
           >
-            <span className="font-semibold" style={{ color: theme.colors.primary }}>
+            <span
+              className="font-semibold"
+              style={{ color: theme.colors.primary }}
+            >
               Currently supported:
             </span>{" "}
             XLSX, XLS, TXT
           </p>
-          <p className="text-xs font-mono" style={{ color: theme.colors.foreground, opacity: 0.6 }}>
+          <p
+            className="text-xs font-mono"
+            style={{ color: theme.colors.foreground, opacity: 0.6 }}
+          >
             CSV, JSON, and PDF viewers coming soon
           </p>
         </Card>

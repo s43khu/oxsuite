@@ -1,11 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useTheme } from "@/components/ui/ThemeProvider";
 import { cn } from "@/lib/utils";
-import { hexToRgba } from "@/lib/color-utils";
 import { Plus } from "lucide-react";
 
 export interface Tool {
@@ -24,92 +22,112 @@ interface ToolLibraryProps {
   onClose: () => void;
 }
 
-export default function ToolLibrary({ hiddenTools, onAddTool, isOpen, onClose }: ToolLibraryProps) {
+export default function ToolLibrary({
+  hiddenTools,
+  onAddTool,
+  isOpen,
+  onClose,
+}: ToolLibraryProps) {
   const { theme } = useTheme();
 
   if (!isOpen) return null;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-3"
+      style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
       onClick={onClose}
     >
       <div
         className={cn(
-          "relative w-full max-w-4xl max-h-[90vh] overflow-hidden rounded-lg border-2",
-          "backdrop-blur-md"
+          "relative w-full max-w-2xl max-h-[85vh] overflow-hidden rounded-xl border",
+          "backdrop-blur-md transition-all duration-200",
         )}
         style={{
-          backgroundColor: hexToRgba(theme.colors.background, 0.95),
-          borderColor: theme.colors.primary,
+          backgroundColor: theme.colors.background,
+          borderColor: theme.colors.border,
         }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="p-6 border-b-2" style={{ borderColor: theme.colors.primary }}>
-          <div className="flex items-center justify-between">
+        <div
+          className="p-4 border-b flex items-center justify-between"
+          style={{ borderColor: theme.colors.border }}
+        >
+          <div>
             <h2
-              className="text-2xl font-bold smooch-sans font-effect-anaglyph"
+              className="text-lg font-semibold"
               style={{ color: theme.colors.primary }}
             >
-              Tool Library
+              Store
             </h2>
-            <Button variant="ghost" size="sm" onClick={onClose}>
-              Close
-            </Button>
+            <p
+              className="text-xs mt-0.5"
+              style={{ color: theme.colors.foreground, opacity: 0.7 }}
+            >
+              Add tools to your dashboard
+            </p>
           </div>
-          <p className="text-sm mt-2" style={{ color: theme.colors.foreground, opacity: 0.7 }}>
-            Add tools back to your dashboard
-          </p>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClose}
+            className="px-3 py-1.5 text-xs"
+          >
+            Close
+          </Button>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-120px)]">
+        <div className="p-4 overflow-y-auto max-h-[calc(85vh-80px)]">
           {hiddenTools.length === 0 ? (
             <div
-              className="text-center py-12"
+              className="text-center py-8"
               style={{ color: theme.colors.foreground, opacity: 0.6 }}
             >
-              <p className="text-lg">All tools are visible on your dashboard</p>
+              <p className="text-sm">All tools are on your dashboard</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="flex flex-col gap-0.5">
               {hiddenTools.map((tool) => (
-                <Card
+                <div
                   key={tool.id}
-                  variant="hacker"
-                  className="p-4 transition-all duration-300 hover:scale-[1.02]"
+                  className="flex items-center gap-3 py-2.5 px-3 rounded-lg transition-colors hover:bg-black/5"
                 >
-                  <div className="flex items-start gap-3 mb-3">
-                    {tool.icon && (
-                      <div className="flex-shrink-0" style={{ color: theme.colors.primary }}>
-                        {tool.icon}
-                      </div>
-                    )}
-                    <div className="flex-1 min-w-0">
-                      <h3
-                        className="text-lg font-bold mb-1 smooch-sans font-effect-anaglyph"
-                        style={{ color: theme.colors.primary }}
-                      >
-                        {tool.title}
-                      </h3>
-                      <p
-                        className="text-xs leading-relaxed"
-                        style={{ color: theme.colors.foreground, opacity: 0.75 }}
-                      >
-                        {tool.description}
-                      </p>
-                    </div>
+                  <div
+                    className="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center [&>svg]:w-5 [&>svg]:h-5"
+                    style={{
+                      color: theme.colors.primary,
+                      backgroundColor: `${theme.colors.primary}18`,
+                    }}
+                  >
+                    {tool.icon}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h3
+                      className="text-sm font-semibold truncate"
+                      style={{ color: theme.colors.primary }}
+                    >
+                      {tool.title}
+                    </h3>
+                    <p
+                      className="text-[11px] truncate mt-0.5"
+                      style={{
+                        color: theme.colors.foreground,
+                        opacity: 0.75,
+                      }}
+                    >
+                      {tool.description}
+                    </p>
                   </div>
                   <Button
                     variant="primary"
                     size="sm"
-                    className="w-full"
+                    className="shrink-0 text-xs py-1.5 px-3"
                     onClick={() => onAddTool(tool.id)}
                   >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add to Dashboard
+                    <Plus className="w-3.5 h-3.5 mr-1.5" />
+                    Add
                   </Button>
-                </Card>
+                </div>
               ))}
             </div>
           )}

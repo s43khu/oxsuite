@@ -42,7 +42,7 @@ export default function JWTViewer() {
       gsap.fromTo(
         resultRef.current.children,
         { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 }
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1 },
       );
     }
   }, [decodedJWT]);
@@ -59,7 +59,7 @@ export default function JWTViewer() {
       return decodeURIComponent(
         Array.from(decoded)
           .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
-          .join("")
+          .join(""),
       );
     } catch (err) {
       throw new Error("Invalid base64url encoding");
@@ -82,7 +82,9 @@ export default function JWTViewer() {
       const parts = token.split(".");
 
       if (parts.length !== 3) {
-        throw new Error("Invalid JWT format. JWT should have 3 parts separated by dots.");
+        throw new Error(
+          "Invalid JWT format. JWT should have 3 parts separated by dots.",
+        );
       }
 
       const [headerEncoded, payloadEncoded, signature] = parts;
@@ -112,7 +114,8 @@ export default function JWTViewer() {
       });
       setError(null);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to decode JWT";
+      const errorMessage =
+        err instanceof Error ? err.message : "Failed to decode JWT";
       setError(errorMessage);
       setDecodedJWT(null);
     }
@@ -149,7 +152,7 @@ export default function JWTViewer() {
     const maxSize = 5 * 1024 * 1024;
     if (file.size > maxSize) {
       setFileError(
-        `File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`
+        `File size exceeds 5MB limit. File size: ${(file.size / 1024 / 1024).toFixed(2)}MB`,
       );
       return;
     }
@@ -192,7 +195,7 @@ export default function JWTViewer() {
         signature: decodedJWT.signature,
       },
       null,
-      2
+      2,
     );
 
     const blob = new Blob([content], { type: "application/json" });
@@ -240,7 +243,7 @@ export default function JWTViewer() {
         <div className="flex items-center gap-3 mb-6">
           <Key className="w-8 h-8" style={{ color: theme.colors.primary }} />
           <h2
-            className="text-3xl font-bold smooch-sans font-effect-anaglyph"
+            className="text-3xl font-bold font-semibold"
             style={{ color: theme.colors.primary }}
           >
             JWT Viewer
@@ -319,7 +322,10 @@ export default function JWTViewer() {
               e.currentTarget.style.boxShadow = `0 0 0 2px ${hexToRgba(theme.colors.primary, 0.2)}`;
             }}
             onBlur={(e) => {
-              e.currentTarget.style.borderColor = hexToRgba(theme.colors.primary, 0.5);
+              e.currentTarget.style.borderColor = hexToRgba(
+                theme.colors.primary,
+                0.5,
+              );
               e.currentTarget.style.boxShadow = "none";
             }}
           />
@@ -384,7 +390,10 @@ export default function JWTViewer() {
               >
                 Invalid JWT Token:
               </p>
-              <p className="font-mono text-sm" style={{ color: theme.colors.accent, opacity: 0.8 }}>
+              <p
+                className="font-mono text-sm"
+                style={{ color: theme.colors.accent, opacity: 0.8 }}
+              >
                 {error}
               </p>
               <div
@@ -405,7 +414,8 @@ export default function JWTViewer() {
                   style={{ color: theme.colors.accent, opacity: 0.7 }}
                 >
                   <li>
-                    JWT must have exactly 3 parts separated by dots (header.payload.signature)
+                    JWT must have exactly 3 parts separated by dots
+                    (header.payload.signature)
                   </li>
                   <li>Each part must be valid base64url encoded</li>
                   <li>Header and payload must be valid JSON</li>
@@ -422,7 +432,10 @@ export default function JWTViewer() {
           <Card variant="hacker" className="p-6">
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6" style={{ color: theme.colors.primary }} />
+                <CheckCircle
+                  className="w-6 h-6"
+                  style={{ color: theme.colors.primary }}
+                />
                 <h3
                   className="text-xl font-semibold font-mono"
                   style={{ color: theme.colors.primary }}
@@ -537,17 +550,26 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: hexToRgba(theme.colors.primary, 0.3),
                         }}
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Issued At
                         </div>
-                        <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+                        <div
+                          className="text-sm font-mono"
+                          style={{ color: theme.colors.accent }}
+                        >
                           {formatTimestamp(decodedJWT.payload.iat)}
                         </div>
                       </div>
@@ -556,7 +578,10 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: isExpired(decodedJWT.payload.exp)
                             ? hexToRgba(theme.colors.accent, 0.5)
                             : hexToRgba(theme.colors.primary, 0.3),
@@ -564,7 +589,10 @@ export default function JWTViewer() {
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Expires At
                         </div>
@@ -578,7 +606,10 @@ export default function JWTViewer() {
                         >
                           {formatTimestamp(decodedJWT.payload.exp)}
                           {isExpired(decodedJWT.payload.exp) && (
-                            <span className="ml-2" style={{ color: theme.colors.accent }}>
+                            <span
+                              className="ml-2"
+                              style={{ color: theme.colors.accent }}
+                            >
                               (Expired)
                             </span>
                           )}
@@ -586,9 +617,13 @@ export default function JWTViewer() {
                         {!isExpired(decodedJWT.payload.exp) && (
                           <div
                             className="text-xs font-mono mt-1"
-                            style={{ color: theme.colors.foreground, opacity: 0.7 }}
+                            style={{
+                              color: theme.colors.foreground,
+                              opacity: 0.7,
+                            }}
                           >
-                            Expires in: {getTimeUntilExpiry(decodedJWT.payload.exp)}
+                            Expires in:{" "}
+                            {getTimeUntilExpiry(decodedJWT.payload.exp)}
                           </div>
                         )}
                       </div>
@@ -597,17 +632,26 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: hexToRgba(theme.colors.primary, 0.3),
                         }}
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Not Before
                         </div>
-                        <div className="text-sm font-mono" style={{ color: theme.colors.accent }}>
+                        <div
+                          className="text-sm font-mono"
+                          style={{ color: theme.colors.accent }}
+                        >
                           {formatTimestamp(decodedJWT.payload.nbf)}
                         </div>
                       </div>
@@ -616,13 +660,19 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: hexToRgba(theme.colors.primary, 0.3),
                         }}
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Subject
                         </div>
@@ -638,13 +688,19 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: hexToRgba(theme.colors.primary, 0.3),
                         }}
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Issuer
                         </div>
@@ -660,13 +716,19 @@ export default function JWTViewer() {
                       <div
                         className="p-3 rounded border"
                         style={{
-                          backgroundColor: hexToRgba(theme.colors.background, 0.5),
+                          backgroundColor: hexToRgba(
+                            theme.colors.background,
+                            0.5,
+                          ),
                           borderColor: hexToRgba(theme.colors.primary, 0.3),
                         }}
                       >
                         <div
                           className="text-xs font-mono mb-1"
-                          style={{ color: theme.colors.foreground, opacity: 0.5 }}
+                          style={{
+                            color: theme.colors.foreground,
+                            opacity: 0.5,
+                          }}
                         >
                           Audience
                         </div>

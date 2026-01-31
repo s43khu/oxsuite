@@ -29,15 +29,29 @@ import {
   type ToolLayoutConfig,
 } from "@/lib/storage";
 import { allTools } from "@/lib/tools/config";
+import { hexToRgba } from "@/lib/color-utils";
 
 interface SortableToolCardProps {
   tool: Tool;
   isEditMode: boolean;
   onRemove: (id: string) => void;
+  onEnterEditMode?: () => void;
 }
 
-function SortableToolCard({ tool, isEditMode, onRemove }: SortableToolCardProps) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+function SortableToolCard({
+  tool,
+  isEditMode,
+  onRemove,
+  onEnterEditMode,
+}: SortableToolCardProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({
     id: tool.id,
     disabled: !isEditMode,
   });
@@ -48,7 +62,11 @@ function SortableToolCard({ tool, isEditMode, onRemove }: SortableToolCardProps)
   };
 
   return (
-    <div ref={setNodeRef} style={style}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...(isEditMode ? { ...attributes, ...listeners } : {})}
+    >
       <ToolCard
         id={tool.id}
         title={tool.title}
@@ -58,8 +76,8 @@ function SortableToolCard({ tool, isEditMode, onRemove }: SortableToolCardProps)
         route={tool.route}
         isEditMode={isEditMode}
         onRemove={onRemove}
+        onEnterEditMode={onEnterEditMode}
         isDragging={isDragging}
-        dragHandleProps={isEditMode ? { ...attributes, ...listeners } : undefined}
       />
     </div>
   );
@@ -80,7 +98,8 @@ export default function ToolsDashboard({
   const [visibleToolIds, setVisibleToolIds] = useState<string[]>([]);
   const [toolOrder, setToolOrder] = useState<string[]>([]);
 
-  const isEditMode = externalEditMode !== undefined ? externalEditMode : internalEditMode;
+  const isEditMode =
+    externalEditMode !== undefined ? externalEditMode : internalEditMode;
   const handleEditModeToggle = () => {
     const newValue = !isEditMode;
     if (onEditModeChange) {
@@ -98,7 +117,7 @@ export default function ToolsDashboard({
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })
+    }),
   );
 
   const loadLayoutConfig = () => {
@@ -116,7 +135,9 @@ export default function ToolsDashboard({
       saveLayoutConfig(defaultConfig);
     } else {
       setVisibleToolIds(config.visibleToolIds);
-      setToolOrder(config.toolOrder.length > 0 ? config.toolOrder : config.visibleToolIds);
+      setToolOrder(
+        config.toolOrder.length > 0 ? config.toolOrder : config.visibleToolIds,
+      );
     }
   };
 
@@ -137,7 +158,7 @@ export default function ToolsDashboard({
       gsap.fromTo(
         Array.from(cards),
         { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" }
+        { opacity: 1, y: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" },
       );
     }
   }, [visibleToolIds, isEditMode]);
@@ -179,36 +200,73 @@ export default function ToolsDashboard({
 
   return (
     <div className="w-full">
-      <div className="text-center mb-12 sm:mb-16 mt-8">
+      <div className="text-center mb-8 sm:mb-10 mt-6">
         <h1
-          className="text-4xl sm:text-5xl lg:text-6xl font-bold smooch-sans font-effect-anaglyph tracking-wider mb-4 sm:mb-6"
+          className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-wider mb-3 sm:mb-4"
           style={{ color: theme.colors.primary }}
         >
           OXsuite Tools
         </h1>
         <p
-          className="text-base sm:text-lg font-medium max-w-2xl mx-auto px-4"
+          className="text-sm sm:text-base font-medium max-w-2xl mx-auto px-4"
           style={{ color: theme.colors.foreground, opacity: 0.8 }}
         >
-          {">"} Professional tools for daily use. Choose a tool to get started or explore what's
-          coming soon.
+          {">"} Professional tools for daily use. Choose a tool to get started
+          or explore what's coming soon.
         </p>
       </div>
 
-      <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        <SortableContext items={visibleTools.map((t) => t.id)} strategy={rectSortingStrategy}>
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={visibleTools.map((t) => t.id)}
+          strategy={rectSortingStrategy}
+        >
           <div
-            ref={cardsRef}
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
+            className="rounded-2xl border p-4 sm:p-6 min-h-112 max-w-5xl mx-auto transition-all duration-200 overflow-hidden relative"
+            style={{
+              backgroundColor: hexToRgba(theme.colors.primary, 0.06),
+              borderColor: hexToRgba(theme.colors.primary, 0.15),
+              backdropFilter: "blur(5px) saturate(180%)",
+              WebkitBackdropFilter: "blur(5px) saturate(180%)",
+              boxShadow: `0 8px 32px ${hexToRgba(theme.colors.primary, 0.08)}, inset 0 1px 0 ${hexToRgba(theme.colors.foreground, 0.1)}`,
+            }}
           >
-            {visibleTools.map((tool) => (
-              <SortableToolCard
-                key={tool.id}
-                tool={tool}
-                isEditMode={isEditMode}
-                onRemove={handleRemoveTool}
-              />
-            ))}
+            {isEditMode && (
+              <button
+                type="button"
+                onClick={handleEditModeToggle}
+                className="absolute top-3 right-3 z-10 px-3 py-1.5 rounded-lg text-xs font-medium border transition-all hover:scale-105"
+                style={{
+                  color: theme.colors.primary,
+                  borderColor: theme.colors.primary,
+                  backgroundColor: hexToRgba(theme.colors.primary, 0.12),
+                }}
+                aria-label="Done"
+                title="Done"
+              >
+                Done
+              </button>
+            )}
+            <div
+              ref={cardsRef}
+              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4 sm:gap-6 content-start"
+            >
+              {visibleTools.map((tool) => (
+                <SortableToolCard
+                  key={tool.id}
+                  tool={tool}
+                  isEditMode={isEditMode}
+                  onRemove={handleRemoveTool}
+                  onEnterEditMode={
+                    !isEditMode ? () => handleEditModeToggle() : undefined
+                  }
+                />
+              ))}
+            </div>
           </div>
         </SortableContext>
       </DndContext>
